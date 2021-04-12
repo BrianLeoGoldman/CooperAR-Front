@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Project} from '../project';
-import { PROJECTS } from '../mock-projects';
+import { ProjectService  } from '../project.service';
 
 @Component({
   selector: 'app-projects',
@@ -9,16 +9,24 @@ import { PROJECTS } from '../mock-projects';
 })
 export class ProjectsComponent implements OnInit {
 
-  projects = PROJECTS;
+  projects: Project[] = [];
 
   selectedProject?: Project;
+
   onSelect(project: Project): void {
     this.selectedProject = project;
   }
 
-  constructor() { }
+  getProjects(): void {
+    this.projects = this.projectService.getProjects();
+  }
+
+  constructor(private projectService: ProjectService) { } // Constructor should be reserved
+  // for minimal initialization such as wiring constructor parameters to properties
 
   ngOnInit(): void {
+    this.getProjects(); // Angular calls ngOnInit() at an appropriate time after
+    // constructing a ProjectsComponent instance.
   }
 
 }

@@ -1,16 +1,11 @@
 <h2>All Projects</h2>
 <ul class="projects">
-  <li *ngFor="let project of projects" (click)="onSelect(project)">
-    <span class="badge">{{project.id}}</span>
-    <span> {{project.name}} </span>
+  <li *ngFor="let project of projects"
+      (click)="onSelect(project)"
+      [class.selected]="project === selectedProject">
+        <span class="badge">{{project.id}}</span>
+        <span> {{project.name}} </span>
   </li>
 </ul>
 
-<div *ngIf="selectedProject">
-  <h2>{{selectedProject.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{selectedProject.id}}</div>
-  <div>
-    <label for="project-name">Project name: </label>
-    <input id="project-name" [(ngModel)]="selectedProject.name" placeholder="name">
-  </div>
-</div>
+<app-project-detail [project]="selectedProject"></app-project-detail>
