@@ -1,4 +1,12 @@
 <h1>{{title}}</h1>
-<app-users></app-users>
-<app-projects></app-projects>
+<!--<app-users></app-users>-->
+<nav>
+  <a routerLink="/dashboard">Home</a>
+  <a routerLink="/users">Users</a>
+  <a routerLink="/projects">Projects</a>
+</nav>
+<!--The routerLink is the selector for the RouterLink
+  directive that turns user clicks into router navigations-->
+<router-outlet></router-outlet>
+<app-messages></app-messages>
 

@@ -8,6 +8,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { MessagesComponent } from './messages/messages.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     UsersComponent,
     NavbarComponent,
     ProjectsComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    MessagesComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
