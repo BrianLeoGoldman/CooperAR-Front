@@ -1,11 +1,8 @@
 <h2>All Projects</h2>
 <ul class="projects">
-  <li *ngFor="let project of projects"
-      (click)="onSelect(project)"
-      [class.selected]="project === selectedProject">
-        <span class="badge">{{project.id}}</span>
-        <span> {{project.name}} </span>
+  <li *ngFor="let project of projects">
+    <a routerLink="/detail/{{project.id}}">
+      <span class="badge">{{project.id}}</span> {{project.name}}
+    </a>
   </li>
 </ul>
-
-<app-project-detail [project]="selectedProject"></app-project-detail>

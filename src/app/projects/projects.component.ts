@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Project} from '../project';
 import { ProjectService  } from '../services/project.service';
-import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-projects',
@@ -12,13 +11,6 @@ export class ProjectsComponent implements OnInit {
 
   projects: Project[] = [];
 
-  selectedProject?: Project;
-
-  onSelect(project: Project): void {
-    this.selectedProject = project;
-    this.messageService.add(`ProjectsComponent: Selected project id=${project.id}`);
-  }
-
   getProjects(): void {
     this.projectService.getProjects()
       .subscribe(projects => this.projects = projects); // This waits for the Observable
@@ -26,7 +18,7 @@ export class ProjectsComponent implements OnInit {
     // subscribe() method passes the emitted array to the callback, which sets the component's heroes property.
   }
 
-  constructor(private projectService: ProjectService, private messageService: MessageService) { } // Constructor should be reserved
+  constructor(private projectService: ProjectService) { } // Constructor should be reserved
   // for minimal initialization such as wiring constructor parameters to properties
 
   ngOnInit(): void {

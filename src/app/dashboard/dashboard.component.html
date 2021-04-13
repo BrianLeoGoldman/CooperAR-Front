@@ -1,6 +1,9 @@
 <h2>Top Projects</h2>
 <div class="projects-menu">
-  <a *ngFor="let project of projects">
+  <a *ngFor="let project of projects" routerLink="/detail/{{project.id}}">
     {{project.name}}
   </a>
+  <!--Text interpolation allows you to incorporate dynamic string values into
+  your HTML templates. With interpolation, you can dynamically change what
+  appears in an application view-->
 </div>

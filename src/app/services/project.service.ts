@@ -19,4 +19,11 @@ export class ProjectService {
   }
 
   constructor(private messageService: MessageService) { }
+
+  getProject(id: number): Observable<Project> {
+    // For now, assume that a project with the specified `id` always exists.
+    const project = PROJECTS.find(h => h.id === id) as Project;
+    this.messageService.add(`ProjectService: fetched project id=${id}`);
+    return of(project);
+  }
 }
