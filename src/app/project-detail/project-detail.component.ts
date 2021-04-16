@@ -27,6 +27,11 @@ export class ProjectDetailComponent implements OnInit {
       .subscribe(project => this.project = project);
   }
 
+  save(): void {
+    this.projectService.updateProject(this.project)
+      .subscribe(() => this.goBack());
+  }
+
   goBack(): void {
     this.location.back();
   }

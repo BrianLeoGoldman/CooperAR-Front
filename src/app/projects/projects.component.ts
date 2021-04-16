@@ -18,6 +18,20 @@ export class ProjectsComponent implements OnInit {
     // subscribe() method passes the emitted array to the callback, which sets the component's heroes property.
   }
 
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.projectService.addProject({ name } as Project)
+      .subscribe(project => {
+        this.projects.push(project);
+      });
+  }
+
+  delete(project: Project): void {
+    this.projects = this.projects.filter(h => h !== project);
+    this.projectService.deleteProject(project.id).subscribe();
+  }
+
   constructor(private projectService: ProjectService) { } // Constructor should be reserved
   // for minimal initialization such as wiring constructor parameters to properties
 

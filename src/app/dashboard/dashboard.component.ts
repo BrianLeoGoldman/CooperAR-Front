@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
   getProjects(): void {
     this.projectService.getProjects()
-      .subscribe(projects => this.projects = projects.slice(1, 5));
+      .subscribe(projects => this.projects = projects.slice(0, 4));
   }
 
 }

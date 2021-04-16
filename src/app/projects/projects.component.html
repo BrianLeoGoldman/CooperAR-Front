@@ -1,8 +1,17 @@
 <h2>All Projects</h2>
+<div>
+  <label id="new-project">Project name: </label>
+  <input for="new-project" #projectName />
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button class="add-button" (click)="add(projectName.value); projectName.value=''">
+    Add Project
+  </button>
+</div>
 <ul class="projects">
   <li *ngFor="let project of projects">
     <a routerLink="/detail/{{project.id}}">
       <span class="badge">{{project.id}}</span> {{project.name}}
     </a>
+    <button class="delete" title="delete project" (click)="delete(project)">x</button>
   </li>
 </ul>
