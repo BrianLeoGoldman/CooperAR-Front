@@ -11,6 +11,8 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { MessagesComponent } from './messages/messages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
     ProjectsComponent,
     ProjectDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    UserDetailComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,

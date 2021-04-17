@@ -18,8 +18,22 @@ h2 {
   align-items: flex-start;
 }
 
+.users-menu {
+  padding: 0;
+  margin: auto;
+  max-width: 1000px;
+
+  /* flexbox */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
 a {
-  background-color: #3f525c;
+  background-color: #5c3f49;
   border-radius: 2px;
   padding: 1rem;
   font-size: 1.2rem;

@@ -1,3 +1,4 @@
+<!--
 <h2>{{user.name | uppercase}} Details</h2>
   <div>
   <div><span>id: </span>{{user.id}}</div>
@@ -6,4 +7,23 @@
     <input id="name" [(ngModel)]="user.name" placeholder="name">
   </div>
   <div><span>email: </span>{{user.email}}</div>
+</div>
+-->
+
+<h2>All Users</h2>
+<ul class="users">
+  <li *ngFor="let user of users">
+    <a routerLink="/user-detail/{{user.id}}">
+      <span class="badge">{{user.id}}</span> {{user.nickname}}
+    </a>
+    <button class="delete" title="delete user" (click)="delete(user)">x</button>
+  </li>
+</ul>
+<h2>Create new user</h2>
+<div>
+  <label id="new-user">User name: </label>
+  <input for="new-user" #username />
+  <button class="add-button" (click)="add(username.value); username.value=''">
+    Add user
+  </button>
 </div>
