@@ -5,6 +5,8 @@
     <label for="project-name">Project name: </label>
     <input id="project-name" [(ngModel)]="project.name" placeholder="name">
   </div>
+  <div><span>Description: </span>{{project.description}}</div>
+  <div><span>Budget: </span>{{project.budget}}</div>
 </div>
 <button (click)="save()">save</button>
 <button (click)="goBack()">go back</button>
