@@ -6,15 +6,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import {UserDetailComponent} from './user-detail/user-detail.component';
 import {TasksComponent} from './tasks/tasks.component';
+import {ProfileComponent} from './profile/profile.component';
 
 const routes: Routes = [
-  { path: 'users', component: UsersComponent },
-  { path: 'projects', component: ProjectsComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'projects', component: ProjectsComponent },
+  { path: 'tasks', component: TasksComponent },
   { path: 'project-detail/:id', component: ProjectDetailComponent },
   { path: 'user-detail/:id', component: UserDetailComponent },
-  { path: 'tasks', component: TasksComponent }
+  { path: 'profile/:id', component: ProfileComponent }
 ];
 
 @NgModule({ // The @NgModule metadata initializes the router and starts it listening for browser location changes

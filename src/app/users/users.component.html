@@ -13,15 +13,16 @@
 <h2>All Users</h2>
 <ul class="users">
   <li *ngFor="let user of users">
-    <a routerLink="/user-detail/{{user.id}}">
-      <span class="badge">{{user.id}}</span> {{user.nickname}}
+    <a routerLink="/user-detail/{{user.nickname}}">
+      <span class="badge">{{user.nickname}}</span> {{user.nickname}}
     </a>
     <button class="delete" title="delete user" (click)="delete(user)">x</button>
+    <button class="profile" routerLink="/profile/{{user.nickname}}">Profile</button>
   </li>
 </ul>
 <h2>Create new user</h2>
 <div>
-  <label id="new-user">User name: </label>
+  <label id="new-user">User nickname: </label>
   <input for="new-user" #username />
   <button class="add-button" (click)="add(username.value); username.value=''">
     Add user

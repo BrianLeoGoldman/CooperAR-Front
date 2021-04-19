@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Project} from '../project';
+import {Project} from '../model/project';
 import { ProjectService  } from '../services/project.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class ProjectsComponent implements OnInit {
 
   delete(project: Project): void {
     this.projects = this.projects.filter(h => h !== project);
-    this.projectService.deleteProject(project.id).subscribe();
+    this.projectService.deleteProject(project.name).subscribe();
   }
 
   constructor(private projectService: ProjectService) { } // Constructor should be reserved

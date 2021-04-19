@@ -1,0 +1,11 @@
+<h2>{{user.nickname}} profile</h2>
+<ul class="profile">
+  <li *ngFor="let project of user.projects">
+      <span class="badge-project">{{project.name}}</span>
+        <ul class="tasks">
+          <li *ngFor="let task of project.tasks">
+            <span class="badge-task">{{task.name}}</span>
+          </li>
+        </ul>
+  </li>
+</ul>

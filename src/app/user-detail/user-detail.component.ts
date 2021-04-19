@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from '../user';
+import {User} from '../model/user';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {UserService} from '../services/user.service';
+import {strict} from 'assert';
 
 @Component({
   selector: 'app-user-detail',
@@ -22,8 +23,8 @@ export class UserDetailComponent implements OnInit {
   }
 
   getUser(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.userService.getUser(id)
+    const nickname  = this.route.snapshot.paramMap.get('id');
+    this.userService.getUser(nickname)
       .subscribe(user => this.user = user);
   }
 

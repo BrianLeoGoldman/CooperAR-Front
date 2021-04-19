@@ -1,5 +1,6 @@
-/* UsersComponent's private CSS styles */
-.users {
+/* ProfileComponent's private CSS styles */
+
+.profile {
   margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
@@ -14,16 +15,16 @@ input {
   box-sizing: border-box;
 }
 
-.users li {
+.profile li {
   position: relative;
   cursor: pointer;
 }
 
-.users li:hover {
+.profile li:hover {
   left: .1em;
 }
 
-.users a {
+.profile a {
   color: #333;
   text-decoration: none;
   background-color: #EEE;
@@ -35,22 +36,39 @@ input {
   width: 100%;
 }
 
-.users a:hover {
+.profile a:hover {
   color: #2c3a41;
   background-color: #e6e6e6;
 }
 
-.users a:active {
+.profile a:active {
   background-color: #525252;
   color: #fafafa;
 }
 
-.users .badge {
+.profile .badge-project {
+  display: inline-block;
+  font-size: large;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color:#336699;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  min-width: 16px;
+  text-align: right;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+
+.profile .badge-task {
   display: inline-block;
   font-size: small;
   color: white;
   padding: 0.8em 0.7em 0 0.7em;
-  background-color:#405061;
+  background-color:#A80000;
   line-height: 1em;
   position: relative;
   left: -1px;
@@ -83,22 +101,7 @@ button.delete {
   padding: 1px 10px 3px 10px;
 }
 
-button.profile {
-  position: absolute;
-  left: 250px;
-  top: 5px;
-  background-color: white;
-  color:  #525252;
-  font-size: 1.1rem;
-  padding: 1px 10px 3px 10px;
-}
-
 button.delete:hover {
-  background-color: #A80000;
-  color: white;
-}
-
-button.profile:hover {
   background-color: #525252;
   color: white;
 }

@@ -1,8 +1,8 @@
 <h2>All Projects</h2>
 <ul class="projects">
   <li *ngFor="let project of projects">
-    <a routerLink="/project-detail/{{project.id}}">
-      <span class="badge">{{project.id}}</span> {{project.name}}
+    <a routerLink="/project-detail/{{project.name}}">
+      <span class="badge">{{project.name}}</span> {{project.name}}
     </a>
     <button class="delete" title="delete project" (click)="delete(project)">x</button>
   </li>

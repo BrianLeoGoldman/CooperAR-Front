@@ -1,5 +1,7 @@
+import {Project} from './project';
+
 export interface User {
-  id: number;
   nickname: string;
   email: string;
+  projects: Project[];
 }

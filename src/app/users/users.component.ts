@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user';
+import { User } from '../model/user';
 import {UserService} from '../services/user.service';
 
 @Component({
@@ -11,11 +11,10 @@ export class UsersComponent implements OnInit {
 
   users: User[] = [];
 
-  user: User = {
-    id: 1,
+  /*user: User = {
     nickname: 'Facundo',
     email: 'facu@mail.com',
-  };
+  };*/
 
   getUsers(): void {
     this.userService.getUsers()
@@ -33,5 +32,4 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
   }
-
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-import {User} from '../user';
+import {User} from '../model/user';
 import {MessageService} from './message.service';
 
 @Injectable({
@@ -19,42 +19,27 @@ export class UserService {
   /** GET users from the server */
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.usersUrl}/all`)
-      .pipe(tap(_ => this.log('fetched users')), catchError(this.handleError<User[]>('getUsers', [])));
-    // All HttpClient methods return an RxJS Observable of something
+      .pipe(tap(_ => this.messageService.log('UserService: fetched users')),
+        catchError(this.messageService.handleError<User[]>('getUsers', [])));
   }
 
-  getUser(id: number): Observable<User> {
-    const url = `${this.usersUrl}/fetch?id=${id}`;
+  /** GET specific user from the server */
+  getUser(nickname: string): Observable<User> {
+    const url = `${this.usersUrl}/fetch?id=${nickname}`;
     return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched user id=${id}`)),
-      catchError(this.handleError<User>(`getUser id=${id}`))
+      tap(_ => this.messageService.log(`UserService: fetched user nickname=${nickname}`)),
+      catchError(this.messageService.handleError<User>(`getUser nickname=${nickname}`))
     );
   }
 
   /** PUT: update the user on the server */
   updateUser(user: User): Observable<any> {
     return this.http.put(this.usersUrl, user, this.httpOptions).pipe(
-      tap(_ => this.log(`updated user id=${user.id}`)),
-      catchError(this.handleError<any>('updateUser'))
+      tap(_ => this.messageService.log(`UserService: updated user nickname=${user.nickname}`)),
+      catchError(this.messageService.handleError<any>('updateUser'))
     );
   }
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
-  // tslint:disable-next-line:typedef
-  private log(message: string) {
-    this.messageService.add(`UserService: ${message}`);
-  }
-
-  // tslint:disable-next-line:typedef
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
 }
