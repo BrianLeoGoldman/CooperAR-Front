@@ -10,8 +10,7 @@
 </div>
 -->
 
-<h2>All Users</h2>
-<ul class="users">
+<!--<ul class="users">
   <li *ngFor="let user of users">
     <a routerLink="/user-detail/{{user.nickname}}">
       <span class="badge">{{user.nickname}}</span> {{user.nickname}}
@@ -27,4 +26,35 @@
   <button class="add-button" (click)="add(username.value); username.value=''">
     Add user
   </button>
+</div>-->
+
+<div>
+  <div class="container">
+    <div class="card border-light mb-3 mt-3">
+
+      <div class="card-body">
+        <h1 class="card-title">Users</h1>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col" data-order="desc" data-name="nickname">Nickname</th>
+            <th scope="col" data-order="desc" data-name="name">Name</th>
+            <th scope="col" class="col-tretch"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of users; index as i">
+            <th routerLink="/user-detail/{{user.nickname}}">{{ user.nickname }}</th>
+            <th>{{ user.email }}</th>
+            <td>
+              <button routerLink="/profile/{{user.nickname}}" type="button" class="btn btn-outline-secondary mr-2">Profile</button>
+              <!--<button type="button" class="btn btn-outline-secondary mr-2"
+                      (click)="add(projectName.value); projectName.value=''">Add Project</button>-->
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

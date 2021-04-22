@@ -9,8 +9,8 @@ import {TasksComponent} from './tasks/tasks.component';
 import {ProfileComponent} from './profile/profile.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'home', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'users', component: UsersComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'tasks', component: TasksComponent },

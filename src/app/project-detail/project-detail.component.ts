@@ -22,8 +22,8 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   getProject(): void {
-    const name = this.route.snapshot.paramMap.get('id');
-    this.projectService.getProject(name)
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.projectService.getProject(id)
       .subscribe(project => this.project = project);
   }
 

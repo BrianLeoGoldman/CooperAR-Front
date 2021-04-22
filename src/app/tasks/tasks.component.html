@@ -1,4 +1,4 @@
-<h2>All Tasks</h2>
+<!--<h2>All Tasks</h2>
 <ul class="tasks">
   <li *ngFor="let task of tasks">
     <a routerLink="/task-detail/{{task.id}}">
@@ -14,4 +14,35 @@
   <button class="add-button" (click)="add(taskname.value); taskname.value=''">
     Add task
   </button>
+</div>-->
+
+
+<div>
+  <div class="container">
+    <div class="card border-light mb-3 mt-3">
+
+      <div class="card-body">
+        <h1 class="card-title">Tasks</h1>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col" data-order="desc" data-name="id">ID</th>
+            <th scope="col" data-order="desc" data-name="name">Name</th>
+            <th scope="col" data-order="desc" data-name="description">Description</th>
+            <th scope="col" data-order="desc" data-name="reward">Reward</th>
+            <th scope="col" class="col-tretch"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let task of tasks; index as i">
+            <th>{{ task.id }}</th>
+            <th>{{ task.name }}</th>
+            <td>{{ task.description }}</td>
+            <td>$ {{ task.reward }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

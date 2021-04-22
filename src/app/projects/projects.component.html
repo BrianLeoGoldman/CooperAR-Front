@@ -1,5 +1,5 @@
-<h2>All Projects</h2>
-<ul class="projects">
+<!--<h2>All Projects</h2>-->
+<!--<ul class="projects">
   <li *ngFor="let project of projects">
     <a routerLink="/project-detail/{{project.name}}">
       <span class="badge">{{project.name}}</span> {{project.name}}
@@ -11,8 +11,46 @@
 <div>
   <label id="new-project">Project name: </label>
   <input for="new-project" #projectName />
-  <!-- (click) passes input value to add() and then clears the input -->
+  &lt;!&ndash; (click) passes input value to add() and then clears the input &ndash;&gt;
   <button class="add-button" (click)="add(projectName.value); projectName.value=''">
     Add Project
   </button>
+</div>-->
+
+<div>
+  <div class="container">
+    <div class="card border-light mb-3 mt-3">
+
+      <div class="card-body">
+        <h1 class="card-title">Projects</h1>
+        <div class="col-3">
+          <input [(ngModel)]="listFilter" type="text" class="form-control" id="filterInput" placeholder="Search by name">
+        </div>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col" data-order="desc" data-name="id">ID</th>
+            <th scope="col" data-order="desc" data-name="name">Name</th>
+            <th scope="col" data-order="desc" data-name="description">Description</th>
+            <th scope="col" data-order="desc" data-name="budget">Budget</th>
+            <th scope="col" class="col-tretch"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let project of filteredProjects; index as i">
+            <th>{{ project.id }}</th>
+            <th scope="row" routerLink="/project-detail/{{project.id}}">{{ project.name }}</th>
+            <td>{{ project.description }}</td>
+            <td>$ {{ project.budget }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-secondary mr-2" (click)="delete(project)">x</button>
+              <!--<button type="button" class="btn btn-outline-secondary mr-2"
+                      (click)="add(projectName.value); projectName.value=''">Add Project</button>-->
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
