@@ -21,9 +21,7 @@ export class ProjectsComponent implements OnInit {
         this.projects = projects;
         this.filteredProjects = this.projects;
         this.listFilter = '';
-      }); // This waits for the Observable
-    // to emit the array of heroes—which could happen now or several minutes from now. The
-    // subscribe() method passes the emitted array to the callback, which sets the component's heroes property.
+      });
   }
 
   get listFilter(): string {
@@ -51,20 +49,18 @@ export class ProjectsComponent implements OnInit {
   }
 
   delete(project: Project): void {
-    this.toastr.error('Hello world!', 'Toastr fun!');
-    this.projects = this.projects.filter(h => h !== project);
-    this.projectService.deleteProject(project.id).subscribe();
+    this.toastr.info('This functionality is not implemented yet!', 'Nothing happened');
+    /*this.projects = this.projects.filter(h => h !== project);
+    this.projectService.deleteProject(project.id).subscribe();*/
   }
 
   constructor(private projectService: ProjectService, private toastr: ToastrService) {
     this.projects = [];
     this.filteredProjects = this.projects;
-  } // Constructor should be reserved
-  // for minimal initialization such as wiring constructor parameters to properties
+  }
 
   ngOnInit(): void {
-    this.getProjects(); // Angular calls ngOnInit() at an appropriate time after
-    // constructing a ProjectsComponent instance.
+    this.getProjects();
   }
 
 }

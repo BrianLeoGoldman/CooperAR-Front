@@ -1,13 +1,11 @@
+<br>
 <div *ngIf="project">
-  <h2>{{project.name | uppercase}} Details</h2>
+  <h2>{{project.name | uppercase}}</h2>
   <div><span>Id: </span>{{project.id}}</div>
   <div><span>Name: </span>{{project.name}}</div>
-  <div>
-    <label for="project-name">Project name: </label>
-    <input id="project-name" [(ngModel)]="project.name" placeholder="name">
-  </div>
   <div><span>Description: </span>{{project.description}}</div>
   <div><span>Budget: </span>{{project.budget}}</div>
+  <div><span>Owner: </span>{{project.owner}}</div>
 </div>
 <button (click)="save()">save</button>
 <button (click)="goBack()">go back</button>

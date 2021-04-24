@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { ProfileComponent } from './profile/profile.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProfileComponent } from './profile/profile.component';
     DashboardComponent,
     UserDetailComponent,
     TasksComponent,
-    ProfileComponent
+    ProfileComponent,
+    TaskDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -1,21 +1,3 @@
-<!--<h2>All Projects</h2>-->
-<!--<ul class="projects">
-  <li *ngFor="let project of projects">
-    <a routerLink="/project-detail/{{project.name}}">
-      <span class="badge">{{project.name}}</span> {{project.name}}
-    </a>
-    <button class="delete" title="delete project" (click)="delete(project)">x</button>
-  </li>
-</ul>
-<h2>Create new project</h2>
-<div>
-  <label id="new-project">Project name: </label>
-  <input for="new-project" #projectName />
-  &lt;!&ndash; (click) passes input value to add() and then clears the input &ndash;&gt;
-  <button class="add-button" (click)="add(projectName.value); projectName.value=''">
-    Add Project
-  </button>
-</div>-->
 
 <div>
   <div class="container">
@@ -44,8 +26,7 @@
             <td>$ {{ project.budget }}</td>
             <td>
               <button type="button" class="btn btn-outline-secondary mr-2" (click)="delete(project)">x</button>
-              <!--<button type="button" class="btn btn-outline-secondary mr-2"
-                      (click)="add(projectName.value); projectName.value=''">Add Project</button>-->
+              <!--<button type="button" class="btn btn-outline-secondary mr-2" (click)="add(projectName.value); projectName.value=''">Add Project</button>&ndash;&gt;-->
             </td>
           </tr>
           </tbody>

@@ -7,6 +7,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import {UserDetailComponent} from './user-detail/user-detail.component';
 import {TasksComponent} from './tasks/tasks.component';
 import {ProfileComponent} from './profile/profile.component';
+import {TaskDetailComponent} from './task-detail/task-detail.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -14,14 +15,14 @@ const routes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'tasks', component: TasksComponent },
-  { path: 'project-detail/:id', component: ProjectDetailComponent },
   { path: 'user-detail/:id', component: UserDetailComponent },
+  { path: 'project-detail/:id', component: ProjectDetailComponent },
+  { path: 'task-detail/:id', component: TaskDetailComponent },
   { path: 'profile/:id', component: ProfileComponent }
 ];
 
-@NgModule({ // The @NgModule metadata initializes the router and starts it listening for browser location changes
-  imports: [RouterModule.forRoot(routes)], // Adds the RouterModule to the AppRoutingModule imports
-  // array and configures it with the routes in one step by calling RouterModule.forRoot()
-  exports: [RouterModule] // Exports RouterModule so it will be available throughout the app
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -3,6 +3,7 @@ import { Project } from '../model/project';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ProjectService } from '../services/project.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-project-detail',
@@ -15,7 +16,8 @@ export class ProjectDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, // Holds information about the route to this instance of the component
               private location: Location, // Is an Angular service for interacting with the browser
-              private projectService: ProjectService) { }
+              private projectService: ProjectService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getProject();
@@ -28,8 +30,9 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   save(): void {
-    this.projectService.updateProject(this.project)
-      .subscribe(() => this.goBack());
+    this.toastr.info('This functionality is not implemented yet!', 'Nothing happened');
+    /*this.projectService.updateProject(this.project)
+      .subscribe(() => this.goBack());*/
   }
 
   goBack(): void {

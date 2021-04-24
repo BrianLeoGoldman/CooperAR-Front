@@ -29,16 +29,16 @@ export class DashboardComponent implements OnInit {
 
   getProjects(): void {
     this.projectService.getProjects()
-      .subscribe(projects => this.projects = projects.slice(0, 4));
+      .subscribe(projects => this.projects = projects.sort(() => 0.5 - Math.random()).slice(0, 3));
   }
 
    getUsers(): void {
     this.userService.getUsers()
-      .subscribe(users => this.users = users.slice(0, 4));
+      .subscribe(users => this.users = users.sort(() => 0.5 - Math.random()).slice(0, 3));
   }
 
   getTasks(): void {
     this.taskService.getTasks()
-      .subscribe(tasks => this.tasks = tasks.slice(0, 4));
+      .subscribe(tasks => this.tasks = tasks.sort(() => 0.5 - Math.random()).slice(0, 3));
   }
 }

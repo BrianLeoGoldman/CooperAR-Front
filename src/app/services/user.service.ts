@@ -18,14 +18,14 @@ export class UserService {
 
   /** GET users from the server */
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.usersUrl}/all`)
+    return this.http.get<User[]>(`${this.usersUrl}`)
       .pipe(tap(_ => this.messageService.log('UserService: fetched users')),
         catchError(this.messageService.handleError<User[]>('getUsers', [])));
   }
 
   /** GET specific user from the server */
   getUser(nickname: string): Observable<User> {
-    const url = `${this.usersUrl}/fetch?id=${nickname}`;
+    const url = `${this.usersUrl}/${nickname}`;
     return this.http.get<User>(url).pipe(
       tap(_ => this.messageService.log(`UserService: fetched user nickname=${nickname}`)),
       catchError(this.messageService.handleError<User>(`getUser nickname=${nickname}`))

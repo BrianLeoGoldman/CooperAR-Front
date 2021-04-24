@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {strict} from 'assert';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-detail',
@@ -16,7 +17,8 @@ export class UserDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private location: Location,
-              private userService: UserService) { }
+              private userService: UserService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -29,8 +31,9 @@ export class UserDetailComponent implements OnInit {
   }
 
   save(): void {
-    this.userService.updateUser(this.user)
-      .subscribe(() => this.goBack());
+    this.toastr.info('This functionality is not implemented yet!', 'Nothing happened');
+    /*this.userService.updateUser(this.user)
+      .subscribe(() => this.goBack());*/
   }
 
   goBack(): void {
