@@ -1,0 +1,13 @@
+<h2>Profile of {{user.nickname}}</h2>
+<br>
+<h3>List of projects</h3>
+<ul>
+  <li *ngFor="let project of user.projects">
+      <span routerLink="/project-detail/{{project.id}}">{{project.name}}</span>
+        <ul>
+          <li *ngFor="let task of project.tasks">
+            <span routerLink="/task-detail/{{task.id}}">{{task.name}}</span>
+          </li>
+        </ul>
+  </li>
+</ul>

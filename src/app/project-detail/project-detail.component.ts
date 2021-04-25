@@ -1,0 +1,42 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { Project } from '../model/project';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { ProjectService } from '../services/project.service';
+import {ToastrService} from 'ngx-toastr';
+
+@Component({
+  selector: 'app-project-detail',
+  templateUrl: './project-detail.component.html',
+  styleUrls: ['./project-detail.component.scss']
+})
+export class ProjectDetailComponent implements OnInit {
+
+  @Input() project?: Project;
+
+  constructor(private route: ActivatedRoute, // Holds information about the route to this instance of the component
+              private location: Location, // Is an Angular service for interacting with the browser
+              private projectService: ProjectService,
+              private toastr: ToastrService) { }
+
+  ngOnInit(): void {
+    this.getProject();
+  }
+
+  getProject(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.projectService.getProject(id)
+      .subscribe(project => this.project = project);
+  }
+
+  save(): void {
+    this.toastr.info('This functionality is not implemented yet!', 'Nothing happened');
+    /*this.projectService.updateProject(this.project)
+      .subscribe(() => this.goBack());*/
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+}
