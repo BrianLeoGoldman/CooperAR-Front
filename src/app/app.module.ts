@@ -17,6 +17,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
     UserDetailComponent,
     TasksComponent,
     ProfileComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
