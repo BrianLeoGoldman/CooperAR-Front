@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {User} from '../model/user';
 import {MessageService} from './message.service';
+import {GlobalConstants} from '../common/global-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -26,15 +27,17 @@ export class UserService {
 
   /** GET users from the server */
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.usersUrl}`)
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    return this.http.get<User[]>(`${this.usersUrl}`, { headers })
       .pipe(tap(_ => this.messageService.log('UserService: fetched users')),
         catchError(this.messageService.handleError<User[]>('getUsers', [])));
   }
 
   /** GET specific user from the server */
   getUser(nickname: string): Observable<User> {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
     const url = `${this.usersUrl}/${nickname}`;
-    return this.http.get<User>(url).pipe(
+    return this.http.get<User>(url, { headers } ).pipe(
       tap(_ => this.messageService.log(`UserService: fetched user nickname=${nickname}`)),
       catchError(this.messageService.handleError<User>(`getUser nickname=${nickname}`))
     );

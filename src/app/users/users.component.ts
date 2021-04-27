@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 import {UserService} from '../services/user.service';
+import {GlobalConstants} from '../common/global-constants';
 
 @Component({
   selector: 'app-users',

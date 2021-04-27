@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import { Task } from '../model/task';
 import {MessageService} from './message.service';
+import {GlobalConstants} from '../common/global-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +19,17 @@ export class TaskService {
 
   /** GET tasks from the server */
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.tasksUrl}`)
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    return this.http.get<Task[]>(`${this.tasksUrl}`, { headers })
       .pipe(tap(_ => this.messageService.log('TaskService: fetched tasks')),
         catchError(this.messageService.handleError<Task[]>('getTasks', [])));
   }
 
   /** GET specific task from the server */
   getTask(id: number): Observable<Task> {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
     const url = `${this.tasksUrl}/${id}`;
-    return this.http.get<Task>(url).pipe(
+    return this.http.get<Task>(url, { headers }).pipe(
       tap(_ => this.messageService.log(`TaskService: fetched task id=${id}`)),
       catchError(this.messageService.handleError<Task>(`getTask id=${id}`))
     );

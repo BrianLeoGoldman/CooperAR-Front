@@ -5,6 +5,7 @@ import {User} from '../model/user';
 import {UserService} from '../services/user.service';
 import {TaskService} from '../services/task.service';
 import { Task } from '../model/task';
+import * as myGlobals from 'globals';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +26,7 @@ export class DashboardComponent implements OnInit {
     this.getProjects();
     this.getUsers();
     this.getTasks();
+    console.log(myGlobals.nickname);
   }
 
   getProjects(): void {

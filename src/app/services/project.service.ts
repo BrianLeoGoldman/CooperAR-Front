@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
+import {GlobalConstants} from '../common/global-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +21,17 @@ export class ProjectService {
 
   /** GET projects from the server */
   getProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.projectsUrl}`)
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    return this.http.get<Project[]>(`${this.projectsUrl}`, { headers })
       .pipe(tap(_ => this.messageService.log('ProjectService: fetched projects')),
         catchError(this.messageService.handleError<Project[]>('getProjects', [])));
   }
 
   /** GET specific project from the server */
   getProject(id: number): Observable<Project> {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
     const url = `${this.projectsUrl}/${id}`;
-    return this.http.get<Project>(url).pipe(
+    return this.http.get<Project>(url, { headers }).pipe(
       tap(_ => this.messageService.log(`ProjectService: fetched project id=${id}`)),
       catchError(this.messageService.handleError<Project>(`getProject id=${id}`))
     );

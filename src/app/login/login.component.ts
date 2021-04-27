@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../services/user.service';
+import {GlobalConstants} from '../common/global-constants';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   login() {
     /*const user = {nickname: this.nickname, password: this.password};*/
     this.userService.login(this.nickname, this.password).subscribe( data => {
-      console.log(data);
+      GlobalConstants.token = data; // console.log(data);
+      GlobalConstants.loggedUser = this.nickname;
     });
     /*console.log(this.nickname);
     console.log(this.password);*/
