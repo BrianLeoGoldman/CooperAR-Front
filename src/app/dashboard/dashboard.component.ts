@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
     this.getProjects();
     this.getUsers();
     this.getTasks();
-    console.log(myGlobals.nickname);
   }
 
   getProjects(): void {

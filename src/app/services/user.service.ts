@@ -17,6 +17,7 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
+  // TODO: manage errors when login with wrong nickname or password
   login(nickname: string, password: string): Observable<any> {
     const headers = new HttpHeaders().append('Content-Type', 'text/html');
     const params = new HttpParams().set('nickname', nickname).set('password', password);
@@ -43,11 +44,13 @@ export class UserService {
     );
   }
 
-  /** PUT: update the user on the server */
-  updateUser(user: User): Observable<any> {
-    return this.http.put(this.usersUrl, user, this.httpOptions).pipe(
-      tap(_ => this.messageService.log(`UserService: updated user nickname=${user.nickname}`)),
-      catchError(this.messageService.handleError<any>('updateUser'))
+  /** PUT: create the user on the server */
+  // TODO: manage errors when creating using with existing nickname
+  registerUser(user: User): Observable<any> {
+    const headers = new HttpHeaders().append('Content-Type', 'application/json');
+    return this.http.put(this.usersUrl, user, {headers, responseType: 'text'} ).pipe(
+      tap(_ => this.messageService.log(`UserService: registered user with nickname=${user.nickname}`)),
+      catchError(this.messageService.handleError<any>('registerUser'))
     );
   }
 
