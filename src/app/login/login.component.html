@@ -1,20 +1,21 @@
 <div class="login">
   <form class="custom-form" method="post">
-    <h1>Login</h1>
+    <h1>Iniciar sesión</h1>
     <input
       type="nickname"
       [(ngModel)]="nickname"
       name="nickname"
-      placeholder="Nickname"
+      placeholder="Nombre de usuario"
       required="required"
     />
     <input
       type="password"
       [(ngModel)]="password"
       name="password"
-      placeholder="Password"
+      placeholder="Contraseña"
       required="required"
     />
-    <button type="submit" (click)="login()">Log in</button>
+    <button routerLink="/register">¿Sos nuevo?</button>
+    <button type="submit" (click)="login()">Ingresar</button>
   </form>
 </div>

@@ -1,10 +1,10 @@
 <br>
 <div *ngIf="task">
   <h2>{{task.name | uppercase}}</h2>
-  <div><span>Id: </span>{{task.id}}</div>
-  <div><span>Name: </span>{{task.name}}</div>
-  <div><span>Description: </span>{{task.description}}</div>
-  <div><span>Reward: </span>{{task.reward}}</div>
+  <div><span>ID: </span>{{task.id}}</div>
+  <div><span>Nombre: </span>{{task.name}}</div>
+  <div><span>Descripción: </span>{{task.description}}</div>
+  <div><span>Recompensa: </span>{{task.reward}}</div>
 </div>
-<button (click)="save()">save</button>
-<button (click)="goBack()">go back</button>
+<button (click)="save()">Guardar</button>
+<button (click)="goBack()">Volver</button>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../services/user.service';
 import {GlobalConstants} from '../common/global-constants';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,12 +19,14 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.nickname, this.password).subscribe( data => {
       GlobalConstants.token = data; // console.log(data);
       GlobalConstants.loggedUser = this.nickname;
+      this.router.navigate(['/dashboard']);
     });
     /*console.log(this.nickname);
     console.log(this.password);*/
   }
 
-  constructor(public userService: UserService) { }
+  constructor(private router: Router,
+              public userService: UserService) { }
 
   ngOnInit(): void {
   }

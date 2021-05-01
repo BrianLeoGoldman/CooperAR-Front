@@ -1,17 +1,19 @@
 <br>
 <div *ngIf="user">
   <h2>{{user.nickname | uppercase}}</h2>
-  <div><span>Nickname: </span>{{user.nickname}}</div>
+  <div><span>Nombre de usuario: </span>{{user.nickname}}</div>
   <!--<div>
     <label for="user-name">User nickname: </label>
     <input id="user-name" [(ngModel)]="user.nickname" placeholder="name">
   </div>-->
+  <div><span>Nombre: </span>{{user.firstname}}</div>
+  <div><span>Apellido: </span>{{user.lastname}}</div>
   <div><span>Email: </span>{{user.email}}</div>
 </div><br>
-<button (click)="save()">save</button>
-<button (click)="goBack()">go back</button>
+<button (click)="save()">Guardar</button>
+<button (click)="goBack()">Volver</button>
 <br><br>
-<h3>List of projects</h3>
+<h3>Lista de proyectos</h3>
 <div>
 <ul>
   <li class="user-projects" *ngFor="let project of user.projects">

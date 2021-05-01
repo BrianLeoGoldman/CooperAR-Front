@@ -1,18 +1,18 @@
-<h2>Top users</h2>
+<h2>Usuarios</h2>
 <div class="users-menu">
   <a *ngFor="let user of users" routerLink="/user-detail/{{user.nickname}}">
     {{user.nickname}}
   </a>
 </div>
 
-<h2>Top Projects</h2>
+<h2>Projectos</h2>
 <div class="projects-menu">
   <a *ngFor="let project of projects" routerLink="/project-detail/{{project.id}}">
     {{project.name}}
   </a>
 </div>
 
-<h2>Top tasks</h2>
+<h2>Tareas</h2>
 <div class="tasks-menu">
   <a *ngFor="let task of tasks" routerLink="/task-detail/{{task.id}}">
     {{task.name}}

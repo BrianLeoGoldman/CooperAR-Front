@@ -1,12 +1,12 @@
 <br>
 <div *ngIf="project">
   <h2>{{project.name | uppercase}}</h2>
-  <div><span>Id: </span>{{project.id}}</div>
-  <div><span>Name: </span>{{project.name}}</div>
-  <div><span>Description: </span>{{project.description}}</div>
-  <div><span>Budget: </span>{{project.budget}}</div>
-  <div><span>Owner: </span>{{project.owner}}</div>
+  <div><span>ID: </span>{{project.id}}</div>
+  <div><span>Nombre: </span>{{project.name}}</div>
+  <div><span>Descripción: </span>{{project.description}}</div>
+  <div><span>Presupuesto: </span>{{project.budget}}</div>
+  <div><span>Administrador: </span>{{project.owner}}</div>
 </div>
-<button (click)="save()">save</button>
-<button (click)="goBack()">go back</button>
+<button (click)="save()">Guardar</button>
+<button (click)="goBack()">Volver</button>
 

@@ -1,6 +1,10 @@
-<h2>Profile of {{user.nickname}}</h2>
+<h2>Perfil de {{user.nickname}}</h2>
+<div><span>Nombre: </span>{{user.firstname}}</div>
+<div><span>Apellido: </span>{{user.lastname}}</div>
+<div><span>Contraseña: </span>{{user.password}}</div>
+<div><span>Email: </span>{{user.email}}</div>
 <br>
-<h3>List of projects</h3>
+<h3>Lista de proyectos</h3>
 <ul>
   <li *ngFor="let project of user.projects">
       <span routerLink="/project-detail/{{project.id}}">{{project.name}}</span>

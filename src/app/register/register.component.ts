@@ -12,10 +12,12 @@ import {GlobalConstants} from '../common/global-constants';
 export class RegisterComponent implements OnInit {
 
   nickname: string;
+  firstname: string;
+  lastname: string;
   email: string;
   password: string;
   confirmPassword: string;
-  newUser: User = { nickname: '', password: '', email: '', projects: []};
+  newUser: User = { nickname: '', firstname: '', lastname: '', password: '', email: '', projects: []};
 
   constructor(private userService: UserService) {}
 
@@ -35,6 +37,8 @@ export class RegisterComponent implements OnInit {
   // tslint:disable-next-line:typedef
   fillNewUser() {
     this.newUser.nickname = this.nickname;
+    this.newUser.firstname = this.firstname;
+    this.newUser.lastname = this.lastname;
     this.newUser.password = this.password;
     this.newUser.email = this.email;
     this.newUser.projects = [];
