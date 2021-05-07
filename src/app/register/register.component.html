@@ -1,48 +1,122 @@
-<div class="register">
+<!--<div class="register">
   <form class="custom-form" method="post">
     <h1>Registrarse</h1>
-    <input
-      type="nickname"
-      [(ngModel)]="nickname"
-      name="nickname"
-      placeholder="Nombre de usuario"
-      required="required"
-    />
-    <input
-      type="firstname"
-      [(ngModel)]="firstname"
-      name="firstname"
-      placeholder="Nombre"
-      required="required"
-    />
-    <input
-      type="lastname"
-      [(ngModel)]="lastname"
-      name="lastname"
-      placeholder="Apellido"
-      required="required"
-    />
-    <input
-      type="email"
-      [(ngModel)]="email"
-      name="email"
-      placeholder="Email"
-      required="required"
-    />
-    <input
-      type="password"
-      [(ngModel)]="password"
-      name="password"
-      placeholder="Contraseña"
-      required="required"
-    />
-    <input
-      type="password"
-      [(ngModel)]="confirmPassword"
-      name="password"
-      placeholder="Repita la contraseña"
-      required="required"
-    />
+
+    <mat-form-field appearance="fill" class="full-width-input">
+      <mat-label>Apodo</mat-label>
+      <input [(ngModel)]="nickname" name="username" matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher" placeholder="juan123">
+      <mat-error *ngIf="nameFormControl.hasError('required')">
+        Este campo es <strong>obligatorio</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width-input">
+      <mat-label>Nombre</mat-label>
+      <input [(ngModel)]="firstname" name="firstname" matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher" placeholder="Juan">
+      <mat-error *ngIf="nameFormControl.hasError('required')">
+        Este campo es <strong>obligatorio</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width-input">
+      <mat-label>Apellido</mat-label>
+      <input [(ngModel)]="lastname" name="lastname" matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher" placeholder="Juan">
+      <mat-error *ngIf="nameFormControl.hasError('required')">
+        Este campo es <strong>obligatorio</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input [(ngModel)]="email" type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="Ej. juan@mail.com">
+        <mat-hint>Ingrese su email</mat-hint>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Por favor ingrese una direccion de email valida
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Este campo es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de nacimiento</mat-label>
+      <input [(ngModel)]="birthday" type="date" name="birthday" matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width-input">
+      <mat-label>Contraseña</mat-label>
+      <input [(ngModel)]="password" name="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher" placeholder="Juan">
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Este campo es <strong>obligatorio</strong>
+      </mat-error>
+      <mat-error *ngIf="passwordFormControl.hasError('pattern')">
+        La contraseña debe tener al menos un numero
+      </mat-error>
+    </mat-form-field>
+
+    <input type="password" [(ngModel)]="confirmPassword" name="password" placeholder="Repita la contraseña" required="required"/>
+
     <button type="submit" (click)="register()">Registrar usuario</button>
   </form>
-</div>
+</div>-->
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h2>Registrarse</h2>
+      <mat-error *ngIf="invalidData">
+        La informacion proporcionada no pudo registrarse
+      </mat-error>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Nombre de usuario" formControlName="nickname" required minlength="5">
+        <mat-error>
+          Se require un nombre de usuario valido
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Nombre" formControlName="firstname" required>
+        <mat-error>
+          Se require un nombre valido
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Apellido" formControlName="lastname" required>
+        <mat-error>
+          Se require un apellido valido
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input matInput type="password" placeholder="Contraseña" formControlName="password" required minlength="8">
+        <mat-error>
+          Se requiere una contraseña valida
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input matInput type="email" placeholder="Email" formControlName="email" required email>
+        <mat-error>
+          Se requiere una direccion de email valida
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input placeholder="Fecha de Nacimiento" formControlName="birthday" required matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let province of provinces" [value]="province">
+            {{province}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary">Registrar</button>
+    </form>
+  </mat-card-content>
+</mat-card>
