@@ -3,6 +3,7 @@ import {UserService} from '../services/user.service';
 import {User} from '../model/user';
 import {Project} from '../model/project';
 import {GlobalConstants} from '../common/global-constants';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,12 +15,15 @@ export class RegisterComponent implements OnInit {
   nickname: string;
   firstname: string;
   lastname: string;
-  email: string;
   password: string;
   confirmPassword: string;
-  newUser: User = { nickname: '', firstname: '', lastname: '', password: '', email: '', projects: []};
+  email: string;
+  birthday: string;
+  province: string;
+  money: number;
+  newUser: User = { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
 
-  constructor(private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   // tslint:disable-next-line:typedef
   register() {
@@ -31,6 +35,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(data => {
         GlobalConstants.token = data;
         GlobalConstants.loggedUser = this.nickname;
+        this.router.navigate(['/dashboard']);
       });
   }
 
