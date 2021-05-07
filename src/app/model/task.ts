@@ -4,4 +4,7 @@ export interface Task {
   description: string;
   reward: number;
   project_name: string;
+  creationDate: string;
+  finishDate: string;
+  difficulty: string;
 }
