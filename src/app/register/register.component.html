@@ -71,36 +71,42 @@
       <mat-error *ngIf="invalidData">
         La informacion proporcionada no pudo registrarse
       </mat-error>
+
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Nombre de usuario" formControlName="nickname" required minlength="5">
         <mat-error>
           Se require un nombre de usuario valido
         </mat-error>
       </mat-form-field>
+
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Nombre" formControlName="firstname" required>
         <mat-error>
           Se require un nombre valido
         </mat-error>
       </mat-form-field>
+
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Apellido" formControlName="lastname" required>
         <mat-error>
           Se require un apellido valido
         </mat-error>
       </mat-form-field>
+
       <mat-form-field class="full-width-input">
         <input matInput type="password" placeholder="Contraseña" formControlName="password" required minlength="8">
         <mat-error>
           Se requiere una contraseña valida
         </mat-error>
       </mat-form-field>
+
       <mat-form-field class="full-width-input">
         <input matInput type="email" placeholder="Email" formControlName="email" required email>
         <mat-error>
           Se requiere una direccion de email valida
         </mat-error>
       </mat-form-field>
+
       <mat-form-field class="full-width-input">
         <input placeholder="Fecha de Nacimiento" formControlName="birthday" required matInput [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -108,12 +114,13 @@
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <mat-label>Favorite food</mat-label>
-        <mat-select>
+        <mat-label>Provincia</mat-label>
+        <mat-select formControlName="province" required>
           <mat-option *ngFor="let province of provinces" [value]="province">
             {{province}}
           </mat-option>
         </mat-select>
+        <!--<mat-error *ngIf="provinceControl.hasError('required')">Please choose an animal</mat-error>-->
       </mat-form-field>
 
       <button mat-raised-button color="primary">Registrar</button>

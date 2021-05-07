@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
   public invalidData: boolean;
   private formSubmitAttempt: boolean;
 
-  provinces: string[] = ['Chaco', 'Formosa', 'Rio Negro'];
+  provinces: string[] = ['Buenos Aires', 'Chaco', 'Formosa', 'Rio Negro'];
 
   nickname: string;
   firstname: string;
@@ -54,6 +54,9 @@ export class RegisterComponent implements OnInit {
   province: string;
   money: number;
   newUser: User = { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
+
+  provinceControl = new FormControl('', Validators.required);
+  selectFormControl = new FormControl('', Validators.required);
 
   constructor(private router: Router, private userService: UserService, private fb: FormBuilder) {}
 
@@ -86,7 +89,8 @@ export class RegisterComponent implements OnInit {
       lastname: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],
       email: ['', [Validators.required, Validators.email]],
-      birthday: ['', Validators.required]
+      birthday: ['', Validators.required],
+      province: ['', Validators.required]
     });
 
   }
@@ -102,8 +106,11 @@ export class RegisterComponent implements OnInit {
         this.newUser.lastname = this.form.get('lastname').value;
         this.newUser.password = this.form.get('password').value;
         this.newUser.email = this.form.get('email').value;
+        this.newUser.birthday = this.form.get('birthday').value;
+        this.newUser.province = this.form.get('province').value;
         this.newUser.money = 0;
         this.newUser.projects = [];
+        console.log(this.newUser);
         this.userService.registerUser(this.newUser)
           .subscribe(data => {
               GlobalConstants.token = data;
