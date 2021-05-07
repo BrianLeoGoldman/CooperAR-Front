@@ -35,12 +35,20 @@ $cooperAR-front-theme: mat-light-theme((
 
 /* Application-wide Styles */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 //@import "../node_modules/angular-notifier/styles";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  /* The image used */
+  background-image: url("https://induselectric.com.ar/wp-content/uploads/2015/02/Dark-Abstract-Backgrounds-1920X1080-Images-6-HD-Wallpapers.jpg");
+  /* Full height */
+  height: 130%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
