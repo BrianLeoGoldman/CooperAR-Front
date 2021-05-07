@@ -4,7 +4,10 @@ export interface User {
   nickname: string;
   firstname: string;
   lastname: string;
-  email: string;
   password: string;
+  email: string;
+  birthday: string;
+  province: string;
+  money: number;
   projects: Project[];
 }

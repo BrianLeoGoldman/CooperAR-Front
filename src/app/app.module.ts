@@ -19,6 +19,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RegisterComponent } from './register/register.component';
     ProfileComponent,
     TaskDetailComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

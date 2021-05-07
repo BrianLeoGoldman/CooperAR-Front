@@ -1,96 +1,65 @@
 /* UserDetailComponent's private CSS styles */
-.user-projects {
-  margin: 0 0 2em 0;
-  list-style-type: none;
-  padding: 0;
-  width: 15em;
-}
-.user-projects li {
-  cursor: pointer;
-  position: relative;
-  left: 0;
-  background-color: #EEE;
-  margin: .5em;
-  padding: .3em 0;
-  height: 1.6em;
-  border-radius: 4px;
-}
-.user-projects li:hover {
-  color: #2c3a41;
-  background-color: #cac326;
-  left: .1em;
-}
-.user-projects li.selected {
-  background-color: black;
-  color: white;
-}
-.user-projects li.selected:hover {
-  background-color: #505050;
-  color: white;
-}
-.user-projects li.selected:active {
-  background-color: black;
-  color: white;
-}
-.user-projects .span {
-  display: inline-block;
-  font-size: small;
-  color: white;
-  padding: 0.8em 0.7em 0 0.7em;
-  background-color:#405061;
-  line-height: 1em;
-  position: relative;
-  left: -1px;
-  top: -4px;
-  height: 1.8em;
-  margin-right: .8em;
-  border-radius: 4px 0 0 4px;
-}
 
-.user-tasks {
-  margin: 0 0 2em 0;
-  list-style-type: none;
-  padding: 0;
-  width: 15em;
+.tree, .tree ul {
+  margin:0;
+  padding:0;
+  list-style:none
 }
-.user-tasks li {
-  cursor: pointer;
-  position: relative;
-  left: 0;
-  background-color: #EEE;
-  margin: .5em;
-  padding: .3em 0;
-  height: 1.6em;
-  border-radius: 4px;
+.tree ul {
+  margin-left:1em;
+  position:relative
 }
-.user-tasks li:hover {
-  color: #2c3a41;
-  background-color: #cac326;
-  left: .1em;
+.tree ul ul {
+  margin-left:.5em
 }
-.user-tasks li.selected {
-  background-color: black;
-  color: white;
+.tree ul:before {
+  content:"";
+  display:block;
+  width:0;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  border-left:1px solid
 }
-.user-tasks li.selected:hover {
-  background-color: #505050;
-  color: white;
+.tree li {
+  margin:0;
+  padding:0 1em;
+  line-height:2em;
+  color:#369;
+  font-weight:700;
+  position:relative
 }
-.user-tasks li.selected:active {
-  background-color: black;
-  color: white;
+.tree ul li:before {
+  content:"";
+  display:block;
+  width:10px;
+  height:0;
+  border-top:1px solid;
+  margin-top:-1px;
+  position:absolute;
+  top:1em;
+  left:0
 }
-.user-tasks .span {
-  display: inline-block;
-  font-size: small;
-  color: white;
-  padding: 0.8em 0.7em 0 0.7em;
-  background-color:#405061;
-  line-height: 1em;
-  position: relative;
-  left: -1px;
-  top: -4px;
-  height: 1.8em;
-  margin-right: .8em;
-  border-radius: 4px 0 0 4px;
+.tree ul li:last-child:before {
+  background:#fff;
+  height:auto;
+  top:1em;
+  bottom:0
+}
+.indicator {
+  margin-right:5px;
+}
+.tree li a {
+  text-decoration: none;
+  color:#369;
+}
+.tree li button, .tree li button:active, .tree li button:focus {
+  text-decoration: none;
+  color:#369;
+  border:none;
+  background:transparent;
+  margin:0px 0px 0px 0px;
+  padding:0px 0px 0px 0px;
+  outline: 0;
 }
