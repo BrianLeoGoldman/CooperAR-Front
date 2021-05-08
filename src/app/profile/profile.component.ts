@@ -12,7 +12,8 @@ import {Project} from '../model/project';
 })
 export class ProfileComponent implements OnInit {
 
-  @Input() user?: User;
+  /*@Input() user?: User*/
+  user: User =  { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
   projects: Project[] = [];
 
   constructor(private route: ActivatedRoute,

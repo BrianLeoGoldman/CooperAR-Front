@@ -3,8 +3,7 @@ import {UserService} from '../services/user.service';
 import {User} from '../model/user';
 import {GlobalConstants} from '../common/global-constants';
 import {Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -58,10 +57,12 @@ export class RegisterComponent implements OnInit {
   provinceControl = new FormControl('', Validators.required);
   selectFormControl = new FormControl('', Validators.required);
 
-  constructor(private router: Router, private userService: UserService, private fb: FormBuilder) {}
+  constructor(private router: Router,
+              private userService: UserService,
+              private fb: FormBuilder) {}
 
   // tslint:disable-next-line:typedef
-  register() {
+  /*register() {
     // tslint:disable-next-line:label-position
     this.fillNewUser();
     this.userService.registerUser(this.newUser)
@@ -70,17 +71,17 @@ export class RegisterComponent implements OnInit {
         GlobalConstants.loggedUser = this.nickname;
         this.router.navigate(['/dashboard']);
       });
-  }
+  }*/
 
   // tslint:disable-next-line:typedef
-  fillNewUser() {
+  /*fillNewUser() {
     this.newUser.nickname = this.nickname;
     this.newUser.firstname = this.firstname;
     this.newUser.lastname = this.lastname;
     this.newUser.password = this.password;
     this.newUser.email = this.email;
     this.newUser.projects = [];
-  }
+  }*/
 
   ngOnInit(): void {
     this.form = this.fb.group({

@@ -1,69 +1,3 @@
-<!--<div class="register">
-  <form class="custom-form" method="post">
-    <h1>Registrarse</h1>
-
-    <mat-form-field appearance="fill" class="full-width-input">
-      <mat-label>Apodo</mat-label>
-      <input [(ngModel)]="nickname" name="username" matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher" placeholder="juan123">
-      <mat-error *ngIf="nameFormControl.hasError('required')">
-        Este campo es <strong>obligatorio</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width-input">
-      <mat-label>Nombre</mat-label>
-      <input [(ngModel)]="firstname" name="firstname" matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher" placeholder="Juan">
-      <mat-error *ngIf="nameFormControl.hasError('required')">
-        Este campo es <strong>obligatorio</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width-input">
-      <mat-label>Apellido</mat-label>
-      <input [(ngModel)]="lastname" name="lastname" matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher" placeholder="Juan">
-      <mat-error *ngIf="nameFormControl.hasError('required')">
-        Este campo es <strong>obligatorio</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label>Email</mat-label>
-        <input [(ngModel)]="email" type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="Ej. juan@mail.com">
-        <mat-hint>Ingrese su email</mat-hint>
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-          Por favor ingrese una direccion de email valida
-        </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')">
-          Este campo es <strong>obligatorio</strong>
-        </mat-error>
-      </mat-form-field>
-    </form>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Fecha de nacimiento</mat-label>
-      <input [(ngModel)]="birthday" type="date" name="birthday" matInput [matDatepicker]="picker">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width-input">
-      <mat-label>Contraseña</mat-label>
-      <input [(ngModel)]="password" name="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher" placeholder="Juan">
-      <mat-error *ngIf="passwordFormControl.hasError('required')">
-        Este campo es <strong>obligatorio</strong>
-      </mat-error>
-      <mat-error *ngIf="passwordFormControl.hasError('pattern')">
-        La contraseña debe tener al menos un numero
-      </mat-error>
-    </mat-form-field>
-
-    <input type="password" [(ngModel)]="confirmPassword" name="password" placeholder="Repita la contraseña" required="required"/>
-
-    <button type="submit" (click)="register()">Registrar usuario</button>
-  </form>
-</div>-->
-
 <mat-card>
   <mat-card-content>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -123,7 +57,9 @@
         <!--<mat-error *ngIf="provinceControl.hasError('required')">Please choose an animal</mat-error>-->
       </mat-form-field>
 
-      <button mat-raised-button color="primary">Registrar</button>
+      <br><button mat-raised-button color="primary">Registrar</button><br><br>
+      <a routerLink="/login">Atras</a>
+
     </form>
   </mat-card-content>
 </mat-card>
