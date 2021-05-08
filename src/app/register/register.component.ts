@@ -5,6 +5,8 @@ import {GlobalConstants} from '../common/global-constants';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import {Observable} from 'rxjs';
+import {Provinces} from '../model/provinces';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -42,7 +44,8 @@ export class RegisterComponent implements OnInit {
   public invalidData: boolean;
   private formSubmitAttempt: boolean;
 
-  provinces: string[] = ['Buenos Aires', 'Chaco', 'Formosa', 'Rio Negro'];
+  keys: Array<string> = Object.keys(Provinces);
+  provinces: Array<string> = this.keys.slice(this.keys.length / 2);
 
   nickname: string;
   firstname: string;
@@ -118,7 +121,7 @@ export class RegisterComponent implements OnInit {
           .subscribe(data => {
               GlobalConstants.token = data;
               GlobalConstants.loggedUser = this.newUser.nickname;
-              this.toastr.info('Estas logueado como ' + this.nickname, 'BIENVENIDO');
+              this.toastr.info('Estas logueado como ' + this.newUser.nickname, 'BIENVENIDO');
               this.router.navigate(['/dashboard']);
           },
           error => {
