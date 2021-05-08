@@ -22,7 +22,7 @@
           <tbody>
           <tr *ngFor="let project of filteredProjects; index as i">
             <th>{{ project.id }}</th>
-            <th scope="row" routerLink="/project-detail/{{project.id}}">{{ project.name }}</th>
+            <th><a class="hover" routerLink="/project-detail/{{project.id}}">{{ project.name }}</a></th>
             <td>{{ project.description }}</td>
             <td>$ {{ project.budget }}</td>
             <td>
