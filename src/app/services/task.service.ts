@@ -9,6 +9,7 @@ import {GlobalConstants} from '../common/global-constants';
 @Injectable({
   providedIn: 'root'
 })
+// TODO: manage error handling!!!
 export class TaskService {
 
   private tasksUrl = 'http://localhost:8080/task';  // URL to web api
@@ -36,6 +37,7 @@ export class TaskService {
   }
 
   /** PUT: update the task on the server */
+  // TODO: not used yet!!!
   updateTask(task: Task): Observable<any> {
     return this.http.put(this.tasksUrl, task, this.httpOptions).pipe(
       tap(_ => this.messageService.log(`TaskService: updated task id=${task.id}`)),

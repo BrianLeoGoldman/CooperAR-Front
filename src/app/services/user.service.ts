@@ -17,21 +17,20 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  // TODO: manage errors when login with wrong nickname or password
   login(nickname: string, password: string): Observable<any> {
     const headers = new HttpHeaders().append('Content-Type', 'text/html');
     const params = new HttpParams().set('nickname', nickname).set('password', password);
     return this.http.get(`${this.usersUrl}/login`, { headers, params, responseType: 'text'} )
-      .pipe(tap(_ => this.messageService.log('UserService: login user')),
-        catchError(this.messageService.handleError<User[]>('login', [])));
+      .pipe(tap(_ => this.messageService.log('UserService: login user'))/*,
+        catchError(this.messageService.handleError<User[]>('login', []))*/);
   }
 
   /** GET users from the server */
   getUsers(): Observable<User[]> {
     const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
     return this.http.get<User[]>(`${this.usersUrl}`, { headers })
-      .pipe(tap(_ => this.messageService.log('UserService: fetched users')),
-        catchError(this.messageService.handleError<User[]>('getUsers', [])));
+      .pipe(tap(_ => this.messageService.log('UserService: fetched users'))/*,
+        catchError(this.messageService.handleError<User[]>('getUsers', []))*/);
   }
 
   /** GET specific user from the server */
@@ -39,18 +38,17 @@ export class UserService {
     const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
     const url = `${this.usersUrl}/${nickname}`;
     return this.http.get<User>(url, { headers } ).pipe(
-      tap(_ => this.messageService.log(`UserService: fetched user nickname=${nickname}`)),
-      catchError(this.messageService.handleError<User>(`getUser nickname=${nickname}`))
+      tap(_ => this.messageService.log(`UserService: fetched user nickname=${nickname}`))/*,
+      catchError(this.messageService.handleError<User>(`getUser nickname=${nickname}`))*/
     );
   }
 
   /** PUT: create the user on the server */
-  // TODO: manage errors when creating using with existing nickname
   registerUser(user: User): Observable<any> {
     const headers = new HttpHeaders().append('Content-Type', 'application/json');
     return this.http.put(this.usersUrl, user, {headers, responseType: 'text'} ).pipe(
-      tap(_ => this.messageService.log(`UserService: registered user with nickname=${user.nickname}`)),
-      catchError(this.messageService.handleError<any>('registerUser'))
+      tap(_ => this.messageService.log(`UserService: registered user with nickname=${user.nickname}`))/*,
+      catchError(this.messageService.handleError<any>('registerUser'))*/
     );
   }
 

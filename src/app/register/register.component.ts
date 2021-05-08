@@ -4,6 +4,7 @@ import {User} from '../model/user';
 import {GlobalConstants} from '../common/global-constants';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -59,7 +60,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private router: Router,
               private userService: UserService,
-              private fb: FormBuilder) {}
+              private fb: FormBuilder,
+              private toastr: ToastrService) {}
 
   // tslint:disable-next-line:typedef
   /*register() {
@@ -116,6 +118,7 @@ export class RegisterComponent implements OnInit {
           .subscribe(data => {
               GlobalConstants.token = data;
               GlobalConstants.loggedUser = this.newUser.nickname;
+              this.toastr.info('Estas logueado como ' + this.nickname, 'BIENVENIDO');
               this.router.navigate(['/dashboard']);
           },
           error => {

@@ -3,6 +3,7 @@ import {UserService} from '../services/user.service';
 import {GlobalConstants} from '../common/global-constants';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               public userService: UserService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -53,6 +55,7 @@ export class LoginComponent implements OnInit {
           .subscribe(data => {
               GlobalConstants.token = data;
               GlobalConstants.loggedUser = this.nickname;
+              this.toastr.info('Estas logueado como ' + this.nickname, 'BIENVENIDO');
               this.router.navigate(['/dashboard']);
             },
             error => {
