@@ -52,6 +52,16 @@ export class UserService {
     );
   }
 
+  /** DELETE: delete the user on the server */
+  // tslint:disable-next-line:typedef
+  deleteUser(nickname: string) {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.usersUrl}/${nickname}`;
+    return this.http.delete(url, { headers }).pipe(
+      tap(_ => this.messageService.log(`UserService: deleted user with nickname=${nickname}`))/*,
+      catchError(this.messageService.handleError<any>('registerUser'))*/);
+  }
+
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
 }

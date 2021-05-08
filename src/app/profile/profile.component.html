@@ -24,7 +24,7 @@
                 <p class="text-secondary mb-1">Dinero: ${{user.money}}</p>
                 <p class="text-muted font-size-sm">Cantidad de proyectos: {{user.projects.length}}</p>
                 <button class="btn btn-primary">Crear proyecto</button><br><br>
-                <button class="btn btn-danger">Eliminar perfil</button>
+                <button class="btn btn-danger" routerLink="/login" (click)="delete(user.nickname)">Eliminar perfil</button>
               </div>
             </div>
           </div>

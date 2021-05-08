@@ -39,4 +39,8 @@ export class TaskDetailComponent implements OnInit {
     this.location.back();
   }
 
+  delete(id: number): void {
+    this.taskService.deleteTask(id)
+      .subscribe();
+  }
 }

@@ -33,4 +33,10 @@ export class ProfileComponent implements OnInit {
     this.userService.getUser(nickname)
       .subscribe(user => this.user = user);
   }
+
+  // tslint:disable-next-line:typedef
+  delete(nickname: string) {
+    this.userService.deleteUser(nickname)
+      .subscribe(_ => console.log('OK'));
+  }
 }

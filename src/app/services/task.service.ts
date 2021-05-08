@@ -45,6 +45,14 @@ export class TaskService {
     );
   }
 
+  /** DELETE: delete the task on the server */
+  // tslint:disable-next-line:typedef
+  deleteTask(id: number) {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.tasksUrl}/${id}`;
+    return this.http.delete(url, { headers });
+  }
+
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
 }
