@@ -13,7 +13,7 @@
                   <h2>{{project.name}}</h2>
                 </div>
                 <dl class="dl-horizontal">
-                  <dt>Estado:</dt> <dd><span class="label label-primary">Active</span></dd>
+                  <dt>Estado:</dt> <dd><span class="label label-primary">PENDIENTE</span></dd>
                 </dl>
               </div>
             </div>
@@ -22,7 +22,7 @@
                 <dl class="dl-horizontal">
                   <dt>Administrador:</dt> <dd>{{project.owner}}</dd>
                   <dt>Presupuesto:</dt> <dd>  ${{project.budget}}</dd>
-                  <dt>Client:</dt> <dd><a href="#" class="text-navy"> Zender Company</a> </dd>
+                  <!--<dt>Client:</dt> <dd><a href="#" class="text-navy"> Zender Company</a> </dd>-->
                   <dt>Categoría:</dt> <dd>{{project.category}}</dd>
                 </dl>
               </div>
@@ -30,14 +30,14 @@
                 <dl class="dl-horizontal">
                   <dt>Fecha de creación:</dt> <dd>{{project.creationDate}}</dd>
                   <dt>Fecha de finalización:</dt> <dd>{{project.finishDate}}</dd>
-                  <dt>Participants:</dt>
+                  <!--<dt>Participants:</dt>
                   <dd class="project-people">
                     <a href=""><img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
                     <a href=""><img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar2.png"></a>
                     <a href=""><img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png"></a>
                     <a href=""><img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar4.png"></a>
                     <a href=""><img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar5.png"></a>
-                  </dd>
+                  </dd>-->
                 </dl>
               </div>
             </div>
@@ -340,31 +340,43 @@
     </div>
     <div class="col-md-3">
       <div class="wrapper wrapper-content project-manager">
-        <h4>Descripción</h4>
-        <p class="small">
-          {{project.description}}
-        </p>
-        <p class="small font-bold">
-          <span><i class="fa fa-circle text-warning"></i> High priority</span>
-        </p>
-        <h5>Etiquetas</h5>
-        <ul class="tag-list" style="padding: 0">
-          <li><a href="#"><i class="fa fa-tag"></i> biword</a></li>
-          <li><a href="#"><i class="fa fa-tag"></i> Lorem ipsum</a></li>
-          <li><a href="#"><i class="fa fa-tag"></i> Passages</a></li>
-          <li><a href="#"><i class="fa fa-tag"></i> Variations</a></li>
-        </ul>
-        <h5>Archivos</h5>
-        <ul class="list-unstyled project-files">
-          <li><a href="#"><i class="fa fa-file"></i> Project_document.docx</a></li>
-          <li><a href="#"><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
-          <li><a href="#"><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
-          <li><a href="#"><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
-        </ul>
-        <div class="text-center m-t-md">
-          <a href="#" class="btn btn-xs btn-primary">Crear tarea</a>
-          <a href="#" class="btn btn-xs btn-danger">Eliminar</a>
-
+        <div class="ibox">
+          <div class="ibox-content">
+            <h4>Descripción</h4>
+            <p class="small">
+              {{project.description}}
+            </p>
+            <!--<p class="small font-bold">
+              <span><i class="fa fa-circle text-warning"></i>High priority</span>
+            </p>-->
+            <h5>Tareas</h5>
+            <ul class="tag-list" style="padding: 0">
+              <li *ngFor="let task of project.tasks">
+                <a a routerLink="/task-detail/{{task.id}}">
+                  <i class="fa fa-tag">{{task.name}}
+                  </i>
+                </a>
+              </li>
+              <!--<li><a href="#"><i class="fa fa-tag"></i></a></li>
+              <li><a href="#"><i class="fa fa-tag"></i> Lorem ipsum</a></li>
+              <li><a href="#"><i class="fa fa-tag"></i> Passages</a></li>
+              <li><a href="#"><i class="fa fa-tag"></i> Variations</a></li>-->
+            </ul>
+            <div class="text-center m-t-md">
+              <a href="#" class="btn btn-xs btn-primary">Crear nueva tarea</a><br><br>
+            </div>
+            <h5>Archivos</h5>
+            <ul class="list-unstyled project-files">
+              <li><a href="#"><i class="fa fa-file"></i>Documento.docx</a></li>
+              <li><a href="#"><i class="fa fa-file-picture-o"></i>Imagen.jpg</a></li>
+              <li><a href="#"><i class="fa fa-stack-exchange"></i>Email.eml</a></li>
+              <li><a href="#"><i class="fa fa-file"></i>Contrato.docx</a></li>
+            </ul>
+            <div class="text-center m-t-md">
+              <a href="#" class="btn btn-xs btn-primary">Cargar nuevo archivo</a><br><br>
+              <a href="#" class="btn btn-xs btn-danger">Eliminar proyecto</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
