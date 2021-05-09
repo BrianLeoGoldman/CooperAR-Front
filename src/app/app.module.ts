@@ -29,6 +29,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {ErrorInterceptorService} from './services/error-interceptor.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -64,7 +66,7 @@ import {ErrorInterceptorService} from './services/error-interceptor.service';
     MatOptionModule,
     ReactiveFormsModule,
     MatCardModule,
-
+    NgbModule,
     MatSelectModule
     // ToastrModule added
   ],

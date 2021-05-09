@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {Project} from '../model/project';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private location: Location,
-              private userService: UserService) { }
+              private userService: UserService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getData();
@@ -38,5 +40,26 @@ export class ProfileComponent implements OnInit {
   delete(nickname: string) {
     this.userService.deleteUser(nickname)
       .subscribe(_ => console.log('OK'));
+    this.modalService.dismissAll();
   }
+
+  // tslint:disable-next-line:typedef
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(
+      (result) => { // this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => { // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+      );
+  }
+
+  /*private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }*/
 }
