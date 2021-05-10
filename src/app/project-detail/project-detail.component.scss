@@ -219,3 +219,21 @@ ul.tag-list li {
   background-color: #ffffff;
   list-style: none;
 }
+
+div.creation {
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
+  display: block;
+}
+
+mat-form-field {
+  display: block;
+  position:relative;
+}
+
+::ng-deep .cdk-overlay-container {
+  z-index: 1050;
+}
+
+

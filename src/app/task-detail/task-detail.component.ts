@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Task} from '../model/task';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {TaskService} from '../services/task.service';
 import {ToastrService} from 'ngx-toastr';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-task-detail',
@@ -17,7 +18,9 @@ export class TaskDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private location: Location,
               private taskService: TaskService,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private modalService: NgbModal,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.getTask();
@@ -41,6 +44,18 @@ export class TaskDetailComponent implements OnInit {
 
   delete(id: number): void {
     this.taskService.deleteTask(id)
-      .subscribe();
+      .subscribe(_ => console.log('Task deleted'));
+    this.modalService.dismissAll();
+    /*this.location.go('/dashboard');*/
+    this.router.navigate(['/dashboard']).then(r => console.log(r));
+  }
+
+  open(content): void {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(
+      (result) => { // this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => { // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 }

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../model/user';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {Project} from '../model/project';
@@ -20,7 +20,8 @@ export class ProfileComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private location: Location,
               private userService: UserService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.getData();
@@ -39,8 +40,9 @@ export class ProfileComponent implements OnInit {
   // tslint:disable-next-line:typedef
   delete(nickname: string) {
     this.userService.deleteUser(nickname)
-      .subscribe(_ => console.log('OK'));
+      .subscribe(_ => console.log('User deleted'));
     this.modalService.dismissAll();
+    this.router.navigate(['/login']).then(r => console.log(r));
   }
 
   // tslint:disable-next-line:typedef

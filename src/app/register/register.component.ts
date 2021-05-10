@@ -135,4 +135,5 @@ export class RegisterComponent implements OnInit {
     } else {
       this.formSubmitAttempt = true;
   }
-}}
+}
+}

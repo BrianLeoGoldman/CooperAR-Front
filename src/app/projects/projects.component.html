@@ -16,7 +16,7 @@
             <th scope="col" data-order="desc" data-name="name">Nombre</th>
             <th scope="col" data-order="desc" data-name="description">Descripción</th>
             <th scope="col" data-order="desc" data-name="budget">Presupuesto</th>
-            <th scope="col" class="col-tretch"></th>
+            <!--<th scope="col" class="col-tretch"></th>-->
           </tr>
           </thead>
           <tbody>
@@ -25,10 +25,10 @@
             <th><a class="hover" routerLink="/project-detail/{{project.id}}">{{ project.name }}</a></th>
             <td>{{ project.description }}</td>
             <td>$ {{ project.budget }}</td>
-            <td>
+            <!--<td>
               <button type="button" class="btn btn-outline-secondary mr-2" (click)="delete(project)">x</button>
-              <!--<button type="button" class="btn btn-outline-secondary mr-2" (click)="add(projectName.value); projectName.value=''">Add Project</button>&ndash;&gt;-->
-            </td>
+              &lt;!&ndash;<button type="button" class="btn btn-outline-secondary mr-2" (click)="add(projectName.value); projectName.value=''">Add Project</button>&ndash;&gt;&ndash;&gt;
+            </td>-->
           </tr>
           </tbody>
         </table>
