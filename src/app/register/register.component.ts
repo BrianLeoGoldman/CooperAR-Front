@@ -1,21 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {User} from '../model/user';
 import {GlobalConstants} from '../common/global-constants';
 import {Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
-import {Observable} from 'rxjs';
 import {Provinces} from '../model/provinces';
-
-
-/** Error when invalid control is dirty, touched, or submitted. */
-/*export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}*/
 
 @Component({
   selector: 'app-register',
@@ -23,22 +13,6 @@ import {Provinces} from '../model/provinces';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
-  /*nameFormControl = new FormControl('', [
-    Validators.required
-  ]);
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    Validators.pattern('(?=.*[0-9])'),
-  ]);*/
-
-  /*matcher = new MyErrorStateMatcher();*/
 
   form: FormGroup;
   public invalidData: boolean;
@@ -51,42 +25,16 @@ export class RegisterComponent implements OnInit {
   firstname: string;
   lastname: string;
   password: string;
-  confirmPassword: string;
   email: string;
   birthday: string;
   province: string;
   money: number;
   newUser: User = { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
 
-  provinceControl = new FormControl('', Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
-
   constructor(private router: Router,
               private userService: UserService,
               private fb: FormBuilder,
               private toastr: ToastrService) {}
-
-  // tslint:disable-next-line:typedef
-  /*register() {
-    // tslint:disable-next-line:label-position
-    this.fillNewUser();
-    this.userService.registerUser(this.newUser)
-      .subscribe(data => {
-        GlobalConstants.token = data;
-        GlobalConstants.loggedUser = this.nickname;
-        this.router.navigate(['/dashboard']);
-      });
-  }*/
-
-  // tslint:disable-next-line:typedef
-  /*fillNewUser() {
-    this.newUser.nickname = this.nickname;
-    this.newUser.firstname = this.firstname;
-    this.newUser.lastname = this.lastname;
-    this.newUser.password = this.password;
-    this.newUser.email = this.email;
-    this.newUser.projects = [];
-  }*/
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -98,7 +46,6 @@ export class RegisterComponent implements OnInit {
       birthday: ['', Validators.required],
       province: ['', Validators.required]
     });
-
   }
 
   // tslint:disable-next-line:typedef
@@ -116,7 +63,6 @@ export class RegisterComponent implements OnInit {
         this.newUser.province = this.form.get('province').value;
         this.newUser.money = 0;
         this.newUser.projects = [];
-        console.log(this.newUser);
         this.userService.registerUser(this.newUser)
           .subscribe(data => {
               GlobalConstants.token = data;
@@ -125,12 +71,12 @@ export class RegisterComponent implements OnInit {
               this.router.navigate(['/dashboard']);
           },
           error => {
-            console.log(error);
+            console.log('Error del metodo userService.registerUser:' + error);
           }
         );
       } catch (err) {
         this.invalidData = true;
-        console.log(err);
+        console.log('Error al extraer campos:' + err);
       }
     } else {
       this.formSubmitAttempt = true;

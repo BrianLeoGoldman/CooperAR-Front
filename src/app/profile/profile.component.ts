@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {Project} from '../model/project';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +13,6 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ProfileComponent implements OnInit {
 
-  /*@Input() user?: User*/
   user: User =  { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
   projects: Project[] = [];
 
@@ -27,10 +26,6 @@ export class ProfileComponent implements OnInit {
     this.getData();
   }
 
-  prepareData(): void {
-    console.log(this.projects);
-  }
-
   getData(): void {
     const nickname  = this.route.snapshot.paramMap.get('id');
     this.userService.getUser(nickname)
@@ -40,7 +35,7 @@ export class ProfileComponent implements OnInit {
   // tslint:disable-next-line:typedef
   delete(nickname: string) {
     this.userService.deleteUser(nickname)
-      .subscribe(_ => console.log('User deleted'));
+      .subscribe(_ => console.log('USUARIO ELIMINADO'));
     this.modalService.dismissAll();
     this.router.navigate(['/login']).then(r => console.log(r));
   }
@@ -55,13 +50,9 @@ export class ProfileComponent implements OnInit {
       );
   }
 
-  /*private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }*/
+  // tslint:disable-next-line:typedef
+  goCreateProject(money: number) {
+    this.router.navigate(['/project-create.component/', this.user.nickname, this.user.money])
+      .then(r => console.log(r));
+  }
 }

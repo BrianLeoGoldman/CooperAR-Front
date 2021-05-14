@@ -20,12 +20,16 @@
             <div class="d-flex flex-column align-items-center text-center">
               <img src="http://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png" alt="Admin" class="rounded-circle" width="150">
               <div class="mt-3">
-                <a class="btn btn-white btn-xs pull-right">Editar perfil</a>
-                <h4>{{user.firstname}} {{user.lastname}}</h4>
-                <p class="text-secondary mb-1">Dinero: ${{user.money}}</p>
-                <p class="text-muted font-size-sm">Cantidad de proyectos: {{user.projects.length}}</p>
-                <button class="btn btn-primary">Crear proyecto</button><br><br>
-                <button class="btn btn-danger" (click)="open(content)">Eliminar perfil</button>
+                <a class="text-muted">Editar perfil</a>
+                <h2 class="text-lg-center">{{user.firstname}} {{user.lastname}}</h2>
+                <div>
+                  <h3 class="text-info mb-1 inline-block-child">Dinero: ${{user.money}}</h3>
+                  <button class="btn btn-small inline-block-child">+</button>
+                </div>
+
+                <h3 class="text-info font-size-sm">Cantidad de proyectos: {{user.projects.length}}</h3>
+                <button class="btn btn-primary" (click)="goCreateProject(user.money)">Crear proyecto</button><br><br>
+                <button class="btn btn-danger" (click)="open(deleteUser)">Eliminar perfil</button>
               </div>
             </div>
           </div>
@@ -59,55 +63,55 @@
         <div class="card mb-3">
           <div class="card-body">
             <div class="row">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Apodo</h6>
+              <div class="col-lg-3">
+                <h4 class="mb-0">Apodo</h4>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-dark">
                 {{user.nickname}}
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Nombre</h6>
+                <h4 class="mb-0">Nombre</h4>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-dark">
                 {{user.firstname}}
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Apellido</h6>
+                <h4 class="mb-0">Apellido</h4>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-dark">
                 {{user.lastname}}
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Email</h6>
+                <h4 class="mb-0">Email</h4>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-dark">
                 {{user.email}}
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Fecha de nacimiento</h6>
+                <h4 class="mb-0">Fecha de nacimiento</h4>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-dark">
                 {{user.birthday}}
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Provincia</h6>
+                <h4 class="mb-0">Provincia</h4>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-dark">
                 {{user.province}}
               </div>
             </div>
@@ -117,11 +121,11 @@
           <div class="col-sm-6 mb-3">
             <div class="card h-100">
               <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Proyectos de {{user.nickname}}</h6>
-                <ul>
+                <h4 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Proyectos de {{user.nickname}}</h4>
+                <ul class="proyectos">
                   <li *ngFor="let project of user.projects">
                     <span routerLink="/project-detail/{{project.id}}">{{project.name}}</span>
-                    <ul>
+                    <ul class="tareas">
                       <li *ngFor="let task of project.tasks">
                         <span routerLink="/task-detail/{{task.id}}">{{task.name}}</span>
                       </li>
@@ -154,8 +158,8 @@
           <div class="col-sm-6 mb-3">
             <div class="card h-100">
               <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Tareas asignadas a {{user.nickname}}</h6>
-                <ul>
+                <h4 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Tareas asignadas a {{user.nickname}}</h4>
+                <ul class="tareas">
                   <li><span>Tarea 1</span></li>
                   <li><span>Tarea 2</span></li>
                   <li><span>Tarea 3</span></li>
@@ -200,9 +204,9 @@
   </div>
 </div>
 
-<ng-template #content let-modal>
+<ng-template #deleteUser let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">¿Esta seguro de que desea eliminar su perfil?</h4>
+    <h4 class="modal-title" id="modal-delete-user">¿Esta seguro de que desea eliminar su perfil?</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cerrar')">
       <span aria-hidden="true">&times;</span>
     </button>

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../model/user';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../model/user';
 import {UserService} from '../services/user.service';
-import {GlobalConstants} from '../common/global-constants';
 
 @Component({
   selector: 'app-users',
@@ -12,25 +11,15 @@ export class UsersComponent implements OnInit {
 
   users: User[] = [];
 
-  /*user: User = {
-    nickname: 'Facundo',
-    email: 'facu@mail.com',
-  };*/
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.getUsers();
+  }
 
   getUsers(): void {
     this.userService.getUsers()
       .subscribe(users => this.users = users);
   }
 
-  add(name: string): void {
-  }
-
-  delete(user: User): void {
-  }
-
-  constructor(private userService: UserService) { }
-
-  ngOnInit(): void {
-    this.getUsers();
-  }
 }

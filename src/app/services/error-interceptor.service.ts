@@ -1,20 +1,15 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-  HttpResponse,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {catchError, retry} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorInterceptorService implements HttpInterceptor {
+
+  constructor(private toastr: ToastrService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
@@ -23,17 +18,18 @@ export class ErrorInterceptorService implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           let errorMessage = '';
           if (error.error instanceof ErrorEvent) {
-            // client-side error
-            errorMessage = `Error: ${error.error.message}`;
+            // Client-side error
+            errorMessage = `${error.error.message}`;
+            this.toastr.error(errorMessage, 'ERROR');
           } else {
-            // server-side error
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.error.toString()}`;
+            // Server-side error
+            errorMessage = `${error.error.toString()}`;
+            this.toastr.error(errorMessage, `ERROR ${error.status}`);
           }
-          this.toastr.error(errorMessage, 'ERROR');
+          /*this.toastr.error(errorMessage, 'ERROR');*/
           return throwError(errorMessage);
         })
       );
   }
 
-  constructor(private toastr: ToastrService) { }
 }
