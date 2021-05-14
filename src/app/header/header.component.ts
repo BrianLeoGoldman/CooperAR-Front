@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GlobalConstants} from '../common/global-constants';
 import {Router} from '@angular/router';
 
@@ -14,8 +14,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goProfile() {
+  goProfile(): void {
     this.router.navigate([`/profile/${GlobalConstants.loggedUser}`]);
   }
 
+  closeSession(): void {
+    GlobalConstants.loggedUser = '';
+    GlobalConstants.token = '';
+    this.router.navigate([`/login`]);
+  }
 }
