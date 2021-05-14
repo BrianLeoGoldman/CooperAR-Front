@@ -29,6 +29,7 @@ import {ErrorInterceptorService} from './services/error-interceptor.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatTableModule} from '@angular/material/table';
 import {ProjectCreateComponent} from './project-create/project-create.component';
+import { TaskCreateComponent } from './task-create/task-create.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import {ProjectCreateComponent} from './project-create/project-create.component'
     LoginComponent,
     RegisterComponent,
     HeaderComponent,
-    ProjectCreateComponent
+    ProjectCreateComponent,
+    TaskCreateComponent
   ],
     imports: [
         BrowserModule,

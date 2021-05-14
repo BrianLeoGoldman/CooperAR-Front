@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Task} from '../model/task';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
@@ -13,7 +13,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class TaskDetailComponent implements OnInit {
 
-  @Input() task?: Task;
+  task: Task =  { name: '', description: '', reward: 0, project_name: '', creationDate: '', finishDate: '', difficulty: '' };
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -32,30 +32,19 @@ export class TaskDetailComponent implements OnInit {
       .subscribe(task => this.task = task);
   }
 
-  save(): void {
-    this.toastr.info('This functionality is not implemented yet!', 'Nothing happened');
-    /*this.taskService.updateTask(this.task)
-      .subscribe(() => this.goBack());*/
-  }
-
-  goBack(): void {
-    this.location.back();
+  open(content): void {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+      (result) => { console.log(`${result}`); },
+      (reason) => { console.log(`${reason}`); }
+    );
   }
 
   delete(id: number): void {
     this.taskService.deleteTask(id)
-      .subscribe(_ => console.log('Task deleted'));
+      .subscribe(_ => console.log('Task ' + id + ' deleted'));
     this.modalService.dismissAll();
-    /*this.location.go('/dashboard');*/
-    this.router.navigate(['/dashboard']).then(r => console.log(r));
-  }
-
-  open(content): void {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(
-      (result) => { // this.closeResult = `Closed with: ${result}`;
-      },
-      (reason) => { // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
+    this.location.back(); // TODO: when task is deleted and we go back, we still see the deleted task
+    // this.router.navigate(['/dashboard']).then(r => console.log(r));
   }
 }

@@ -1,37 +1,36 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Categories} from '../model/categories';
+import {Difficulties} from '../model/difficulties';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {ProjectService} from '../services/project.service';
 import {TaskService} from '../services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-project-create',
-  templateUrl: './project-create.component.html',
-  styleUrls: ['./project-create.component.scss']
+  selector: 'app-task-create',
+  templateUrl: './task-create.component.html',
+  styleUrls: ['./task-create.component.scss']
 })
-export class ProjectCreateComponent implements OnInit {
+export class TaskCreateComponent implements OnInit {
 
   form: FormGroup;
   public invalidData: boolean;
   private formSubmitAttempt: boolean;
 
-  keys: Array<string> = Object.keys(Categories);
-  categories: Array<string> = this.keys.slice(this.keys.length / 2);
+  keys: Array<string> = Object.keys(Difficulties);
+  difficulties: Array<string> = this.keys.slice(this.keys.length / 2);
 
   name: string;
-  budget: number;
+  reward: number;
   description: string;
-  category: string;
+  projectId: number; // From path
+  difficulty: string;
   owner: string; // From path
-  money: number; // From path
+  budget: number; // From path
 
   constructor(private route: ActivatedRoute, // Holds information about the route to this instance of the component
               private location: Location, // Is an Angular service for interacting with the browser
-              private projectService: ProjectService,
               private taskService: TaskService,
               private toastr: ToastrService,
               private modalService: NgbModal,
@@ -40,12 +39,13 @@ export class ProjectCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.owner = this.route.snapshot.paramMap.get('owner');
-    this.money = Number(this.route.snapshot.paramMap.get('money'));
+    this.projectId = Number(this.route.snapshot.paramMap.get('projectId'));
+    this.budget = Number(this.route.snapshot.paramMap.get('budget'));
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
-      budget: ['', Validators.required],
+      reward: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(20)]],
-      category: ['', Validators.required]
+      difficulty: ['', Validators.required]
     });
   }
 
@@ -60,17 +60,18 @@ export class ProjectCreateComponent implements OnInit {
     if (this.form.valid) {
       try {
         this.name = this.form.get('name').value;
-        this.budget = this.form.get('budget').value;
+        this.reward = this.form.get('reward').value;
         this.description = this.form.get('description').value;
-        this.category = this.form.get('category').value;
-        this.projectService.createProject(
+        this.difficulty = this.form.get('difficulty').value;
+        this.taskService.createTask(
           this.name,
-          this.budget,
+          this.reward,
           this.description,
-          this.category,
+          this.projectId,
+          this.difficulty,
           this.owner)
           .subscribe(data => {
-              this.toastr.info('Se ha creado el proyecto con nombre ' + this.name, 'PROYECTO CREADO');
+              this.toastr.info('Se ha creado la tarea con nombre ' + this.name, 'TAREA CREADA');
               this.location.back();
               // this.router.navigate(['/dashboard']);
             },

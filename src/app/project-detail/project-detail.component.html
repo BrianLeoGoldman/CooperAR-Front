@@ -12,9 +12,9 @@
                   <a class="btn btn-white btn-xs pull-right">Editar proyecto</a>
                   <h2>{{project.name}}</h2>
                 </div>
-                <dl class="dl-horizontal">
+                <!--<dl class="dl-horizontal">
                   <dt>Estado:</dt> <dd><span class="label label-primary">PENDIENTE</span></dd>
-                </dl>
+                </dl>-->
               </div>
             </div>
             <div class="row">
@@ -363,7 +363,7 @@
               <li><a href="#"><i class="fa fa-tag"></i> Variations</a></li>-->
             </ul>
             <div class="text-center m-t-md">
-              <a class="btn btn-xs btn-primary" (click)="open(task)">Crear nueva tarea</a><br><br>
+              <a class="btn btn-xs btn-primary" (click)="goCreateTask()">Crear nueva tarea</a><br><br>
             </div>
             <h5>Archivos</h5>
             <ul class="list-unstyled project-files">
@@ -374,7 +374,7 @@
             </ul>
             <div class="text-center m-t-md">
               <a class="btn btn-xs btn-primary">Cargar nuevo archivo</a><br><br>
-              <a class="btn btn-xs btn-danger" (click)="open(content)">Eliminar proyecto</a>
+              <a class="btn btn-xs btn-danger" (click)="open(deleteProject)">Eliminar proyecto</a>
             </div>
           </div>
         </div>
@@ -383,60 +383,7 @@
   </div>
 </div>
 
-<ng-template #task let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="new-task-title">Crear nueva tarea</h4>
-    <h6 class="modal-title" id="new-task-subtitle">Presupuesto disponible: ${{project.budget}}</h6>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cerrar')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="modal-body">
-    <div class="creation">
-
-
-      <mat-form-field class="full-width-input">
-        <input matInput placeholder="Nombre de proyecto" formControlName="name" required minlength="5">
-        <mat-error>
-          Se require un nombre de proyecto valido
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="full-width-input">
-        <input matInput type="number" placeholder="Recompensa" formControlName="reward" required>
-        <mat-error>
-          No hay suficiente presupuesto
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="full-width-input">
-        <textarea matInput placeholder="Descripcion" formControlName="description" required minlength="20"></textarea>
-        <mat-error>
-          Se require una descripcion
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="full-width-input">
-        <mat-label>Dificultad</mat-label>
-        <mat-select formControlName="difficulty" required>
-          <mat-option *ngFor="let difficulty of difficulties" [value]="difficulty">
-            {{difficulty}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button mat-raised-button class="btn btn-outline-success" (click)="modal.close('Tarea creada')">Crear</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancelar')">Cancelar</button>
-  </div>
-  </form>
-</ng-template>
-
-<ng-template #content let-modal>
+<ng-template #deleteProject let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="delete-project-title">¿Esta seguro de que desea eliminar este proyecto?</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cerrar')">

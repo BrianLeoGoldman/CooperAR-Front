@@ -3,8 +3,8 @@
 <mat-card>
   <mat-card-content>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <h2 class="title" id="new-project-title">Crear nuevo proyecto para {{nickname}}</h2><br>
-      <h4 class="title" id="new-task-subtitle">Dinero disponible: ${{money}}</h4>
+      <h2 class="title" id="new-project-title">Crear nuevo proyecto para {{owner}}</h2><br>
+      <h4 class="title" id="new-project-subtitle">Dinero disponible: ${{money}}</h4>
       <mat-error *ngIf="invalidData">
         La informacion proporcionada no pudo registrarse
       </mat-error>

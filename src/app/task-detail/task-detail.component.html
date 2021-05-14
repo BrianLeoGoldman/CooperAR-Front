@@ -13,6 +13,9 @@
                   <h2>{{task.name}}</h2>
                 </div>
                 <dl class="dl-horizontal">
+                  <dt>Estado:</dt> <dd><span class="label label-primary">PENDIENTE</span></dd>
+                </dl>
+                <dl class="dl-horizontal">
                   <dt>Dificultad:</dt> <dd><span class="label label-primary">{{task.difficulty}}</span></dd>
                 </dl>
               </div>
@@ -70,14 +73,14 @@
             </div>-->
             <h5>Archivos</h5>
             <ul class="list-unstyled project-files">
-              <li><a href="#"><i class="fa fa-file"></i>Documento.docx</a></li>
-              <li><a href="#"><i class="fa fa-file-picture-o"></i>Imagen.jpg</a></li>
-              <li><a href="#"><i class="fa fa-stack-exchange"></i>Email.eml</a></li>
-              <li><a href="#"><i class="fa fa-file"></i>Contrato.docx</a></li>
+              <li><a><i class="fa fa-file"></i>Documento.docx</a></li>
+              <li><a><i class="fa fa-file-picture-o"></i>Imagen.jpg</a></li>
+              <li><a><i class="fa fa-stack-exchange"></i>Email.eml</a></li>
+              <li><a><i class="fa fa-file"></i>Contrato.docx</a></li>
             </ul>
             <div class="text-center m-t-md">
               <a class="btn btn-xs btn-primary">Cargar nuevo archivo</a><br><br>
-              <a class="btn btn-xs btn-danger" (click)="open(content)">Eliminar tarea</a>
+              <a class="btn btn-xs btn-danger" (click)="open(deleteTask)">Eliminar tarea</a>
             </div>
           </div>
         </div>
@@ -86,7 +89,7 @@
   </div>
 </div>
 
-<ng-template #content let-modal>
+<ng-template #deleteTask let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">¿Esta seguro de que desea eliminar esta tarea?</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cerrar')">
