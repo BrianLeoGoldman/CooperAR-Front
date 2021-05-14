@@ -27,19 +27,19 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th scope="col" data-order="desc" data-name="id">ID</th>
+            <th style="width: 5%" scope="col" data-order="desc" data-name="id">ID</th>
             <th scope="col" data-order="desc" data-name="name">Nombre</th>
             <th scope="col" data-order="desc" data-name="description">Descripción</th>
-            <th scope="col" data-order="desc" data-name="reward">Recompensa</th>
-            <th scope="col" class="col-tretch"></th>
+            <th style="width: 12%" scope="col" data-order="desc" data-name="reward">Recompensa</th>
+            <!--<th scope="col" class="col-tretch"></th>-->
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let task of tasks; index as i">
-            <th>{{ task.id }}</th>
+            <th style="width: 5%">{{ task.id }}</th>
             <th><a class="hover" routerLink="/task-detail/{{task.id}}">{{ task.name }}</a></th>
             <td>{{ task.description }}</td>
-            <td>$ {{ task.reward }}</td>
+            <td style="width: 12%">$ {{ task.reward }}</td>
           </tr>
           </tbody>
         </table>

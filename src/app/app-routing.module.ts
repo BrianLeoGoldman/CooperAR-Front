@@ -10,6 +10,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {TaskDetailComponent} from './task-detail/task-detail.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
+import {ProjectCreateComponent} from './project-create/project-create.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,7 +24,9 @@ const routes: Routes = [
   { path: 'user-detail/:id', component: UserDetailComponent },
   { path: 'project-detail/:id', component: ProjectDetailComponent },
   { path: 'task-detail/:id', component: TaskDetailComponent },
-  { path: 'profile/:id', component: ProfileComponent }
+  { path: 'profile/:id', component: ProfileComponent },
+  { path: 'project-create.component/:id/:money', component: ProjectCreateComponent },
+  // { path: '**', component: LoginComponent },
 ];
 
 @NgModule({

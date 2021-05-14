@@ -30,6 +30,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {ErrorInterceptorService} from './services/error-interceptor.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatTableModule} from '@angular/material/table';
+import { ProjectCreateComponent } from './project-create/project-create.component';
 
 
 @NgModule({
@@ -46,30 +48,32 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TaskDetailComponent,
     LoginComponent,
     RegisterComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProjectCreateComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    CommonModule,
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(),
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatOptionModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    NgbModule,
-    MatSelectModule
-    // ToastrModule added
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        CommonModule,
+        BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot(),
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatOptionModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        NgbModule,
+        MatSelectModule,
+        MatTableModule,
+        // ToastrModule added
+    ],
   providers: [
     {
     provide: HTTP_INTERCEPTORS,
