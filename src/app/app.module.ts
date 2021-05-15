@@ -30,6 +30,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatTableModule} from '@angular/material/table';
 import {ProjectCreateComponent} from './project-create/project-create.component';
 import { TaskCreateComponent } from './task-create/task-create.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { TaskCreateComponent } from './task-create/task-create.component';
     RegisterComponent,
     HeaderComponent,
     ProjectCreateComponent,
-    TaskCreateComponent
+    TaskCreateComponent,
+    PageNotFoundComponent
   ],
     imports: [
         BrowserModule,

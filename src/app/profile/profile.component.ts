@@ -5,6 +5,7 @@ import {Location} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {Project} from '../model/project';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {GlobalConstants} from '../common/global-constants';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,7 @@ export class ProfileComponent implements OnInit {
 
   user: User =  { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
   projects: Project[] = [];
+  isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -28,6 +30,7 @@ export class ProfileComponent implements OnInit {
 
   getData(): void {
     const nickname  = this.route.snapshot.paramMap.get('id');
+    this.isOwner = GlobalConstants.loggedUser === nickname;
     this.userService.getUser(nickname)
       .subscribe(user => this.user = user);
   }

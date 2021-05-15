@@ -20,16 +20,16 @@
             <div class="d-flex flex-column align-items-center text-center">
               <img src="http://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png" alt="Admin" class="rounded-circle" width="150">
               <div class="mt-3">
-                <a class="text-muted">Editar perfil</a>
+                <a [hidden]="!isOwner" class="text-muted">Editar perfil</a>
                 <h2 class="text-lg-center">{{user.firstname}} {{user.lastname}}</h2>
                 <div>
-                  <h3 class="text-info mb-1 inline-block-child">Dinero: ${{user.money}}</h3>
-                  <button class="btn btn-small inline-block-child">+</button>
+                  <h3 [hidden]="!isOwner" class="text-info mb-1 inline-block-child">Dinero: ${{user.money}}</h3>
+                  <button [hidden]="!isOwner" class="btn btn-small inline-block-child">+</button>
                 </div>
 
                 <h3 class="text-info font-size-sm">Cantidad de proyectos: {{user.projects.length}}</h3>
-                <button class="btn btn-primary" (click)="goCreateProject()">Crear proyecto</button><br><br>
-                <button class="btn btn-danger" (click)="open(deleteUser)">Eliminar perfil</button>
+                <button [hidden]="!isOwner" class="btn btn-primary" (click)="goCreateProject()">Crear proyecto</button><br><br>
+                <button [hidden]="!isOwner" class="btn btn-danger" (click)="open(deleteUser)">Eliminar perfil</button>
               </div>
             </div>
           </div>

@@ -11,6 +11,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ProjectCreateComponent} from './project-create/project-create.component';
 import {TaskCreateComponent} from './task-create/task-create.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,7 +27,7 @@ const routes: Routes = [
   { path: 'profile/:id', component: ProfileComponent },
   { path: 'project-create.component/:owner/:money', component: ProjectCreateComponent },
   { path: 'task-create.component/:owner/:projectId/:budget', component: TaskCreateComponent },
-  // { path: '**', component: LoginComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

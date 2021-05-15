@@ -8,6 +8,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Difficulties} from '../model/difficulties';
 import {TaskService} from '../services/task.service';
+import {GlobalConstants} from '../common/global-constants';
 
 @Component({
   selector: 'app-project-detail',
@@ -17,6 +18,7 @@ import {TaskService} from '../services/task.service';
 export class ProjectDetailComponent implements OnInit {
 
   project: Project =  { name: '', budget: 0, description: '', owner: '', creationDate: '', finishDate: '', category: '', tasks: [] };
+  isOwner: boolean;
 
   form: FormGroup;
   public invalidData: boolean;
@@ -52,7 +54,12 @@ export class ProjectDetailComponent implements OnInit {
   getProject(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.projectService.getProject(id)
-      .subscribe(project => this.project = project);
+      .subscribe(project => this.setProjectInfo(project));
+  }
+
+  private setProjectInfo(project: Project): void {
+    this.project = project;
+    this.isOwner = GlobalConstants.loggedUser === this.project.owner;
   }
 
   goBack(): void {
@@ -81,5 +88,4 @@ export class ProjectDetailComponent implements OnInit {
     this.router.navigate(['/task-create.component/', this.project.owner, this.project.id, this.project.budget])
       .then(r => console.log(r));
   }
-
 }

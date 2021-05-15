@@ -9,7 +9,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="m-b-md">
-                  <a class="btn btn-white btn-xs pull-right">Editar tarea</a>
+                  <a [hidden]="!isOwner" class="btn btn-white btn-xs pull-right">Editar tarea</a>
                   <h2>{{task.name}}</h2>
                 </div>
                 <dl class="dl-horizontal">
@@ -55,10 +55,9 @@
       <div class="wrapper wrapper-content project-manager">
         <div class="ibox">
           <div class="ibox-content">
+            <h4>ID de Proyecto: {{task.projectId}}</h4>
             <h4>Descripción</h4>
-            <p class="small">
-              {{task.description}}
-            </p>
+            <p class="small">{{task.description}}</p>
             <!--<h5>Tareas</h5>
             <ul class="tag-list" style="padding: 0">
               <li *ngFor="let task of project.tasks">
@@ -79,8 +78,8 @@
               <li><a><i class="fa fa-file"></i>Contrato.docx</a></li>
             </ul>
             <div class="text-center m-t-md">
-              <a class="btn btn-xs btn-primary">Cargar nuevo archivo</a><br><br>
-              <a class="btn btn-xs btn-danger" (click)="open(deleteTask)">Eliminar tarea</a>
+              <a [hidden]="!isOwner" class="btn btn-xs btn-primary">Cargar nuevo archivo</a><br><br>
+              <a [hidden]="!isOwner" class="btn btn-xs btn-danger" (click)="open(deleteTask)">Eliminar tarea</a>
             </div>
           </div>
         </div>

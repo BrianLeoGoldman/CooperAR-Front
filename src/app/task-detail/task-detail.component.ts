@@ -13,7 +13,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class TaskDetailComponent implements OnInit {
 
-  task: Task =  { name: '', description: '', reward: 0, project_name: '', creationDate: '', finishDate: '', difficulty: '' };
+  task: Task =  { name: '', description: '', reward: 0, projectId: '', creationDate: '', finishDate: '', difficulty: '' };
+  isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -29,7 +30,12 @@ export class TaskDetailComponent implements OnInit {
   getTask(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.taskService.getTask(id)
-      .subscribe(task => this.task = task);
+      .subscribe(task => this.setTaskInfo(task));
+  }
+
+  private setTaskInfo(task: Task): void {
+    this.task = task;
+    this.isOwner = true; // GlobalConstants.loggedUser === this.task.owner;
   }
 
   open(content): void {

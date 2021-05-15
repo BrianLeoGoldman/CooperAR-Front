@@ -3,7 +3,7 @@ export interface Task {
   name: string;
   description: string;
   reward: number;
-  project_name: string;
+  projectId: string;
   creationDate: string;
   finishDate: string;
   difficulty: string;
