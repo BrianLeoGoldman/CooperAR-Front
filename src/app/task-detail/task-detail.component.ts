@@ -5,6 +5,8 @@ import {Location} from '@angular/common';
 import {TaskService} from '../services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {GlobalConstants} from '../common/global-constants';
+import {States} from '../model/states';
 
 @Component({
   selector: 'app-task-detail',
@@ -13,8 +15,9 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class TaskDetailComponent implements OnInit {
 
-  task: Task =  { name: '', description: '', reward: 0, projectId: '', creationDate: '', finishDate: '', difficulty: '' };
+  task: Task =  { name: '', description: '', reward: 0, projectId: '', creationDate: '', finishDate: '', difficulty: '', owner: '', worker: '', state: '' };
   isOwner: boolean;
+  isAssignable: boolean;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -35,7 +38,8 @@ export class TaskDetailComponent implements OnInit {
 
   private setTaskInfo(task: Task): void {
     this.task = task;
-    this.isOwner = true; // GlobalConstants.loggedUser === this.task.owner;
+    this.isOwner = GlobalConstants.loggedUser === this.task.owner;
+    this.isAssignable = !this.isOwner && (this.task.state === 'ABIERTA');
   }
 
   open(content): void {
@@ -50,7 +54,13 @@ export class TaskDetailComponent implements OnInit {
     this.taskService.deleteTask(id)
       .subscribe(_ => console.log('Task ' + id + ' deleted'));
     this.modalService.dismissAll();
-    this.location.back(); // TODO: when task is deleted and we go back, we still see the deleted task
-    // this.router.navigate(['/dashboard']).then(r => console.log(r));
+    // this.location.back(); // TODO: triggers task deletion two times!
+    this.router.navigate(['/dashboard']).then(r => console.log(r));
+  }
+
+  // tslint:disable-next-line:typedef
+  assignWorker() {
+    this.taskService.assignWorker(GlobalConstants.loggedUser, this.task.id)
+      .subscribe(_ => this.ngOnInit()); // TODO: does not refresh!
   }
 }

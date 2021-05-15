@@ -38,6 +38,18 @@ export class TaskService {
     );
   }
 
+  /** GET tasks assgined to the user */
+  // tslint:disable-next-line:typedef
+  getAssignedTasks(nickname: string): Observable<Task[]> {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.tasksUrl}/assign?user=${nickname}`;
+    return this.http.get<Task[]>(url, { headers })
+      .pipe(
+        tap(_ => console.log('getAssignedTasks: OK')),
+        /*catchError(this.handleError<Task>('getTask'))*/
+      );
+  }
+
   /** PUT: create a new task */
   createTask(name: string, reward: number, description: string, projectId: number, difficulty: string, owner: string): Observable<any> {
     const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
@@ -68,6 +80,17 @@ export class TaskService {
       );
   }
 
+  /** PUT: assign a user as worker of a task */
+  // tslint:disable-next-line:typedef
+  assignWorker(loggedUser: string, id: number) {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.tasksUrl}/assign?user=${loggedUser}&id=${id}`;
+    return this.http.put(url, { headers })
+      .pipe(
+        tap(_ => console.log('assignWorker: OK')),
+      );
+  }
+
   formatTask(task: Task): void {
     task.creationDate = new Date(task.creationDate).toLocaleDateString();
   }
@@ -79,5 +102,4 @@ export class TaskService {
       return of(result as T);
     };
   }
-
 }

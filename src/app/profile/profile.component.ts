@@ -4,8 +4,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {Project} from '../model/project';
+import {Task} from '../model/task';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {GlobalConstants} from '../common/global-constants';
+import {TaskService} from '../services/task.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,11 +18,13 @@ export class ProfileComponent implements OnInit {
 
   user: User =  { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
   projects: Project[] = [];
+  assignedTasks: Task[] = [];
   isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
               private userService: UserService,
+              private taskService: TaskService,
               private modalService: NgbModal,
               private router: Router) { }
 
@@ -33,6 +37,8 @@ export class ProfileComponent implements OnInit {
     this.isOwner = GlobalConstants.loggedUser === nickname;
     this.userService.getUser(nickname)
       .subscribe(user => this.user = user);
+    this.taskService.getAssignedTasks(nickname)
+      .subscribe(tasks => this.assignedTasks = tasks);
   }
 
   // tslint:disable-next-line:typedef

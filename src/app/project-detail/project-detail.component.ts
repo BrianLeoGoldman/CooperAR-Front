@@ -68,7 +68,7 @@ export class ProjectDetailComponent implements OnInit {
 
   delete(id: number): void {
     this.projectService.deleteProject(id)
-      .subscribe(_ => console.log('Project deleted'));
+      .subscribe(_ => console.log('Project ' + id + ' deleted'));
     this.modalService.dismissAll();
     // this.location.go('/dashboard');
     this.router.navigate(['/dashboard']).then(r => console.log(r));

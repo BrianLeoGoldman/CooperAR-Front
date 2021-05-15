@@ -7,4 +7,7 @@ export interface Task {
   creationDate: string;
   finishDate: string;
   difficulty: string;
+  owner: string;
+  worker: string;
+  state: string;
 }

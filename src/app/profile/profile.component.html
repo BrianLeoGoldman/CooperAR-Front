@@ -160,10 +160,8 @@
               <div class="card-body">
                 <h4 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Tareas asignadas a {{user.nickname}}</h4>
                 <ul class="tareas">
-                  <li><span>Tarea 1</span></li>
-                  <li><span>Tarea 2</span></li>
-                  <li><span>Tarea 3</span></li>
-                  <li><span>Tarea 4</span></li>
+                  <li *ngFor="let task of assignedTasks">
+                    <span routerLink="/task-detail/{{task.id}}">{{task.name}}</span>
                 </ul>
                 <!--<small>Web Design</small>
                 <div class="progress mb-3" style="height: 5px">
