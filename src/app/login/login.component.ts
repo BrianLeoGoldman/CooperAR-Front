@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
               this.toastr.info('Estas logueado como ' + this.nickname, 'BIENVENIDO');
               this.router.navigate(['/dashboard']);
             },
-            error => {
+            /*error => {
               console.log('Error del metodo userService.login:' + error);
-            }
+            }*/
           );
       } catch (err) {
         this.invalidData = true;

@@ -70,9 +70,9 @@ export class RegisterComponent implements OnInit {
               this.toastr.info('Estas logueado como ' + this.newUser.nickname, 'BIENVENIDO');
               this.router.navigate(['/dashboard']);
           },
-          error => {
+          /*error => {
             console.log('Error del metodo userService.registerUser:' + error);
-          }
+          }*/
         );
       } catch (err) {
         this.invalidData = true;

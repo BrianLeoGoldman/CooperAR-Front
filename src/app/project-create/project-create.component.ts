@@ -74,13 +74,13 @@ export class ProjectCreateComponent implements OnInit {
               this.location.back();
               // this.router.navigate(['/dashboard']);
             },
-            error => {
-              console.log(error);
-            }
+            /*error => {
+              console.log('Error del metodo projectService.createProject:' + error);
+            }*/
           );
       } catch (err) {
         this.invalidData = true;
-        console.log(err);
+        console.log('Error al extraer campos:' + err);
       }
     } else {
       this.formSubmitAttempt = true;
