@@ -1,7 +1,13 @@
 export interface Task {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   reward: number;
-  project_name: string;
+  projectId: string;
+  creationDate: string;
+  finishDate: string;
+  difficulty: string;
+  owner: string;
+  worker: string;
+  state: string;
 }

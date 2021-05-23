@@ -1,0 +1,25 @@
+/*
+The first thing we want to do is:
+    Add a margin and padding reset, always use some kind of CSS reset.
+    Move the Unordered List away from the edge with a margin – with ‘margin: 20px 10px’
+    Force the List Items to be horizontal – with ‘float: left’
+    Get rid of those pesky black dots – with ‘list-style-type: none’
+Next, what we want to achieve is:
+    Get rid of the underline – with ‘text-decoration: none’
+    Add some padding to give the buttons volume – with ‘padding: 10px 20px’
+    Add a background colour – with ‘background: #004b98’
+    Add a font colour – with ‘color: white’
+    Change the display to ‘block’ so that the entire <a> is clickable, not just the text (It seems like this only needed for IE6 and IE7)- with ‘display: block’
+    Change the type of font used – with ‘font-family: Arial, Helvetica, sans-serif’
+    Add a hover state
+ */
+
+/** { margin: 0; padding: 0; }
+ul { margin: 20px 10px; }
+ul li { float: left; list-style-type: none; }
+ul li a { background: #004b98; color: white; display: block; font-family: Arial, Helvetica, sans-serif; padding: 10px 20px; text-decoration: none; }
+ul li a:hover { background: #0069d4; }*/
+
+.no-arrow .dropdown-toggle::after {
+  display:none;
+}

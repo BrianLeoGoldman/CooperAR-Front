@@ -1,0 +1,48 @@
+<app-header></app-header>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h2 class="title" id="new-project-title">Crear nuevo proyecto para {{owner}}</h2><br>
+      <h4 class="title" id="new-project-subtitle">Dinero disponible: ${{money}}</h4>
+      <mat-error *ngIf="invalidData">
+        La informacion proporcionada no pudo registrarse
+      </mat-error>
+
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Nombre de proyecto" formControlName="name" required minlength="5">
+            <mat-error>
+              Se require un nombre de proyecto valido
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width-input">
+            <input matInput type="number" placeholder="Presupuesto" formControlName="budget" required>
+            <mat-error>
+              No hay suficiente dinero
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width-input">
+            <textarea matInput placeholder="Descripcion" formControlName="description" required minlength="20"></textarea>
+            <mat-error>
+              Se require una descripcion
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width-input">
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="category" required>
+              <mat-option *ngFor="let category of categories" [value]="category">
+                {{category}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+      <div class="footer">
+        <button mat-raised-button class="btn btn-outline-success">Crear</button>&nbsp;
+        <button type="button" class="btn btn-outline-dark" (click)="goBack()">Atras</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

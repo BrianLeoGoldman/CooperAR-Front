@@ -1,20 +1,57 @@
-<h2>Top users</h2>
-<div class="users-menu">
-  <a *ngFor="let user of users" routerLink="/user-detail/{{user.nickname}}">
-    {{user.nickname}}
-  </a>
-</div>
+<app-header></app-header>
 
-<h2>Top Projects</h2>
-<div class="projects-menu">
-  <a *ngFor="let project of projects" routerLink="/project-detail/{{project.id}}">
-    {{project.name}}
-  </a>
-</div>
+<div class="container p-0">
+  <div><br></div>
+  <div>
+    <img src="./assets/images/logo-3.png" alt="Logo" class="displayed" width="255">
+  </div>
+  <div><br><br></div>
 
-<h2>Top tasks</h2>
-<div class="tasks-menu">
-  <a *ngFor="let task of tasks" routerLink="/task-detail/{{task.id}}">
-    {{task.name}}
-  </a>
+  <h1 style="color: white">¿Buscas un proyecto?</h1>
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-3" *ngFor="let project of projects">
+      <div class="card">
+        <div class="card-header px-4 pt-4">
+          <div class="card-actions float-right">
+            <div class="dropdown show">
+            </div>
+          </div>
+          <h5 class="card-title mb-0"><b>{{project.name}}</b></h5>
+          <div class="badge bg-success my-2">{{project.category}}</div>
+        </div>
+        <div class="card-body px-4 pt-2">
+          <p>{{project.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item px-4 pb-4">
+            <p class="mb-2 font-weight-bold">Progreso <span class="float-right">75%</span></p>
+            <div class="progress progress-sm">
+              <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h1 style="color: white">¿Buscas una tarea?</h1>
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-3" *ngFor="let task of tasks">
+      <div class="card">
+        <div class="card-header px-4 pt-4">
+          <div class="card-actions float-right">
+            <div class="dropdown show">
+            </div>
+          </div>
+          <h5 class="card-title mb-0"><b>{{task.name}}</b></h5>
+          <div class="badge bg-danger my-2">{{task.difficulty}}</div>&nbsp;
+          <div class="badge bg-info my-2">${{task.reward}}</div>
+        </div>
+        <div class="card-body px-4 pt-2">
+          <p>{{task.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

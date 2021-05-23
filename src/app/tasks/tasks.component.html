@@ -1,44 +1,27 @@
-<!--<h2>All Tasks</h2>
-<ul class="tasks">
-  <li *ngFor="let task of tasks">
-    <a routerLink="/task-detail/{{task.id}}">
-      <span class="badge">{{task.id}}</span> {{task.name}}
-    </a>
-    <button class="delete" title="delete task" (click)="delete(task)">x</button>
-  </li>
-</ul>
-<h2>Create new task</h2>
-<div>
-  <label id="new-task">Task name: </label>
-  <input for="new-task" #taskname />
-  <button class="add-button" (click)="add(taskname.value); taskname.value=''">
-    Add task
-  </button>
-</div>-->
-
+<app-header></app-header>
 
 <div>
   <div class="container">
     <div class="card border-light mb-3 mt-3">
 
       <div class="card-body">
-        <h1 class="card-title">Tasks</h1>
+        <h1 class="card-title">Tareas</h1>
         <table class="table table-striped">
           <thead>
           <tr>
-            <th scope="col" data-order="desc" data-name="id">ID</th>
-            <th scope="col" data-order="desc" data-name="name">Name</th>
-            <th scope="col" data-order="desc" data-name="description">Description</th>
-            <th scope="col" data-order="desc" data-name="reward">Reward</th>
-            <th scope="col" class="col-tretch"></th>
+            <th style="width: 5%" scope="col" data-order="desc" data-name="id">ID</th>
+            <th scope="col" data-order="desc" data-name="name">Nombre</th>
+            <th scope="col" data-order="desc" data-name="description">Descripción</th>
+            <th style="width: 12%" scope="col" data-order="desc" data-name="reward">Recompensa</th>
+            <!--<th scope="col" class="col-tretch"></th>-->
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let task of tasks; index as i">
-            <th>{{ task.id }}</th>
-            <th scope="row" routerLink="/task-detail/{{task.id}}">{{ task.name }}</th>
+            <th style="width: 5%">{{ task.id }}</th>
+            <th><a class="hover" routerLink="/task-detail/{{task.id}}">{{ task.name }}</a></th>
             <td>{{ task.description }}</td>
-            <td>$ {{ task.reward }}</td>
+            <td style="width: 12%">$ {{ task.reward }}</td>
           </tr>
           </tbody>
         </table>

@@ -1,12 +1,397 @@
-<br>
-<div *ngIf="project">
-  <h2>{{project.name | uppercase}}</h2>
-  <div><span>Id: </span>{{project.id}}</div>
-  <div><span>Name: </span>{{project.name}}</div>
-  <div><span>Description: </span>{{project.description}}</div>
-  <div><span>Budget: </span>{{project.budget}}</div>
-  <div><span>Owner: </span>{{project.owner}}</div>
-</div>
-<button (click)="save()">save</button>
-<button (click)="goBack()">go back</button>
+<app-header></app-header>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="ibox">
+          <div class="ibox-content">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="m-b-md">
+                  <a [hidden]="!isOwner" class="btn btn-white btn-xs pull-right">Editar proyecto</a>
+                  <h2>{{project.name}}</h2>
+                </div>
+                <!--<dl class="dl-horizontal">
+                  <dt>Estado:</dt> <dd><span class="label label-primary">PENDIENTE</span></dd>
+                </dl>-->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-5">
+                <dl class="dl-horizontal">
+                  <dt>Administrador:</dt> <dd>{{project.owner}}</dd>
+                  <dt>Presupuesto:</dt> <dd>  ${{project.budget}}</dd>
+                  <!--<dt>Client:</dt> <dd><a href="#" class="text-navy"> Zender Company</a> </dd>-->
+                  <dt>Categoría:</dt> <dd>{{project.category}}</dd>
+                </dl>
+              </div>
+              <div class="col-lg-7" id="cluster_info">
+                <dl class="dl-horizontal">
+                  <dt>Fecha de creación:</dt> <dd>{{project.creationDate}}</dd>
+                  <dt>Fecha de finalización:</dt> <dd>{{project.finishDate}}</dd>
+                  <!--<dt>Participants:</dt>
+                  <dd class="project-people">
+                    <a href=""><img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
+                    <a href=""><img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar2.png"></a>
+                    <a href=""><img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png"></a>
+                    <a href=""><img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar4.png"></a>
+                    <a href=""><img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar5.png"></a>
+                  </dd>-->
+                </dl>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <dl class="dl-horizontal">
+                  <dt>Progreso:</dt>
+                  <dd>
+                    <div class="progress progress-striped active m-b-sm">
+                      <div style="width: 100%;" class="progress-bar"></div>
+                    </div>
+                    <small>Proyecto completado al <strong>100%</strong></small>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+            <!--<div class="row m-t-sm">
+              <div class="col-lg-12">
+                <div class="panel blank-panel">
+                  <div class="panel-heading">
+                    <div class="panel-options">
+                      <ul class="nav nav-tabs">
+                        <li class=""><a href="#tab-1" data-toggle="tab" aria-expanded="false">Users messages</a></li>
+                        <li class="active"><a href="#tab-2" data-toggle="tab" aria-expanded="true">Last activity</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="tab-1">
+                        <div class="feed-activity-list">
+                          <div class="feed-element">
+                            <a href="#" class="pull-left">
+                              <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar6.png">
+                            </a>
+                            <div class="media-body ">
+                              <small class="pull-right">2h ago</small>
+                              <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                              <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
+                              <div class="well">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                              </div>
+                            </div>
+                          </div>
+                          <div class="feed-element">
+                            <a href="#" class="pull-left">
+                              <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar6.png">
+                            </a>
+                            <div class="media-body ">
+                              <small class="pull-right">2h ago</small>
+                              <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
+                              <small class="text-muted">2 days ago at 8:30am</small>
+                            </div>
+                          </div>
+                          <div class="feed-element">
+                            <a href="#" class="pull-left">
+                              <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar5.png">
+                            </a>
+                            <div class="media-body ">
+                              <small class="pull-right text-navy">5h ago</small>
+                              <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                              <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                              <div class="actions">
+                                <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                                <a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="feed-element">
+                            <a href="#" class="pull-left">
+                              <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar5.png">
+                            </a>
+                            <div class="media-body ">
+                              <small class="pull-right">2h ago</small>
+                              <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                              <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
+                              <div class="well">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                              </div>
+                            </div>
+                          </div>
+                          <div class="feed-element">
+                            <a href="#" class="pull-left">
+                              <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar5.png">
+                            </a>
+                            <div class="media-body ">
+                              <small class="pull-right">23h ago</small>
+                              <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                              <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                            </div>
+                          </div>
+                          <div class="feed-element">
+                            <a href="#" class="pull-left">
+                              <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                            </a>
+                            <div class="media-body ">
+                              <small class="pull-right">46h ago</small>
+                              <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                              <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="tab-2">
+                        <table class="table table-striped">
+                          <thead>
+                          <tr>
+                            <th>Status</th>
+                            <th>Title</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Comments</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                            <td>
+                              <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
+                            </td>
+                            <td>
+                              Create project in webapp
+                            </td>
+                            <td>
+                              12.07.2014 10:10:1
+                            </td>
+                            <td>
+                              14.07.2014 10:16:36
+                            </td>
+                            <td>
+                              <p class="small">
+                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
+                            </td>
+                            <td>
+                              Various versions
+                            </td>
+                            <td>
+                              12.07.2014 10:10:1
+                            </td>
+                            <td>
+                              14.07.2014 10:16:36
+                            </td>
+                            <td>
+                              <p class="small">
+                                Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
+                            </td>
+                            <td>
+                              There are many variations
+                            </td>
+                            <td>
+                              12.07.2014 10:10:1
+                            </td>
+                            <td>
+                              14.07.2014 10:16:36
+                            </td>
+                            <td>
+                              <p class="small">
+                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
+                            </td>
+                            <td>
+                              Latin words
+                            </td>
+                            <td>
+                              12.07.2014 10:10:1
+                            </td>
+                            <td>
+                              14.07.2014 10:16:36
+                            </td>
+                            <td>
+                              <p class="small">
+                                Latin words, combined with a handful of model sentence structures
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
+                            </td>
+                            <td>
+                              The generated Lorem
+                            </td>
+                            <td>
+                              12.07.2014 10:10:1
+                            </td>
+                            <td>
+                              14.07.2014 10:16:36
+                            </td>
+                            <td>
+                              <p class="small">
+                                The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
+                            </td>
+                            <td>
+                              The first line
+                            </td>
+                            <td>
+                              12.07.2014 10:10:1
+                            </td>
+                            <td>
+                              14.07.2014 10:16:36
+                            </td>
+                            <td>
+                              <p class="small">
+                                The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
+                            </td>
+                            <td>
+                              The standard chunk
+                            </td>
+                            <td>
+                              12.07.2014 10:10:1
+                            </td>
+                            <td>
+                              14.07.2014 10:16:36
+                            </td>
+                            <td>
+                              <p class="small">
+                                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
+                            </td>
+                            <td>
+                              Lorem Ipsum is that
+                            </td>
+                            <td>
+                              12.07.2014 10:10:1
+                            </td>
+                            <td>
+                              14.07.2014 10:16:36
+                            </td>
+                            <td>
+                              <p class="small">
+                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
+                            </td>
+                            <td>
+                              Contrary to popular
+                            </td>
+                            <td>
+                              12.07.2014 10:10:1
+                            </td>
+                            <td>
+                              14.07.2014 10:16:36
+                            </td>
+                            <td>
+                              <p class="small">
+                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+                              </p>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="wrapper wrapper-content project-manager">
+        <div class="ibox">
+          <div class="ibox-content">
+            <h4>Descripción</h4>
+            <p class="small">
+              {{project.description}}
+            </p>
+            <!--<p class="small font-bold">
+              <span><i class="fa fa-circle text-warning"></i>High priority</span>
+            </p>-->
+            <h5>Tareas</h5>
+            <ul class="tag-list" style="padding: 0">
+              <li *ngFor="let task of project.tasks">
+                <a a routerLink="/task-detail/{{task.id}}">
+                  <i class="fa fa-tag">{{task.name}}
+                  </i>
+                </a>
+              </li>
+              <!--<li><a href="#"><i class="fa fa-tag"></i></a></li>
+              <li><a href="#"><i class="fa fa-tag"></i> Lorem ipsum</a></li>
+              <li><a href="#"><i class="fa fa-tag"></i> Passages</a></li>
+              <li><a href="#"><i class="fa fa-tag"></i> Variations</a></li>-->
+            </ul>
+            <div class="text-center m-t-md">
+              <a [hidden]="!isOwner" class="btn btn-xs btn-primary" (click)="goCreateTask()">Crear nueva tarea</a><br><br>
+            </div>
+            <h5>Archivos</h5>
+            <ul class="list-unstyled project-files">
+              <li><a href="#"><i class="fa fa-file"></i>Documento.docx</a></li>
+              <li><a href="#"><i class="fa fa-file-picture-o"></i>Imagen.jpg</a></li>
+              <li><a href="#"><i class="fa fa-stack-exchange"></i>Email.eml</a></li>
+              <li><a href="#"><i class="fa fa-file"></i>Contrato.docx</a></li>
+            </ul>
+            <div class="text-center m-t-md">
+              <a [hidden]="!isOwner" class="btn btn-xs btn-primary">Cargar nuevo archivo</a><br><br>
+              <a [hidden]="!isOwner" class="btn btn-xs btn-danger" (click)="open(deleteProject)">Eliminar proyecto</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #deleteProject let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="delete-project-title">¿Esta seguro de que desea eliminar este proyecto?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cerrar')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)=delete(project.id)>Eliminar proyecto</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancelar')">Cancelar</button>
+  </div>
+</ng-template>
