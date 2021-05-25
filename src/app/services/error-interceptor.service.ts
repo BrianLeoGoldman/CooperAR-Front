@@ -26,7 +26,6 @@ export class ErrorInterceptorService implements HttpInterceptor {
             errorMessage = `${error.error.toString()}`;
             this.toastr.error(errorMessage, `ERROR ${error.status}`);
           }
-          /*this.toastr.error(errorMessage, 'ERROR');*/
           return throwError(errorMessage);
         })
       );

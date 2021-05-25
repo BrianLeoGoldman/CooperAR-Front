@@ -15,7 +15,7 @@ import {States} from '../model/states';
 })
 export class TaskDetailComponent implements OnInit {
 
-  task: Task =  { name: '', description: '', reward: 0, projectId: '', creationDate: '', finishDate: '', difficulty: '', owner: '', worker: '', state: '' };
+  task: Task =  { name: '', description: '', reward: 0, projectId: '', creationDate: '', finishDate: '', difficulty: '', owner: '', worker: '', state: '', files: [] };
   isOwner: boolean;
   isAssignable: boolean;
 
@@ -56,6 +56,12 @@ export class TaskDetailComponent implements OnInit {
     this.modalService.dismissAll();
     // this.location.back(); // TODO: triggers task deletion two times!
     this.router.navigate(['/dashboard']).then(r => console.log(r));
+  }
+
+  // tslint:disable-next-line:typedef
+  goUploadFile() {
+    this.router.navigate(['file-upload/', 'task', this.task.id])
+      .then(r => console.log(r));
   }
 
   // tslint:disable-next-line:typedef

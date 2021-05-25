@@ -31,6 +31,7 @@ import {MatTableModule} from '@angular/material/table';
 import {ProjectCreateComponent} from './project-create/project-create.component';
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HeaderComponent,
     ProjectCreateComponent,
     TaskCreateComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    FileUploadComponent
   ],
     imports: [
         BrowserModule,

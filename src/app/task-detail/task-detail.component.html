@@ -80,13 +80,19 @@
             </div>-->
             <h5>Archivos</h5>
             <ul class="list-unstyled project-files">
-              <li><a><i class="fa fa-file"></i>Documento.docx</a></li>
+              <!--<li><a><i class="fa fa-file"></i>Documento.docx</a></li>
               <li><a><i class="fa fa-file-picture-o"></i>Imagen.jpg</a></li>
               <li><a><i class="fa fa-stack-exchange"></i>Email.eml</a></li>
-              <li><a><i class="fa fa-file"></i>Contrato.docx</a></li>
+              <li><a><i class="fa fa-file"></i>Contrato.docx</a></li>-->
+              <li *ngFor="let file of task.files">
+                <a>
+                  <i class="fa fa-tag">{{file}}
+                  </i>
+                </a>
+              </li>
             </ul>
             <div class="text-center m-t-md">
-              <a [hidden]="!isOwner" class="btn btn-xs btn-primary">Cargar nuevo archivo</a><br><br>
+              <a [hidden]="!isOwner" class="btn btn-xs btn-primary" (click)="goUploadFile()">Cargar nuevo archivo</a><br><br>
               <a [hidden]="!isOwner" class="btn btn-xs btn-danger" (click)="open(deleteTask)">Eliminar tarea</a>
             </div>
           </div>

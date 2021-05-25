@@ -11,6 +11,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ProjectCreateComponent} from './project-create/project-create.component';
 import {TaskCreateComponent} from './task-create/task-create.component';
+import {FileUploadComponent} from './file-upload/file-upload.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -25,8 +26,9 @@ const routes: Routes = [
   { path: 'project-detail/:id', component: ProjectDetailComponent },
   { path: 'task-detail/:id', component: TaskDetailComponent },
   { path: 'profile/:id', component: ProfileComponent },
-  { path: 'project-create.component/:owner/:money', component: ProjectCreateComponent },
-  { path: 'task-create.component/:owner/:projectId/:budget', component: TaskCreateComponent },
+  { path: 'project-create/:owner/:money', component: ProjectCreateComponent },
+  { path: 'task-create/:owner/:projectId/:budget', component: TaskCreateComponent },
+  { path: 'file-upload/:entity/:id', component: FileUploadComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

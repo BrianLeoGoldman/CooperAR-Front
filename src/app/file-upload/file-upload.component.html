@@ -1,0 +1,17 @@
+<app-header></app-header>
+
+<mat-card>
+  <mat-card-content>
+    <h2>Cargar nuevo archivo</h2><br>
+    <h4>El archivo no debe superar los 1048.576 KB</h4>
+    <!--<h4 [hidden]="fileToUpload == null">El tamaño del archivo actual es {{fileToUpload.size / 1024}}</h4>-->
+    <div class="form-group">
+      <label for="file">Seleccione el archivo</label>
+      <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+    </div>
+    <div class="footer">
+      <button mat-raised-button class="btn btn-outline-success" [disabled]="!validSize" (click)="uploadFile()">Cargar</button>&nbsp;
+      <button type="button" class="btn btn-outline-dark" (click)="goBack()">Atras</button>
+    </div>
+  </mat-card-content>
+</mat-card>

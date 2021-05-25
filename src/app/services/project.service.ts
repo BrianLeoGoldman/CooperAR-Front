@@ -53,11 +53,29 @@ export class ProjectService {
   /** DELETE: delete the project from the server */
   // tslint:disable-next-line:typedef
   deleteProject(id: number) {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders()
+      .append('Authorization', GlobalConstants.token);
+      /*.append('Response-Type', 'text/html')
+      .append('Content-Type', 'text/html');*/
     const url = `${this.projectsUrl}/${id}`;
-    return this.http.delete(url, { headers })
+    return this.http.delete(url, { headers, responseType: 'text' }) // TODO: responseType not necessary?
       .pipe(
         tap(_ => console.log('deleteProject: OK')),
+        /*catchError(this.handleError<any>('deleteProject'))*/
+      );
+  }
+
+  /** POST: post a new file on the project */
+  // TODO: same method as in task service!!!
+  // tslint:disable-next-line:typedef
+  postFile(fileToUpload: File, id: number): Observable<boolean> {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.projectsUrl}/file/${id}`;
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return this.http.post<boolean>(url, formData, { headers })
+      .pipe(
+        tap(_ => console.log('postFile: OK')),
         /*catchError(this.handleError<any>('deleteProject'))*/
       );
   }
@@ -73,5 +91,4 @@ export class ProjectService {
       return of(result as T);
     };
   }
-
 }

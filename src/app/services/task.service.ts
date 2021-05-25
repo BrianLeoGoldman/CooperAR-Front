@@ -80,6 +80,21 @@ export class TaskService {
       );
   }
 
+  /** POST: post a new file on the task */
+  // tslint:disable-next-line:typedef
+  // TODO: same method as in project service!!!
+  postFile(fileToUpload: File, id: number): Observable<boolean> {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.tasksUrl}/file/${id}`;
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return this.http.post<boolean>(url, formData, { headers })
+      .pipe(
+        tap(_ => console.log('postFile: OK')),
+        /*catchError(this.handleError<any>('deleteProject'))*/
+      );
+  }
+
   /** PUT: assign a user as worker of a task */
   // tslint:disable-next-line:typedef
   assignWorker(loggedUser: string, id: number) {
