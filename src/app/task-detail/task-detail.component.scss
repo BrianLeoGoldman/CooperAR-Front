@@ -169,7 +169,23 @@ dd.project-people {
   border-style: solid solid none;
   border-width: 1px 0;
   margin-top:30px;
+  min-height: 300px;
+  max-height: 300px;
+  overflow-y: auto;
 }
+
+.ibox-button {
+  clear: both;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+}
+
+.ibox-content-button {
+  //padding: 10px 10px 10px 10px;
+  margin-top:15px;
+}
+
 .ibox-footer {
   color: inherit;
   border-top: 1px solid #e7eaec;
