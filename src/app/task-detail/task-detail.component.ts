@@ -17,7 +17,12 @@ export class TaskDetailComponent implements OnInit {
 
   task: Task =  { name: '', description: '', reward: 0, projectId: '', creationDate: '', finishDate: '', difficulty: '', owner: '', worker: '', state: '', files: [] };
   isOwner: boolean;
+  isWorker: boolean;
   isAssignable: boolean;
+  isAlreadyAssigned: boolean;
+  canBeCompleted: boolean;
+  canBeApproved: boolean;
+  canBeCanceled: boolean;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -39,7 +44,19 @@ export class TaskDetailComponent implements OnInit {
   private setTaskInfo(task: Task): void {
     this.task = task;
     this.isOwner = GlobalConstants.loggedUser === this.task.owner;
+    this.isWorker = GlobalConstants.loggedUser === this.task.worker;
     this.isAssignable = !this.isOwner && (this.task.state === 'ABIERTA');
+    this.isAlreadyAssigned = this.isOwner && (this.task.state === 'ASIGNADA');
+    this.canBeCompleted = this.isWorker && (this.task.state === 'ASIGNADA');
+    this.canBeApproved = this.isOwner && (this.task.state === 'COMPLETA');
+    this.canBeCanceled = this.isOwner && (this.task.state === 'ABIERTA' || this.task.state === 'COMPLETA');
+    console.log('isOwner: ' + this.isOwner);
+    console.log('isWorker: ' + this.isWorker);
+    console.log('isAssignable: ' + this.isAssignable);
+    console.log('isAlreadyAssigned: ' + this.isAlreadyAssigned);
+    console.log('canBeCompleted: ' + this.canBeCompleted);
+    console.log('canBeApproved: ' + this.canBeApproved);
+    console.log('canBeCanceled: ' + this.canBeCanceled);
   }
 
   open(content): void {
@@ -67,6 +84,37 @@ export class TaskDetailComponent implements OnInit {
   // tslint:disable-next-line:typedef
   assignWorker() {
     this.taskService.assignWorker(GlobalConstants.loggedUser, this.task.id)
-      .subscribe(_ => this.ngOnInit()); // TODO: does not refresh!
+      .subscribe(_ => this.ngOnInit()); // TODO: does not refresh! It does!!!
   }
+
+  // tslint:disable-next-line:typedef
+  unassignWorker() {
+    this.taskService.unassignWorker(this.task.id)
+      .subscribe(_ => this.ngOnInit());
+  }
+
+  // tslint:disable-next-line:typedef
+  completeTask() {
+    this.taskService.completeTask(this.task.id)
+      .subscribe(_ => this.ngOnInit());
+  }
+
+  // tslint:disable-next-line:typedef
+  approveTask() {
+    this.taskService.approveTask(this.task.id)
+      .subscribe(_ => this.ngOnInit());
+  }
+
+  // tslint:disable-next-line:typedef
+  unapproveTask() {
+    this.taskService.unapproveTask(this.task.id)
+      .subscribe(_ => this.ngOnInit());
+  }
+
+  // tslint:disable-next-line:typedef
+  cancelTask() {
+    this.taskService.cancelTask(this.task.id)
+      .subscribe(_ => this.ngOnInit());
+  }
+
 }

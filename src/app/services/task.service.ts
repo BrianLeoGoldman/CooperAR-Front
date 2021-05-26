@@ -106,6 +106,61 @@ export class TaskService {
       );
   }
 
+  /** PUT: unassign a user as worker of a task */
+  // tslint:disable-next-line:typedef
+  unassignWorker(id: number) {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.tasksUrl}/unassign?id=${id}`;
+    return this.http.put(url, { headers })
+      .pipe(
+        tap(_ => console.log('unassignWorker: OK')),
+      );
+  }
+
+  /** PUT: complete a task */
+  // tslint:disable-next-line:typedef
+  completeTask(id: number) {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.tasksUrl}/complete?id=${id}`;
+    return this.http.put(url, { headers })
+      .pipe(
+        tap(_ => console.log('completeTask: OK')),
+      );
+  }
+
+  /** PUT: approve a completed task */
+  // tslint:disable-next-line:typedef
+  approveTask(id: number) {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.tasksUrl}/approve?id=${id}`;
+    return this.http.put(url, { headers })
+      .pipe(
+        tap(_ => console.log('approveTask: OK')),
+      );
+  }
+
+  /** PUT: unapprove a completed task */
+  // tslint:disable-next-line:typedef
+  unapproveTask(id: number) {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.tasksUrl}/unapprove?id=${id}`;
+    return this.http.put(url, { headers })
+      .pipe(
+        tap(_ => console.log('unapproveTask: OK')),
+      );
+  }
+
+  /** PUT: cancel a task */
+  // tslint:disable-next-line:typedef
+  cancelTask(id: number) {
+    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const url = `${this.tasksUrl}/cancel?id=${id}`;
+    return this.http.put(url, { headers })
+      .pipe(
+        tap(_ => console.log('cancelTask: OK')),
+      );
+  }
+
   formatTask(task: Task): void {
     task.creationDate = new Date(task.creationDate).toLocaleDateString();
   }

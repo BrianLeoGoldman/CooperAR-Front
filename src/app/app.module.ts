@@ -32,6 +32,7 @@ import {ProjectCreateComponent} from './project-create/project-create.component'
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
         NgbModule,
         MatSelectModule,
         MatTableModule,
+        MatTooltipModule,
         // ToastrModule added
     ],
   providers: [
