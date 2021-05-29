@@ -16,9 +16,11 @@ import {TaskService} from '../services/task.service';
 export class ProfileComponent implements OnInit {
 
   user: User =  { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
-  projects: Project[] = [];
+  projects: Project[] = []; // TODO: unused variable?
   assignedTasks: Task[] = [];
   isOwner: boolean;
+  projectsAvailable: boolean;
+  tasksAvailable: boolean;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -36,9 +38,19 @@ export class ProfileComponent implements OnInit {
     // this.isOwner = GlobalFunctions.loggedUser === nickname;
     this.isOwner = sessionStorage.getItem('loggedUser') === nickname;
     this.userService.getUser(nickname)
-      .subscribe(user => this.user = user);
+      .subscribe(user => this.processProjectsInfo(user));
     this.taskService.getAssignedTasks(nickname)
-      .subscribe(tasks => this.assignedTasks = tasks);
+      .subscribe(tasks => this.processTasksInfo(tasks));
+  }
+
+  processProjectsInfo(user: User): void {
+    this.user = user;
+    this.projectsAvailable = this.user.projects.length > 0;
+  }
+
+  processTasksInfo(tasks: Task[]): void {
+    this.assignedTasks = tasks;
+    this.tasksAvailable = this.assignedTasks.length > 0;
   }
 
   // tslint:disable-next-line:typedef
