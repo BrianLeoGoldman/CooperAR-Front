@@ -3,7 +3,6 @@ import {Project} from '../model/project';
 import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
-import {GlobalConstants} from '../common/global-constants';
 
 @Injectable({
   providedIn: 'root'

@@ -33,6 +33,7 @@ import { TaskCreateComponent } from './task-create/task-create.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {AccessGuardService} from './services/access-guard.service';
 
 
 @NgModule({
@@ -79,9 +80,13 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ],
   providers: [
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: ErrorInterceptorService,
-    multi: true
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
+      multi: true
+    },
+    {
+      provide: AccessGuardService,
+      useClass: AccessGuardService
     }],
   bootstrap: [AppComponent]
 })

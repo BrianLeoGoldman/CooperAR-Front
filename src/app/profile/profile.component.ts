@@ -6,7 +6,6 @@ import {UserService} from '../services/user.service';
 import {Project} from '../model/project';
 import {Task} from '../model/task';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {GlobalConstants} from '../common/global-constants';
 import {TaskService} from '../services/task.service';
 
 @Component({
@@ -34,7 +33,7 @@ export class ProfileComponent implements OnInit {
 
   getData(): void {
     const nickname  = this.route.snapshot.paramMap.get('id');
-    // this.isOwner = GlobalConstants.loggedUser === nickname;
+    // this.isOwner = GlobalFunctions.loggedUser === nickname;
     this.isOwner = sessionStorage.getItem('loggedUser') === nickname;
     this.userService.getUser(nickname)
       .subscribe(user => this.user = user);

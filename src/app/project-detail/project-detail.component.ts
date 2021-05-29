@@ -8,7 +8,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Difficulties} from '../model/difficulties';
 import {TaskService} from '../services/task.service';
-import {GlobalConstants} from '../common/global-constants';
 
 @Component({
   selector: 'app-project-detail',
@@ -60,7 +59,7 @@ export class ProjectDetailComponent implements OnInit {
 
   private setProjectInfo(project: Project): void {
     this.project = project;
-    // this.isOwner = GlobalConstants.loggedUser === this.project.owner;
+    // this.isOwner = GlobalFunctions.loggedUser === this.project.owner;
     this.isOwner = sessionStorage.getItem('loggedUser') === this.project.owner;
   }
 
@@ -70,7 +69,7 @@ export class ProjectDetailComponent implements OnInit {
 
   delete(id: number): void {
     this.projectService.deleteProject(id)
-      .subscribe(message => this.toastr.success(message, 'OPERACION EXITOSA')); // TODO: write message here
+      .subscribe(_ => this.toastr.success('EL PROYECTO ' + id + ' HA SIDO ELIMINADO', 'OPERACION EXITOSA')); // TODO: write message here
     this.modalService.dismissAll();
     // this.location.go('/dashboard');
     this.router.navigate(['/dashboard']).then(r => r);

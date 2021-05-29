@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {User} from '../model/user';
-import {GlobalConstants} from '../common/global-constants';
+import {adultValidator} from '../common/global-functions';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {Provinces} from '../model/provinces';
 
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
       lastname: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],
       email: ['', [Validators.required, Validators.email]],
-      birthday: ['', Validators.required],
+      birthday: ['', [ Validators.required, adultValidator]],
       province: ['', Validators.required]
     });
   }
@@ -65,10 +65,10 @@ export class RegisterComponent implements OnInit {
         this.newUser.projects = [];
         this.userService.registerUser(this.newUser)
           .subscribe(data => {
-              // GlobalConstants.token = data;
-              // GlobalConstants.loggedUser = this.newUser.nickname;
+              // GlobalFunctions.token = data;
+              // GlobalFunctions.loggedUser = this.newUser.nickname;
               sessionStorage.setItem('token', data);
-              sessionStorage.setItem('loggedUser', this.nickname);
+              sessionStorage.setItem('loggedUser', this.newUser.nickname);
               this.toastr.info('Estas logueado como ' + this.newUser.nickname, 'BIENVENIDO');
               this.router.navigate(['/dashboard']);
           },
@@ -77,11 +77,12 @@ export class RegisterComponent implements OnInit {
           }*/
         );
       } catch (err) {
-        this.invalidData = true;
-        console.log('Error al extraer campos:' + err);
-      }
+          this.invalidData = true;
+          console.log('Error al extraer campos:' + err);
+        }
     } else {
-      this.formSubmitAttempt = true;
+        this.formSubmitAttempt = true;
+      }
   }
-}
+
 }

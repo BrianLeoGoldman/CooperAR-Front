@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {GlobalConstants} from '../common/global-constants';
 import {Router} from '@angular/router';
 
 @Component({
@@ -19,8 +18,8 @@ export class HeaderComponent implements OnInit {
   }
 
   closeSession(): void {
-    // GlobalConstants.loggedUser = '';
-    // GlobalConstants.token = '';
+    // GlobalFunctions.loggedUser = '';
+    // GlobalFunctions.token = '';
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('loggedUser');
     this.router.navigate([`/login`]);

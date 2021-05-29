@@ -13,22 +13,33 @@ import {ProjectCreateComponent} from './project-create/project-create.component'
 import {TaskCreateComponent} from './task-create/task-create.component';
 import {FileUploadComponent} from './file-upload/file-upload.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {AccessGuardService} from './services/access-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'projects', component: ProjectsComponent },
-  { path: 'tasks', component: TasksComponent },
-  { path: 'project-detail/:id', component: ProjectDetailComponent },
-  { path: 'task-detail/:id', component: TaskDetailComponent },
-  { path: 'profile/:id', component: ProfileComponent },
-  { path: 'project-create/:owner/:money', component: ProjectCreateComponent },
-  { path: 'task-create/:owner/:projectId/:budget', component: TaskCreateComponent },
-  { path: 'file-upload/:entity/:id', component: FileUploadComponent },
+  { path: 'dashboard', component: DashboardComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
+  { path: 'users', component: UsersComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
+  { path: 'projects', component: ProjectsComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
+  { path: 'tasks', component: TasksComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
+  { path: 'project-detail/:id', component: ProjectDetailComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ] },
+  { path: 'task-detail/:id', component: TaskDetailComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
+  { path: 'profile/:id', component: ProfileComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
+  { path: 'project-create/:owner/:money', component: ProjectCreateComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
+  { path: 'task-create/:owner/:projectId/:budget', component: TaskCreateComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
+  { path: 'file-upload/:entity/:id', component: FileUploadComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
   { path: '**', component: PageNotFoundComponent }
 ];
 
