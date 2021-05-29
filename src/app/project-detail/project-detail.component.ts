@@ -60,7 +60,8 @@ export class ProjectDetailComponent implements OnInit {
 
   private setProjectInfo(project: Project): void {
     this.project = project;
-    this.isOwner = GlobalConstants.loggedUser === this.project.owner;
+    // this.isOwner = GlobalConstants.loggedUser === this.project.owner;
+    this.isOwner = sessionStorage.getItem('loggedUser') === this.project.owner;
   }
 
   goBack(): void {

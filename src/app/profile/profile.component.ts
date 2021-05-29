@@ -34,7 +34,8 @@ export class ProfileComponent implements OnInit {
 
   getData(): void {
     const nickname  = this.route.snapshot.paramMap.get('id');
-    this.isOwner = GlobalConstants.loggedUser === nickname;
+    // this.isOwner = GlobalConstants.loggedUser === nickname;
+    this.isOwner = sessionStorage.getItem('loggedUser') === nickname;
     this.userService.getUser(nickname)
       .subscribe(user => this.user = user);
     this.taskService.getAssignedTasks(nickname)

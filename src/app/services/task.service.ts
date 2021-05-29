@@ -18,7 +18,7 @@ export class TaskService {
 
   /** GET tasks from the server */
   getTasks(): Observable<Task[]> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     return this.http.get<Task[]>(this.tasksUrl, { headers })
       .pipe(
         tap(_ => console.log('getTasks: OK')),
@@ -28,7 +28,7 @@ export class TaskService {
 
   /** GET specific task from the server */
   getTask(id: number): Observable<Task> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}/${id}`;
     return this.http.get<Task>(url, { headers })
       .pipe(
@@ -41,7 +41,7 @@ export class TaskService {
   /** GET tasks assgined to the user */
   // tslint:disable-next-line:typedef
   getAssignedTasks(nickname: string): Observable<Task[]> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}/assign?user=${nickname}`;
     return this.http.get<Task[]>(url, { headers })
       .pipe(
@@ -52,7 +52,7 @@ export class TaskService {
 
   /** PUT: create a new task */
   createTask(name: string, reward: number, description: string, projectId: number, difficulty: string, owner: string): Observable<any> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}?name=${name}&reward=${reward}&description=${description}&projectId=${projectId}&difficulty=${difficulty}&owner=${owner}`;
     /*const params = new HttpParams()
       .set('name', name)
@@ -71,7 +71,7 @@ export class TaskService {
   /** DELETE: delete the task on the server */
   // tslint:disable-next-line:typedef
   deleteTask(id: number) {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}/${id}`;
     return this.http.delete(url, { headers })
       .pipe(
@@ -84,7 +84,7 @@ export class TaskService {
   // tslint:disable-next-line:typedef
   // TODO: same method as in project service!!!
   postFile(fileToUpload: File, id: number): Observable<boolean> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}/file/${id}`;
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
@@ -98,7 +98,7 @@ export class TaskService {
   /** PUT: assign a user as worker of a task */
   // tslint:disable-next-line:typedef
   assignWorker(loggedUser: string, id: number) {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}/assign?user=${loggedUser}&id=${id}`;
     return this.http.put(url, { headers })
       .pipe(
@@ -109,7 +109,7 @@ export class TaskService {
   /** PUT: unassign a user as worker of a task */
   // tslint:disable-next-line:typedef
   unassignWorker(id: number) {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}/unassign?id=${id}`;
     return this.http.put(url, { headers })
       .pipe(
@@ -120,7 +120,7 @@ export class TaskService {
   /** PUT: complete a task */
   // tslint:disable-next-line:typedef
   completeTask(id: number) {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}/complete?id=${id}`;
     return this.http.put(url, { headers })
       .pipe(
@@ -131,7 +131,7 @@ export class TaskService {
   /** PUT: approve a completed task */
   // tslint:disable-next-line:typedef
   approveTask(id: number) {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}/approve?id=${id}`;
     return this.http.put(url, { headers })
       .pipe(
@@ -142,7 +142,7 @@ export class TaskService {
   /** PUT: unapprove a completed task */
   // tslint:disable-next-line:typedef
   unapproveTask(id: number) {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}/unapprove?id=${id}`;
     return this.http.put(url, { headers })
       .pipe(
@@ -153,7 +153,7 @@ export class TaskService {
   /** PUT: cancel a task */
   // tslint:disable-next-line:typedef
   cancelTask(id: number) {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}/cancel?id=${id}`;
     return this.http.put(url, { headers })
       .pipe(

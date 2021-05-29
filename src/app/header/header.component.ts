@@ -15,12 +15,14 @@ export class HeaderComponent implements OnInit {
   }
 
   goProfile(): void {
-    this.router.navigate([`/profile/${GlobalConstants.loggedUser}`]);
+    this.router.navigate([`/profile/${sessionStorage.getItem('loggedUser')}`]);
   }
 
   closeSession(): void {
-    GlobalConstants.loggedUser = '';
-    GlobalConstants.token = '';
+    // GlobalConstants.loggedUser = '';
+    // GlobalConstants.token = '';
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('loggedUser');
     this.router.navigate([`/login`]);
   }
 }

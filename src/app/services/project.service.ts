@@ -18,7 +18,7 @@ export class ProjectService {
 
   /** GET projects from the server */
   getProjects(): Observable<Project[]> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     return this.http.get<Project[]>(this.projectsUrl, { headers })
       .pipe(
         tap(_ => console.log('getProjects: OK')),
@@ -28,7 +28,7 @@ export class ProjectService {
 
   /** GET specific project from the server */
   getProject(id: number): Observable<Project> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.projectsUrl}/${id}`;
     return this.http.get<Project>(url, { headers })
       .pipe(
@@ -41,7 +41,7 @@ export class ProjectService {
   /** PUT: add a new project to the server */
   // tslint:disable-next-line:typedef
   createProject(name: string, budget: number, description: string, category: string, owner: string): Observable<any> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.projectsUrl}?name=${name}&budget=${budget}&description=${description}&category=${category}&owner=${owner}`;
     return this.http.put(url, { headers })
       .pipe(
@@ -54,7 +54,7 @@ export class ProjectService {
   // tslint:disable-next-line:typedef
   deleteProject(id: number) {
     const headers = new HttpHeaders()
-      .append('Authorization', GlobalConstants.token);
+      .append('Authorization', sessionStorage.getItem('token'));
       /*.append('Response-Type', 'text/html')
       .append('Content-Type', 'text/html');*/
     const url = `${this.projectsUrl}/${id}`;
@@ -69,7 +69,7 @@ export class ProjectService {
   // TODO: same method as in task service!!!
   // tslint:disable-next-line:typedef
   postFile(fileToUpload: File, id: number): Observable<boolean> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.projectsUrl}/file/${id}`;
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);

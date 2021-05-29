@@ -65,8 +65,10 @@ export class RegisterComponent implements OnInit {
         this.newUser.projects = [];
         this.userService.registerUser(this.newUser)
           .subscribe(data => {
-              GlobalConstants.token = data;
-              GlobalConstants.loggedUser = this.newUser.nickname;
+              // GlobalConstants.token = data;
+              // GlobalConstants.loggedUser = this.newUser.nickname;
+              sessionStorage.setItem('token', data);
+              sessionStorage.setItem('loggedUser', this.nickname);
               this.toastr.info('Estas logueado como ' + this.newUser.nickname, 'BIENVENIDO');
               this.router.navigate(['/dashboard']);
           },
