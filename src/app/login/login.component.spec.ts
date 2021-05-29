@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -33,5 +33,33 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should has required validator for nickname', () => {
+    component.ngOnInit();
+    const control: AbstractControl = component.form.get('nickname');
+    control.setValue(null);
+    expect(control.hasError('required')).toBeTruthy();
+  });
+
+  it('should has minimum length validator for nickname', () => {
+    component.ngOnInit();
+    const control: AbstractControl = component.form.get('nickname');
+    control.setValue('Dan');
+    expect(control.hasError('minlength')).toBeTruthy();
+  });
+
+  it('should has required validator for password', () => {
+    component.ngOnInit();
+    const control: AbstractControl = component.form.get('password');
+    control.setValue(null);
+    expect(control.hasError('required')).toBeTruthy();
+  });
+
+  it('should has minimum length validator for password', () => {
+    component.ngOnInit();
+    const control: AbstractControl = component.form.get('password');
+    control.setValue('a2b3c4');
+    expect(control.hasError('minlength')).toBeTruthy();
   });
 });
