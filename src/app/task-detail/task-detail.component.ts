@@ -46,11 +46,11 @@ export class TaskDetailComponent implements OnInit {
     // this.isWorker = GlobalFunctions.loggedUser === this.task.worker;
     this.isOwner = sessionStorage.getItem('loggedUser') === this.task.owner;
     this.isWorker = sessionStorage.getItem('loggedUser') === this.task.worker;
-    this.isAssignable = !this.isOwner && (this.task.state === 'ABIERTA');
-    this.isAlreadyAssigned = this.isOwner && (this.task.state === 'ASIGNADA');
-    this.canBeCompleted = this.isWorker && (this.task.state === 'ASIGNADA');
+    this.isAssignable = !this.isOwner && (this.task.state === 'DISPONIBLE');
+    this.isAlreadyAssigned = this.isOwner && (this.task.state === 'EN_CURSO');
+    this.canBeCompleted = this.isWorker && (this.task.state === 'EN_CURSO');
     this.canBeApproved = this.isOwner && (this.task.state === 'COMPLETA');
-    this.canBeCanceled = this.isOwner && (this.task.state === 'ABIERTA' || this.task.state === 'COMPLETA');
+    this.canBeCanceled = this.isOwner && (this.task.state === 'DISPONIBLE' || this.task.state === 'COMPLETA');
   }
 
   open(content): void {
@@ -111,4 +111,8 @@ export class TaskDetailComponent implements OnInit {
       .subscribe(_ => this.ngOnInit());
   }
 
+  // tslint:disable-next-line:typedef
+  goBack() {
+    this.location.back();
+  }
 }

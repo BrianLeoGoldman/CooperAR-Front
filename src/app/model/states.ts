@@ -1,7 +1,7 @@
 export enum States {
-  ABIERTA,
-  ASIGNADA,
+  DISPONIBLE,
+  EN_CURSO,
   COMPLETA,
   CANCELADA,
-  CERRADA
+  FINALIZADA
 }

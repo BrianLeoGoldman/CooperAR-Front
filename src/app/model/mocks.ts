@@ -11,5 +11,8 @@ export const mockedUser2: User = { nickname: 'maria456', firstname: 'Maria', las
 export const mockedProject: Project = { name: 'MockProject', budget: 1000, description: 'Descripcion', owner: 'juan123',
   creationDate: '', finishDate: '', category: 'CONSTRUCCION', tasks: [], files: ['file1.txt', 'file2.txt'] };
 
-export const mockedTask: Task = { name: 'MockTask', description: 'Descripcion', reward: 200, projectId: '3', creationDate: '',
+export const mockedTask1: Task = { name: 'MockTask1', description: 'Descripcion', reward: 200, projectId: '3', creationDate: '',
   finishDate: '', difficulty: 'REGULAR', owner: 'juan123', worker: 'maria456', state: 'ABIERTA', files: [] };
+
+export const mockedTask2: Task = { name: 'MockTask2', description: 'Descripcion', reward: 300, projectId: '4', creationDate: '',
+  finishDate: '', difficulty: 'FACIL', owner: 'maria456', worker: 'juan123', state: 'COMPLETA', files: [] };

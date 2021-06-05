@@ -8,7 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {mockedProject, mockedTask} from '../model/mocks';
+import {mockedProject, mockedTask1} from '../model/mocks';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -58,14 +58,14 @@ describe('DashboardComponent', () => {
   });
 
   it('should display task name', () => {
-    component.tasks = [mockedTask];
+    component.tasks = [mockedTask1];
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.tasks .card-title').textContent).toBe('MockTask');
+    expect(compiled.querySelector('.tasks .card-title').textContent).toBe('MockTask1');
   });
 
   it('should display task difficulty', () => {
-    component.tasks = [mockedTask];
+    component.tasks = [mockedTask1];
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.tasks .badge').textContent).toBe('REGULAR');
