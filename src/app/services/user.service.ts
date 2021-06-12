@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {User} from '../model/user';
-import {GlobalConstants} from '../common/global-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +29,7 @@ export class UserService {
 
   /** GET all users from the server */
   getUsers(): Observable<User[]> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     return this.http.get<User[]>(this.usersUrl, { headers })
       .pipe(
         tap(_ => console.log('getUsers: OK')),
@@ -40,7 +39,7 @@ export class UserService {
 
   /** GET specific user from the server */
   getUser(nickname: string): Observable<User> {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.usersUrl}/${nickname}`;
     return this.http.get<User>(url, { headers } )
       .pipe(
@@ -63,7 +62,7 @@ export class UserService {
   /** DELETE: delete the user on the server */
   // tslint:disable-next-line:typedef
   deleteUser(nickname: string) {
-    const headers = new HttpHeaders().append('Authorization', GlobalConstants.token);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.usersUrl}/${nickname}`;
     return this.http.delete(url, { headers })
       .pipe(

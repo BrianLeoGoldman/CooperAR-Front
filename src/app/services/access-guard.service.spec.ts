@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ErrorInterceptorService } from './error-interceptor.service';
+import { AccessGuardService } from './access-guard.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ToastrModule} from 'ngx-toastr';
 
-describe('ErrorInterceptorService', () => {
-  let service: ErrorInterceptorService;
+describe('AccessGuardService', () => {
+  let service: AccessGuardService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -15,7 +15,7 @@ describe('ErrorInterceptorService', () => {
           positionClass : 'toast-bottom-right'
         })]
     });
-    service = TestBed.inject(ErrorInterceptorService);
+    service = TestBed.inject(AccessGuardService);
   });
 
   it('should be created', () => {

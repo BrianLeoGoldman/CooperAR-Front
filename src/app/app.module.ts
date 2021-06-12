@@ -31,6 +31,9 @@ import {MatTableModule} from '@angular/material/table';
 import {ProjectCreateComponent} from './project-create/project-create.component';
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {AccessGuardService} from './services/access-guard.service';
 
 
 @NgModule({
@@ -48,7 +51,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HeaderComponent,
     ProjectCreateComponent,
     TaskCreateComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    FileUploadComponent
   ],
     imports: [
         BrowserModule,
@@ -71,13 +75,18 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         NgbModule,
         MatSelectModule,
         MatTableModule,
+        MatTooltipModule,
         // ToastrModule added
     ],
   providers: [
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: ErrorInterceptorService,
-    multi: true
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
+      multi: true
+    },
+    {
+      provide: AccessGuardService,
+      useClass: AccessGuardService
     }],
   bootstrap: [AppComponent]
 })

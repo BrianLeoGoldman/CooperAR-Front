@@ -8,7 +8,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Difficulties} from '../model/difficulties';
 import {TaskService} from '../services/task.service';
-import {GlobalConstants} from '../common/global-constants';
 
 @Component({
   selector: 'app-project-detail',
@@ -17,7 +16,8 @@ import {GlobalConstants} from '../common/global-constants';
 })
 export class ProjectDetailComponent implements OnInit {
 
-  project: Project =  { name: '', budget: 0, description: '', owner: '', creationDate: '', finishDate: '', category: '', tasks: [] };
+  // tslint:disable-next-line:max-line-length
+  project: Project =  { name: '', budget: 0, description: '', owner: '', creationDate: '', finishDate: '', category: '', tasks: [], files: [] };
   isOwner: boolean;
 
   form: FormGroup;
@@ -59,7 +59,8 @@ export class ProjectDetailComponent implements OnInit {
 
   private setProjectInfo(project: Project): void {
     this.project = project;
-    this.isOwner = GlobalConstants.loggedUser === this.project.owner;
+    // this.isOwner = GlobalFunctions.loggedUser === this.project.owner;
+    this.isOwner = sessionStorage.getItem('loggedUser') === this.project.owner;
   }
 
   goBack(): void {
@@ -68,10 +69,10 @@ export class ProjectDetailComponent implements OnInit {
 
   delete(id: number): void {
     this.projectService.deleteProject(id)
-      .subscribe(_ => console.log('Project ' + id + ' deleted'));
+      .subscribe(_ => this.toastr.success('EL PROYECTO ' + id + ' HA SIDO ELIMINADO', 'OPERACION EXITOSA')); // TODO: write message here
     this.modalService.dismissAll();
     // this.location.go('/dashboard');
-    this.router.navigate(['/dashboard']).then(r => console.log(r));
+    this.router.navigate(['/dashboard']).then(r => r);
   }
 
   open(content): void {
@@ -85,7 +86,13 @@ export class ProjectDetailComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   goCreateTask() {
-    this.router.navigate(['/task-create.component/', this.project.owner, this.project.id, this.project.budget])
+    this.router.navigate(['/task-create/', this.project.owner, this.project.id, this.project.budget])
+      .then(r => console.log(r));
+  }
+
+  // tslint:disable-next-line:typedef
+  goUploadFile() {
+    this.router.navigate(['file-upload/', 'project', this.project.id])
       .then(r => console.log(r));
   }
 }

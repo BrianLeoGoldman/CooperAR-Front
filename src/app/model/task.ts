@@ -10,4 +10,5 @@ export interface Task {
   owner: string;
   worker: string;
   state: string;
+  files: string[];
 }

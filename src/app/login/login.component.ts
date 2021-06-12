@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
-import {GlobalConstants} from '../common/global-constants';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
@@ -41,8 +40,10 @@ export class LoginComponent implements OnInit {
         this.password = this.form.get('password').value;
         this.userService.login(this.nickname, this.password)
           .subscribe(data => {
-              GlobalConstants.token = data;
-              GlobalConstants.loggedUser = this.nickname;
+              // GlobalFunctions.token = data;
+              // GlobalFunctions.loggedUser = this.nickname;
+              sessionStorage.setItem('token', data);
+              sessionStorage.setItem('loggedUser', this.nickname);
               this.toastr.info('Estas logueado como ' + this.nickname, 'BIENVENIDO');
               this.router.navigate(['/dashboard']);
             },

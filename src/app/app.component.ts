@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {GlobalConstants} from './common/global-constants';
 import {Router} from '@angular/router';
 
 @Component({
@@ -11,10 +10,5 @@ export class AppComponent {
   title = 'CooperAR';
 
   constructor(private router: Router) {
-  }
-
-  // tslint:disable-next-line:typedef
-  goProfile() {
-    this.router.navigate([`/profile/${GlobalConstants.loggedUser}`]);
   }
 }

@@ -122,6 +122,7 @@
             <div class="card h-100">
               <div class="card-body">
                 <h4 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Proyectos de {{user.nickname}}</h4>
+                <img [hidden]="projectsAvailable" src="https://image.flaticon.com/icons/png/512/2456/2456758.png" class="center" width="90">
                 <ul class="proyectos">
                   <li *ngFor="let project of user.projects">
                     <span routerLink="/project-detail/{{project.id}}">{{project.name}}</span>
@@ -159,6 +160,7 @@
             <div class="card h-100">
               <div class="card-body">
                 <h4 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Tareas asignadas a {{user.nickname}}</h4>
+                <img [hidden]="tasksAvailable" src="https://image.flaticon.com/icons/png/512/2456/2456758.png" class="center" width="90">
                 <ul class="tareas">
                   <li *ngFor="let task of assignedTasks">
                     <span routerLink="/task-detail/{{task.id}}">{{task.name}}</span>

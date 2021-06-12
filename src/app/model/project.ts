@@ -10,4 +10,5 @@ export interface Project {
   finishDate: string;
   category: string;
   tasks: Task[];
+  files: string[];
 }

@@ -6,7 +6,6 @@ import {UserService} from '../services/user.service';
 import {Project} from '../model/project';
 import {Task} from '../model/task';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {GlobalConstants} from '../common/global-constants';
 import {TaskService} from '../services/task.service';
 
 @Component({
@@ -17,9 +16,11 @@ import {TaskService} from '../services/task.service';
 export class ProfileComponent implements OnInit {
 
   user: User =  { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
-  projects: Project[] = [];
+  projects: Project[] = []; // TODO: unused variable?
   assignedTasks: Task[] = [];
   isOwner: boolean;
+  projectsAvailable: boolean;
+  tasksAvailable: boolean;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -34,11 +35,22 @@ export class ProfileComponent implements OnInit {
 
   getData(): void {
     const nickname  = this.route.snapshot.paramMap.get('id');
-    this.isOwner = GlobalConstants.loggedUser === nickname;
+    // this.isOwner = GlobalFunctions.loggedUser === nickname;
+    this.isOwner = sessionStorage.getItem('loggedUser') === nickname;
     this.userService.getUser(nickname)
-      .subscribe(user => this.user = user);
+      .subscribe(user => this.processProjectsInfo(user));
     this.taskService.getAssignedTasks(nickname)
-      .subscribe(tasks => this.assignedTasks = tasks);
+      .subscribe(tasks => this.processTasksInfo(tasks));
+  }
+
+  processProjectsInfo(user: User): void {
+    this.user = user;
+    this.projectsAvailable = this.user.projects.length > 0;
+  }
+
+  processTasksInfo(tasks: Task[]): void {
+    this.assignedTasks = tasks;
+    this.tasksAvailable = this.assignedTasks.length > 0;
   }
 
   // tslint:disable-next-line:typedef
@@ -61,7 +73,7 @@ export class ProfileComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   goCreateProject() {
-    this.router.navigate(['/project-create.component/', this.user.nickname, this.user.money])
+    this.router.navigate(['/project-create/', this.user.nickname, this.user.money])
       .then(r => console.log(r));
   }
 }
