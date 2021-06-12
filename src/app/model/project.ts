@@ -9,6 +9,7 @@ export interface Project {
   creationDate: string;
   finishDate: string;
   category: string;
+  percentage: number;
   tasks: Task[];
   files: string[];
 }

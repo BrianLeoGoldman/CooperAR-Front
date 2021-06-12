@@ -62,4 +62,16 @@ describe('UserService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(mockedUser1);
   });
+
+  it('#createUser should return the created user ', () => {
+    const token = 'Bearer ehfdh24ryruhugh54h34ifhu43fh4u';
+    service.registerUser(mockedUser2).subscribe((value) => {
+      expect(value).not.toBe(null);
+      expect(value).toEqual(token);
+    });
+    const req = httpTestingController.expectOne(`http://localhost:8080/user`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toBe(mockedUser2);
+    req.flush(token);
+  });
 });

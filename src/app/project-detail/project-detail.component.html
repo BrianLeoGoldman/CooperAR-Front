@@ -72,9 +72,9 @@
                     <dt>Progreso:</dt>
                     <dd>
                       <div class="progress progress-striped active m-b-sm">
-                        <div style="width: 100%;" class="progress-bar"></div>
+                        <div [style.width.%]="project.percentage" class="progress-bar"></div>
                       </div>
-                      <small>Proyecto completado al <strong>100%</strong></small>
+                      <small>Proyecto completado al <strong>{{project.percentage}}%</strong></small>
                     </dd>
                   </dl>
                 </div>

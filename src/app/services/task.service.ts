@@ -162,6 +162,9 @@ export class TaskService {
 
   formatTask(task: Task): void {
     task.creationDate = new Date(task.creationDate).toLocaleDateString();
+    if (task.finishDate !== null) {
+      task.finishDate = new Date(task.finishDate).toLocaleDateString();
+    }
   }
 
   // tslint:disable-next-line:typedef

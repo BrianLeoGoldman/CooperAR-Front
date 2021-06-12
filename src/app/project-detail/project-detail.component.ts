@@ -17,7 +17,7 @@ import {TaskService} from '../services/task.service';
 export class ProjectDetailComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
-  project: Project =  { name: '', budget: 0, description: '', owner: '', creationDate: '', finishDate: '', category: '', tasks: [], files: [] };
+  project: Project =  { name: '', budget: 0, description: '', owner: '', creationDate: '', finishDate: '', category: '', percentage: 0, tasks: [], files: [] };
   isOwner: boolean;
 
   form: FormGroup;
@@ -31,6 +31,8 @@ export class ProjectDetailComponent implements OnInit {
   reward: number;
   description: string;
   difficulty: string;
+
+  width = 34;
 
   constructor(private route: ActivatedRoute, // Holds information about the route to this instance of the component
               private location: Location, // Is an Angular service for interacting with the browser

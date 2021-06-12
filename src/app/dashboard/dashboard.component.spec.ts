@@ -8,7 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {mockedProject, mockedTask1} from '../model/mocks';
+import {mockedProject1, mockedTask1} from '../model/mocks';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -37,21 +37,21 @@ describe('DashboardComponent', () => {
   });
 
   it('should display project name', () => {
-    component.projects = [mockedProject];
+    component.projects = [mockedProject1];
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.projects .card-title').textContent).toBe('MockProject');
+    expect(compiled.querySelector('.projects .card-title').textContent).toBe('MockProject1');
   });
 
   it('should display project description', () => {
-    component.projects = [mockedProject];
+    component.projects = [mockedProject1];
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.projects .card-body').textContent).toBe('Descripcion');
   });
 
   it('should display project category', () => {
-    component.projects = [mockedProject];
+    component.projects = [mockedProject1];
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.projects .badge').textContent).toBe('CONSTRUCCION');
