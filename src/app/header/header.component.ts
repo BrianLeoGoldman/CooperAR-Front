@@ -8,9 +8,12 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  isAdmin: boolean;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.isAdmin = sessionStorage.getItem('loggedUser') === 'admin';
   }
 
   goProfile(): void {

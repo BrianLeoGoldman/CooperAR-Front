@@ -14,12 +14,15 @@ import {TaskCreateComponent} from './task-create/task-create.component';
 import {FileUploadComponent} from './file-upload/file-upload.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {AccessGuardService} from './services/access-guard.service';
+import {AdminDashboardComponent} from './admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'admin-dashboard', component: AdminDashboardComponent,
+    data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
   { path: 'dashboard', component: DashboardComponent,
     data: { requiresLogin: true }, canActivate: [ AccessGuardService ]  },
   { path: 'users', component: UsersComponent,

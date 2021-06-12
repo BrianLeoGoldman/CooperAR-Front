@@ -6,7 +6,7 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul [hidden]="isAdmin" class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" routerLink="/dashboard">Inicio</a>
       </li>
@@ -38,7 +38,7 @@
     </ul>
 
     <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="goProfile()">Mi Perfil</button>
+      <button [hidden]="isAdmin" class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="goProfile()">Mi Perfil</button>
       <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
       &nbsp;
       <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" (click)="closeSession()">Cerrar Sesion</button>

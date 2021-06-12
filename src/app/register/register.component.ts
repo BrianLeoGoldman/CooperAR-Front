@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      nickname: ['', [Validators.required, Validators.minLength(5)]],
+      nickname: ['', [Validators.required, Validators.minLength(5)]], // TODO: add validation so its not "admin"
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],

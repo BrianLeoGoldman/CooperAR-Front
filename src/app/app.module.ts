@@ -34,6 +34,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {AccessGuardService} from './services/access-guard.service';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {AccessGuardService} from './services/access-guard.service';
     ProjectCreateComponent,
     TaskCreateComponent,
     PageNotFoundComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    AdminDashboardComponent
   ],
     imports: [
         BrowserModule,

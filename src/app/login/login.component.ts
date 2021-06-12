@@ -40,12 +40,18 @@ export class LoginComponent implements OnInit {
         this.password = this.form.get('password').value;
         this.userService.login(this.nickname, this.password)
           .subscribe(data => {
-              // GlobalFunctions.token = data;
-              // GlobalFunctions.loggedUser = this.nickname;
-              sessionStorage.setItem('token', data);
-              sessionStorage.setItem('loggedUser', this.nickname);
-              this.toastr.info('Estas logueado como ' + this.nickname, 'BIENVENIDO');
-              this.router.navigate(['/dashboard']);
+              if (this.nickname === 'admin') {
+                sessionStorage.setItem('token', data);
+                sessionStorage.setItem('loggedUser', 'admin');
+                this.toastr.info('Estas logueado como admin', 'BIENVENIDO');
+                this.router.navigate(['/admin-dashboard']);
+              }
+              else {
+                sessionStorage.setItem('token', data);
+                sessionStorage.setItem('loggedUser', this.nickname);
+                this.toastr.info('Estas logueado como ' + this.nickname, 'BIENVENIDO');
+                this.router.navigate(['/dashboard']);
+              }
             },
             /*error => {
               console.log('Error del metodo userService.login:' + error);
