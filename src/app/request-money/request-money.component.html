@@ -1,0 +1,45 @@
+<app-header></app-header>
+
+<mat-card>
+  <mat-card-content>
+    <h2>Solicitar carga de fondos</h2>
+    <h4>Tu saldo actual es de ${{money}}</h4><br>
+
+    <!--<form [formGroup]="form" (ngSubmit)="onSubmit()">
+      &lt;!&ndash;<mat-error *ngIf="invalidData">
+        No se pudo iniciar sesión
+      </mat-error>&ndash;&gt;
+      <mat-form-field class="full-width-input">
+        <label for="requestedMoney">Monto a cargar</label>
+        <input matInput placeholder="Monto solicitado" id="requestedMoney" formControlName="requestedMoney" required>
+        <mat-error>
+          Debe ingresar un valor positivo
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <label for="file">Estado de su cuenta</label>
+        <input matInput type="file" id="file" formControlName="file" required>
+      </mat-form-field>
+    </form>-->
+
+    <div class="form-group">
+      <div>
+        <label for="requestedMoney">Monto a cargar</label>&nbsp;
+        <input #requestedMoney type="number" placeholder="Monto solicitado" id="requestedMoney">
+      </div><br><br>
+      <div>
+        <label for="file1">Estado de cuenta bancaria</label>
+        <input type="file" id="file1" (change)="handleFileInput($event.target.files, 1)">
+      </div><br><br>
+      <div>
+        <label for="file2">Comprobante deposito</label>
+        <input type="file" id="file2" (change)="handleFileInput($event.target.files, 2)">
+      </div><br><br>
+    </div>
+    <div class="footer">
+      <button mat-raised-button class="btn btn-outline-success"
+              [disabled]="!validSizeAccount || !validSizeDeposit" (click)="requestMoney(requestedMoney.value)">Cargar</button>&nbsp;
+      <button type="button" class="btn btn-outline-dark" (click)="goBack()">Atras</button>
+    </div>
+  </mat-card-content>
+</mat-card>

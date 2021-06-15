@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {User} from '../model/user';
+import {MoneyRequest} from '../model/moneyRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +72,33 @@ export class UserService {
       );
   }
 
+  /** PUT: make a request for money */
+  // tslint:disable-next-line:typedef
+  requestMoney(nickname: string, requestedValue: string, accountStatus: File, depositReceipt: File) {
+    console.log('We are going to ask for money!!!');
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
+    const url = `${this.usersUrl}/money?user=${nickname}&money=${requestedValue}`;
+    const formData: FormData = new FormData();
+    formData.append('accountStatus', accountStatus, accountStatus.name);
+    formData.append('depositReceipt', depositReceipt, depositReceipt.name);
+    return this.http.put(url, formData, { headers })
+      .pipe(
+        tap(_ => console.log('requestMoney: OK')),
+        /*catchError(this.handleError<User>('requestMoney'))*/
+      );
+  }
+
+  /** GET: all money requests with a state */
+  getMoneyRequests(state: string): Observable<MoneyRequest[]> {
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
+    const url = `${this.usersUrl}/money?state=${state}`;
+    return this.http.get<MoneyRequest[]>(url, { headers })
+      .pipe(
+        tap(_ => console.log('getMoneyRequests: OK')),
+        /*catchError(this.handleError<User>('getMoneyRequests'))*/
+      );
+  }
+
   formatUser(user: User): void {
     user.province = user.province.replace(/_/g, ' ');
     user.birthday = new Date(user.birthday).toLocaleDateString();
@@ -83,6 +111,4 @@ export class UserService {
       return of(result as T);
     };
   }
-
-
 }

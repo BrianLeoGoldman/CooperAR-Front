@@ -21,8 +21,6 @@ export class HeaderComponent implements OnInit {
   }
 
   closeSession(): void {
-    // GlobalFunctions.loggedUser = '';
-    // GlobalFunctions.token = '';
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('loggedUser');
     this.router.navigate([`/login`]);

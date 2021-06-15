@@ -10,5 +10,24 @@
     <img src="https://www.pngkey.com/png/full/697-6972978_senal-de-transito-hombre-trabajando.png" alt="Logo" class="displayed" width="255">
     <h1>EN CONSTRUCCION</h1>
     <br>
+
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-3" *ngFor="let request of moneyRequests">
+        <div class="card">
+          <div class="card-header px-4 pt-4">
+            <div class="card-actions float-right">
+              <div class="dropdown show">
+              </div>
+            </div>
+            <h5 class="card-title mb-0"><b>{{request.requester}}</b></h5>
+            <div class="badge bg-success my-2">{{request.moneyRequested}}</div>
+          </div>
+          <div class="card-body px-4 pt-2">
+            <p>{{request.state}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

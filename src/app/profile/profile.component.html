@@ -24,7 +24,7 @@
                 <h2 class="text-lg-center">{{user.firstname}} {{user.lastname}}</h2>
                 <div>
                   <h3 [hidden]="!isOwner" class="text-info mb-1 inline-block-child">Dinero: ${{user.money}}</h3>
-                  <button [hidden]="!isOwner" class="btn btn-small inline-block-child">+</button>
+                  <button [hidden]="!isOwner" class="btn btn-small inline-block-child" (click)="goRequestMoney()">+</button>
                 </div>
 
                 <h3 class="text-info font-size-sm">Cantidad de proyectos: {{user.projects.length}}</h3>

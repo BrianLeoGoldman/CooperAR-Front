@@ -35,6 +35,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {AccessGuardService} from './services/access-guard.service';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { RequestMoneyComponent } from './request-money/request-money.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     TaskCreateComponent,
     PageNotFoundComponent,
     FileUploadComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    RequestMoneyComponent
   ],
     imports: [
         BrowserModule,

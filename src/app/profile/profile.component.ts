@@ -76,4 +76,10 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/project-create/', this.user.nickname, this.user.money])
       .then(r => console.log(r));
   }
+
+  // tslint:disable-next-line:typedef
+  goRequestMoney() {
+    this.router.navigate(['/request-money/', this.user.nickname, this.user.money])
+      .then(r => console.log(r));
+  }
 }
