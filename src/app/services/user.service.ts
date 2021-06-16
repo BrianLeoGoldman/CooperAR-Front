@@ -99,6 +99,30 @@ export class UserService {
       );
   }
 
+  /** PUT: approve a specific money request */
+  // tslint:disable-next-line:typedef
+  approveMoneyRequest(id: number) {
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
+    const url = `${this.usersUrl}/money/approve?id=${id}`;
+    return this.http.put(url, { headers })
+      .pipe(
+        tap(_ => console.log('approveMoneyRequest: OK')),
+        /*catchError(this.handleError<User>('getMoneyRequests'))*/
+      );
+  }
+
+  /** PUT: reject a specific money request */
+  // tslint:disable-next-line:typedef
+  rejectMoneyRequest(id: number) {
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
+    const url = `${this.usersUrl}/money/reject?id=${id}`;
+    return this.http.put(url, { headers })
+      .pipe(
+        tap(_ => console.log('rejectMoneyRequest: OK')),
+        /*catchError(this.handleError<User>('getMoneyRequests'))*/
+      );
+  }
+
   formatUser(user: User): void {
     user.province = user.province.replace(/_/g, ' ');
     user.birthday = new Date(user.birthday).toLocaleDateString();
@@ -111,4 +135,5 @@ export class UserService {
       return of(result as T);
     };
   }
+
 }

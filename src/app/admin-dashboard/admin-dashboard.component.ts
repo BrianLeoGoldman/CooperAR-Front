@@ -22,4 +22,16 @@ export class AdminDashboardComponent implements OnInit {
       .subscribe(moneyRequests => this.moneyRequests = moneyRequests);
     console.log(this.moneyRequests);
   }
+
+  // tslint:disable-next-line:typedef
+  approveMoneyRequest(id: number) {
+    this.userService.approveMoneyRequest(id)
+      .subscribe(_ => this.ngOnInit());
+  }
+
+  // tslint:disable-next-line:typedef
+  rejectMoneyRequest(id: number) {
+    this.userService.rejectMoneyRequest(id)
+      .subscribe(_ => this.ngOnInit());
+  }
 }

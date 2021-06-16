@@ -3,13 +3,10 @@
 <div class="container p-0">
   <div><br></div>
   <div>
-    <!--<img src="./assets/images/logo-3.png" alt="Logo" class="displayed" width="255">-->
-  </div>
-  <div>
-    <br>
+    <!--<br>
     <img src="https://www.pngkey.com/png/full/697-6972978_senal-de-transito-hombre-trabajando.png" alt="Logo" class="displayed" width="255">
     <h1>EN CONSTRUCCION</h1>
-    <br>
+    <br>-->
 
     <div class="row">
       <div class="col-12 col-md-6 col-lg-3" *ngFor="let request of moneyRequests">
@@ -19,11 +16,15 @@
               <div class="dropdown show">
               </div>
             </div>
-            <h5 class="card-title mb-0"><b>{{request.requester}}</b></h5>
-            <div class="badge bg-success my-2">{{request.moneyRequested}}</div>
+            <h5 class="card-title mb-0"><b>SOLICITANTE: {{request.requester}}</b></h5>
+            <div class="badge bg-success my-2">MONTO: {{request.moneyRequested}}</div>
           </div>
           <div class="card-body px-4 pt-2">
-            <p>{{request.state}}</p>
+            <p>ESTADO: {{request.state}}</p>
+          </div>
+          <div class="dl-horizontal">
+            <div><button class="btn btn-primary" (click)="approveMoneyRequest(request.id)">APROBAR</button></div>
+            <div><button class="btn btn-danger" (click)="rejectMoneyRequest(request.id)">RECHAZAR</button></div>
           </div>
         </div>
       </div>
