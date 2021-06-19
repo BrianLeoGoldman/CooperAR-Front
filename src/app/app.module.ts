@@ -37,6 +37,9 @@ import {AccessGuardService} from './services/access-guard.service';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { RequestMoneyComponent } from './request-money/request-money.component';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @NgModule({
   declarations: [
@@ -80,6 +83,8 @@ import { RequestMoneyComponent } from './request-money/request-money.component';
         MatSelectModule,
         MatTableModule,
         MatTooltipModule,
+        MatToolbarModule,
+        FlexLayoutModule,
         // ToastrModule added
     ],
   providers: [

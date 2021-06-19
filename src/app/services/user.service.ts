@@ -94,6 +94,7 @@ export class UserService {
     const url = `${this.usersUrl}/money?state=${state}`;
     return this.http.get<MoneyRequest[]>(url, { headers })
       .pipe(
+        tap(requests => requests.forEach(request => this.formatMoneyRequest(request))),
         tap(_ => console.log('getMoneyRequests: OK')),
         /*catchError(this.handleError<User>('getMoneyRequests'))*/
       );
@@ -123,9 +124,29 @@ export class UserService {
       );
   }
 
+  /** GET: a file from a Money Request */
+  // tslint:disable-next-line:typedef ban-types
+  getFile(id: string, type: string, fileName: string): Observable<Object>  {
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
+    const url = `${this.usersUrl}/money/file?id=${id}&type=${type}&fileName=${fileName}`;
+    // tslint:disable-next-line:ban-types
+    return this.http.get<Object>(url, { headers })
+      .pipe(
+        tap(response => console.log(response)),
+        tap(_ => console.log('getFile: OK')),
+        /*catchError(this.handleError<User>('getMoneyRequests'))*/
+      );
+  }
+
   formatUser(user: User): void {
     user.province = user.province.replace(/_/g, ' ');
     user.birthday = new Date(user.birthday).toLocaleDateString();
+  }
+
+  formatMoneyRequest(request: MoneyRequest): void {
+    if (request.creationDate !== null) {
+      request.creationDate = new Date(request.creationDate).toLocaleDateString();
+    }
   }
 
   // tslint:disable-next-line:typedef
@@ -135,5 +156,4 @@ export class UserService {
       return of(result as T);
     };
   }
-
 }

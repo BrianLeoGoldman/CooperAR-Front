@@ -48,6 +48,7 @@ export class RequestMoneyComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   requestMoney(requestedValue: string) {
+    // TODO: validate that the requestedValue is a positive number!!!
     this.userService.requestMoney(this.nickname, requestedValue, this.accountStatus, this.depositReceipt)
       .subscribe(data => {
         this.location.back();

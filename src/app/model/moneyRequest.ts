@@ -4,6 +4,6 @@ export interface MoneyRequest {
   moneyRequested: number;
   creationDate: string;
   state: string;
-  accountStatus: File;
-  depositReceipt: File;
+  accountStatus: string;
+  depositReceipt: string;
 }

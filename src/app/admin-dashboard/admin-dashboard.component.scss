@@ -16,3 +16,11 @@ h1 {
   background-color: #ffffff;
   font-family: "Berlin Sans FB Demi", sans-serif;
 }
+
+.content {
+  padding: 16px;
+}
+
+.content > mat-card {
+  width: 200px;
+}
