@@ -15,13 +15,15 @@ export class AdminDashboardComponent implements OnInit {
   private sanitizer: DomSanitizer;
   image: any;
   private readonly imageType: string = 'data:image/JPG;base64,';
+  selected = 'ABIERTO';
+  showButtons = true;
 
   constructor(private userService: UserService,
               private sanitized: DomSanitizer,
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getMoneyRequests('ABIERTO');
+    this.getMoneyRequests(this.selected);
     this.sanitizer = this.sanitized;
   }
 
@@ -63,4 +65,10 @@ export class AdminDashboardComponent implements OnInit {
     /*window.open(this.image, this.image);*/
   }
 
+  // tslint:disable-next-line:typedef
+  reload() {
+    this.showButtons = !(this.selected === 'APROBADO' || this.selected === 'RECHAZADO');
+    console.log(this.selected);
+    this.ngOnInit();
+  }
 }
