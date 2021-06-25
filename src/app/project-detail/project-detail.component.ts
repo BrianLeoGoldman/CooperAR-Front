@@ -61,29 +61,28 @@ export class ProjectDetailComponent implements OnInit {
 
   private setProjectInfo(project: Project): void {
     this.project = project;
-    // this.isOwner = GlobalFunctions.loggedUser === this.project.owner;
     this.isOwner = sessionStorage.getItem('loggedUser') === this.project.owner;
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 
   delete(id: number): void {
     this.projectService.deleteProject(id)
-      .subscribe(_ => this.toastr.success('EL PROYECTO ' + id + ' HA SIDO ELIMINADO', 'OPERACION EXITOSA')); // TODO: write message here
+      .subscribe(_ => this.reloadAndRedirect(
+        'El proyecto numero ' + id + ' ha sido eliminado',
+        'PROYECTO ELIMINADO',
+        '/dashboard'));
     this.modalService.dismissAll();
-    // this.location.go('/dashboard');
-    this.router.navigate(['/dashboard']).then(r => r);
   }
 
-  open(content): void {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(
-      (result) => { // this.closeResult = `Closed with: ${result}`;
-      },
-      (reason) => { // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
+  // tslint:disable-next-line:typedef
+  reloadAndFeedback(message: string, title: string) {
+    this.toastr.success(message, title);
+    this.ngOnInit();
+  }
+
+  // tslint:disable-next-line:typedef
+  reloadAndRedirect(message: string, title: string, page: string) {
+    this.toastr.success(message, title);
+    this.router.navigate([page]).then(r => console.log(r));
   }
 
   // tslint:disable-next-line:typedef
@@ -96,5 +95,18 @@ export class ProjectDetailComponent implements OnInit {
   goUploadFile() {
     this.router.navigate(['file-upload/', 'project', this.project.id])
       .then(r => console.log(r));
+  }
+
+  open(content): void {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(
+      (result) => { // this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => { // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

@@ -17,12 +17,14 @@ export class AdminDashboardComponent implements OnInit {
   private readonly imageType: string = 'data:image/JPG;base64,';
   selected = 'ABIERTO';
   showButtons = true;
+  requestInProgress: boolean;
 
   constructor(private userService: UserService,
               private sanitized: DomSanitizer,
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.requestInProgress = false;
     this.getMoneyRequests(this.selected);
     this.sanitizer = this.sanitized;
   }
@@ -35,16 +37,26 @@ export class AdminDashboardComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   approveMoneyRequest(id: number) {
+    this.requestInProgress = true;
     this.userService.approveMoneyRequest(id)
-      .subscribe(_ => this.ngOnInit());
-    this.toastr.info('El pedido ' + id + ' fue aprobado exitosamente', 'PEDIDO APROBADO');
+      .subscribe(_ => this.reloadAndFeedback(
+        'El pedido ' + id + ' fue aprobado exitosamente',
+        'PEDIDO APROBADO'));
   }
 
   // tslint:disable-next-line:typedef
   rejectMoneyRequest(id: number) {
+    this.requestInProgress = true;
     this.userService.rejectMoneyRequest(id)
-      .subscribe(_ => this.ngOnInit());
-    this.toastr.info('El pedido ' + id + ' fue rechazado', 'PEDIDO RECHAZADO');
+      .subscribe(_ => this.reloadAndFeedback(
+        'El pedido ' + id + ' fue rechazado',
+        'PEDIDO RECHAZADO'));
+  }
+
+  // tslint:disable-next-line:typedef
+  reloadAndFeedback(message: string, title: string) {
+    this.toastr.info(message, title);
+    this.ngOnInit();
   }
 
   // tslint:disable-next-line:typedef

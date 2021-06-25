@@ -5,7 +5,7 @@ import {Location} from '@angular/common';
 import {TaskService} from '../services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {States} from '../model/states';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-task-detail',
@@ -22,6 +22,7 @@ export class TaskDetailComponent implements OnInit {
   canBeCompleted: boolean;
   canBeApproved: boolean;
   canBeCanceled: boolean;
+  requestInProgress: boolean;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -31,6 +32,7 @@ export class TaskDetailComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    this.requestInProgress = false;
     this.getTask();
   }
 
@@ -53,20 +55,85 @@ export class TaskDetailComponent implements OnInit {
     this.canBeCanceled = this.isOwner && (this.task.state === 'DISPONIBLE' || this.task.state === 'COMPLETA');
   }
 
-  open(content): void {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-      (result) => { console.log(`${result}`); },
-      (reason) => { console.log(`${reason}`); }
-    );
-  }
-
   delete(id: number): void {
     this.taskService.deleteTask(id)
-      .subscribe(_ => this.toastr.success('LA TAREA ' + id + ' HA SIDO ELIMINADA', 'OPERACION EXITOSA'));
+      .subscribe(_ => this.reloadAndRedirect(
+        'La tarea numero ' + id + ' ha sido eliminada',
+        'TAREA ELIMINADA',
+        '/dashboard'));
     this.modalService.dismissAll();
-    // this.location.back(); // TODO: triggers task deletion two times!
-    this.router.navigate(['/dashboard']).then(r => console.log(r));
+  }
+
+  // tslint:disable-next-line:typedef
+  assignWorker() {
+    this.requestInProgress = true;
+    this.taskService.assignWorker(sessionStorage.getItem('loggedUser'), this.task.id)
+      .subscribe(_ => this.reloadAndFeedback(
+        'Te has asignado la tarea ' + this.task.name + '.\n' +
+        'El usuario ' + this.task.owner + ' ya ha sido notificado',
+        'TAREA ASIGNADA'));
+  }
+
+  // tslint:disable-next-line:typedef
+  unassignWorker() {
+    this.requestInProgress = true;
+    this.taskService.unassignWorker(this.task.id)
+      .subscribe(_ => this.reloadAndFeedback(
+        'El usuario ' + this.task.worker + ' fue desasignado.\n' +
+        'El usuario ' + this.task.worker + ' ya ha sido notificado',
+        'USUARIO DESASIGNADO'));
+  }
+
+  // tslint:disable-next-line:typedef
+  completeTask() {
+    this.requestInProgress = true;
+    this.taskService.completeTask(this.task.id)
+      .subscribe(_ => this.reloadAndFeedback(
+        'La tarea ' + this.task.name + ' fue completada.\n' +
+        'El usuario ' + this.task.owner + ' ya ha sido notificado',
+        'TAREA COMPLETADA'));
+  }
+
+  // tslint:disable-next-line:typedef
+  approveTask() {
+    this.requestInProgress = true;
+    this.taskService.approveTask(this.task.id)
+      .subscribe(_ => this.reloadAndFeedback(
+        'La tarea ' + this.task.name + ' fue aprobada.\n' +
+        'El usuario ' + this.task.worker + ' ya ha recibido los fondos',
+        'TAREA APROBADA'));
+  }
+
+  // tslint:disable-next-line:typedef
+  unapproveTask() {
+    this.requestInProgress = true;
+    this.taskService.unapproveTask(this.task.id)
+      .subscribe(_ => this.reloadAndFeedback(
+        'La tarea ' + this.task.name + ' fue desaprobada.\n' +
+        'El usuario ' + this.task.worker + ' ya ha sido notificado',
+        'TAREA DESAPROBADA'));
+  }
+
+  // tslint:disable-next-line:typedef
+  cancelTask() {
+    this.requestInProgress = true;
+    this.taskService.cancelTask(this.task.id)
+      .subscribe(_ => this.reloadAndFeedback(
+        'La tarea ' + this.task.name + ' fue cancelada.\n' +
+        'Se te ha devuelto el dinero asignado',
+        'TAREA CANCELADA'));
+  }
+
+  // tslint:disable-next-line:typedef
+  reloadAndFeedback(message: string, title: string) {
+    this.toastr.success(message, title);
+    this.ngOnInit();
+  }
+
+  // tslint:disable-next-line:typedef
+  reloadAndRedirect(message: string, title: string, page: string) {
+    this.toastr.success(message, title);
+    this.router.navigate([page]).then(r => console.log(r));
   }
 
   // tslint:disable-next-line:typedef
@@ -75,40 +142,12 @@ export class TaskDetailComponent implements OnInit {
       .then(r => console.log(r));
   }
 
-  // tslint:disable-next-line:typedef
-  assignWorker() {
-    this.taskService.assignWorker(sessionStorage.getItem('loggedUser'), this.task.id)
-      .subscribe(_ => this.ngOnInit()); // TODO: does it refresh? It does!!!
-  }
-
-  // tslint:disable-next-line:typedef
-  unassignWorker() {
-    this.taskService.unassignWorker(this.task.id)
-      .subscribe(_ => this.ngOnInit());
-  }
-
-  // tslint:disable-next-line:typedef
-  completeTask() {
-    this.taskService.completeTask(this.task.id)
-      .subscribe(_ => this.ngOnInit());
-  }
-
-  // tslint:disable-next-line:typedef
-  approveTask() {
-    this.taskService.approveTask(this.task.id)
-      .subscribe(_ => this.ngOnInit());
-  }
-
-  // tslint:disable-next-line:typedef
-  unapproveTask() {
-    this.taskService.unapproveTask(this.task.id)
-      .subscribe(_ => this.ngOnInit());
-  }
-
-  // tslint:disable-next-line:typedef
-  cancelTask() {
-    this.taskService.cancelTask(this.task.id)
-      .subscribe(_ => this.ngOnInit());
+  open(content): void {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+      (result) => { console.log(`${result}`); },
+      (reason) => { console.log(`${reason}`); }
+    );
   }
 
   // tslint:disable-next-line:typedef

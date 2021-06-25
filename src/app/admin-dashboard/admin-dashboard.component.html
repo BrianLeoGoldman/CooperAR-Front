@@ -29,12 +29,19 @@
           <h4> RECIBO DE DEPOSITO: <div (click)="getFile(request.id, 'DR', request.depositReceipt)" class="badge bg-info">{{request.depositReceipt}}</div> </h4>
         </mat-card-content>
         <mat-card-actions>
-          <button [hidden]="!showButtons" mat-button class="btn btn-primary" (click)="approveMoneyRequest(request.id)">APROBAR</button>
-          <button [hidden]="!showButtons" mat-button class="btn btn-danger" (click)="rejectMoneyRequest(request.id)">RECHAZAR</button>
+          <button [hidden]="!showButtons" [disabled]="requestInProgress" mat-button class="btn btn-primary" (click)="approveMoneyRequest(request.id)">APROBAR</button>
+          <button [hidden]="!showButtons" [disabled]="requestInProgress" mat-button class="btn btn-danger" (click)="rejectMoneyRequest(request.id)">RECHAZAR</button>
         </mat-card-actions>
       </mat-card>
     </div>
   </div>
+
+  <mat-progress-spinner
+    [hidden]="!requestInProgress"
+    class="example-margin"
+    mode="indeterminate">
+  </mat-progress-spinner>
+
 </div>
 
 

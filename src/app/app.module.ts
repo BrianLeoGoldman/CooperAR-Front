@@ -39,6 +39,7 @@ import { RequestMoneyComponent } from './request-money/request-money.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -85,6 +86,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatTooltipModule,
         MatToolbarModule,
         FlexLayoutModule,
+        MatProgressSpinnerModule,
         // ToastrModule added
     ],
   providers: [
