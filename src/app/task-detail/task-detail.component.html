@@ -7,7 +7,7 @@
       <div class="wrapper wrapper-content animated fadeInUp">
       <div class="ibox-button">
         <div class="ibox-content-button-back">
-          <a class="btn btn-secondary btn-xs" (click)="goBack()">Atras</a>
+          <button class="btn btn-secondary btn-xs" [disabled]="requestInProgress" (click)="goBack()">Atras</button>
         </div>
       </div>
     </div>
@@ -17,8 +17,8 @@
       <div class="wrapper wrapper-content animated fadeInUp">
         <div class="ibox-button">
           <div class="ibox-content-button">
-            <a [hidden]="!isOwner" class="btn btn-info btn-xs pull-right" >Editar tarea</a>&nbsp;
-            <a [hidden]="!isOwner" class="btn btn-xs btn-danger" (click)="open(deleteTask)">Eliminar tarea</a>
+            <button [hidden]="!isOwner" [disabled]="requestInProgress" class="btn btn-info btn-xs pull-right" >Editar tarea</button>&nbsp;
+            <button [hidden]="!isOwner" [disabled]="requestInProgress" class="btn btn-xs btn-danger" (click)="open(deleteTask)">Eliminar tarea</button>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
       <div class="wrapper wrapper-content animated fadeInUp">
         <div class="ibox-button">
           <div class="ibox-content-button">
-            <a [hidden]="!isOwner" class="btn btn-xs btn-primary" (click)="goUploadFile()">Cargar nuevo archivo</a>
+            <button [hidden]="!isOwner" [disabled]="requestInProgress" class="btn btn-xs btn-primary" (click)="goUploadFile()">Cargar nuevo archivo</button>
           </div>
         </div>
       </div>

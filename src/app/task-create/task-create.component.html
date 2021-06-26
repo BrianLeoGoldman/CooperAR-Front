@@ -40,11 +40,16 @@
       </mat-form-field>
 
       <div class="footer">
-        <!-- TODO: we have to block this CREAR button when request is on progress!!! -->
-        <button mat-raised-button class="btn btn-outline-success">Crear</button>&nbsp;
-        <button type="button" class="btn btn-outline-dark" (click)="goBack()">Atras</button>
+        <button [disabled]="requestInProgress" mat-raised-button class="btn btn-outline-success">Crear</button>&nbsp;
+        <button [disabled]="requestInProgress" type="button" class="btn btn-outline-dark" (click)="goBack()">Atras</button>
       </div>
     </form>
   </mat-card-content>
 </mat-card>
+
+<mat-progress-spinner
+  [hidden]="!requestInProgress"
+  class="example-margin"
+  mode="indeterminate">
+</mat-progress-spinner>
 

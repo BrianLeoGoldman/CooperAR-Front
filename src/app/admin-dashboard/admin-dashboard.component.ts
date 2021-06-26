@@ -39,18 +39,20 @@ export class AdminDashboardComponent implements OnInit {
   approveMoneyRequest(id: number) {
     this.requestInProgress = true;
     this.userService.approveMoneyRequest(id)
-      .subscribe(_ => this.reloadAndFeedback(
+      .subscribe(success => this.reloadAndFeedback(
         'El pedido ' + id + ' fue aprobado exitosamente',
-        'PEDIDO APROBADO'));
+        'PEDIDO APROBADO'),
+        error => this.requestInProgress = false);
   }
 
   // tslint:disable-next-line:typedef
   rejectMoneyRequest(id: number) {
     this.requestInProgress = true;
     this.userService.rejectMoneyRequest(id)
-      .subscribe(_ => this.reloadAndFeedback(
+      .subscribe(success => this.reloadAndFeedback(
         'El pedido ' + id + ' fue rechazado',
-        'PEDIDO RECHAZADO'));
+        'PEDIDO RECHAZADO'),
+        error => this.requestInProgress = false);
   }
 
   // tslint:disable-next-line:typedef
@@ -80,7 +82,6 @@ export class AdminDashboardComponent implements OnInit {
   // tslint:disable-next-line:typedef
   reload() {
     this.showButtons = !(this.selected === 'APROBADO' || this.selected === 'RECHAZADO');
-    console.log(this.selected);
     this.ngOnInit();
   }
 }

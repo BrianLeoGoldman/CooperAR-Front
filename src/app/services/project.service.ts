@@ -39,7 +39,6 @@ export class ProjectService {
 
   /** PUT: add a new project to the server */
   // tslint:disable-next-line:typedef
-  // TODO: should we send info in body instead of in url? I think not
   createProject(name: string, budget: number, description: string, category: string, owner: string): Observable<any> {
     const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.projectsUrl}?name=${name}&budget=${budget}&description=${description}&category=${category}&owner=${owner}`;
@@ -58,7 +57,7 @@ export class ProjectService {
       /*.append('Response-Type', 'text/html')
       .append('Content-Type', 'text/html');*/
     const url = `${this.projectsUrl}/${id}`;
-    return this.http.delete(url, { headers, responseType: 'text' }) // TODO: responseType not necessary?
+    return this.http.delete(url, { headers })
       .pipe(
         tap(_ => console.log('deleteProject: OK')),
         /*catchError(this.handleError<any>('deleteProject'))*/

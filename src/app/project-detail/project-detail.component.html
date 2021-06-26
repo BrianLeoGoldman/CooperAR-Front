@@ -7,7 +7,7 @@
       <div class="wrapper wrapper-content animated fadeInUp">
         <div class="ibox-button">
           <div class="ibox-content-button-back">
-            <a class="btn btn-secondary btn-xs" (click)="goBack()">Atras</a>
+            <button class="btn btn-secondary btn-xs" [disabled]="requestInProgress" (click)="goBack()">Atras</button>
           </div>
         </div>
       </div>
@@ -17,8 +17,8 @@
       <div class="wrapper wrapper-content animated fadeInUp">
         <div class="ibox-button">
           <div class="ibox-content-button">
-            <a [hidden]="!isOwner" class="btn btn-info btn-xs pull-right" >Editar proyecto</a>&nbsp;
-            <a [hidden]="!isOwner" class="btn btn-xs btn-danger" (click)="open(deleteProject)">Eliminar proyecto</a>
+            <button [hidden]="!isOwner" [disabled]="requestInProgress" class="btn btn-info btn-xs pull-right" >Editar proyecto</button>&nbsp;
+            <button [hidden]="!isOwner" [disabled]="requestInProgress" class="btn btn-xs btn-danger" (click)="open(deleteProject)">Eliminar proyecto</button>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
       <div class="wrapper wrapper-content animated fadeInUp">
         <div class="ibox-button">
           <div class="ibox-content-button">
-            <a [hidden]="!isOwner" class="btn btn-xs btn-primary" (click)="goUploadFile()">Cargar nuevo archivo</a>
+            <button [hidden]="!isOwner" [disabled]="requestInProgress" class="btn btn-xs btn-primary" (click)="goUploadFile()">Cargar nuevo archivo</button>
           </div>
         </div>
       </div>
@@ -123,7 +123,7 @@
             <div class="ibox-content">
               <h2>Tareas</h2>
               <div class="text-center m-t-md">
-                <a [hidden]="!isOwner" class="btn btn-xs btn-primary" (click)="goCreateTask()">Crear nueva tarea</a><br><br>
+                <button [hidden]="!isOwner" [disabled]="requestInProgress" class="btn btn-xs btn-primary" (click)="goCreateTask()">Crear nueva tarea</button><br><br>
               </div>
               <ul class="tag-list" style="padding: 0">
                 <li *ngFor="let task of project.tasks">
@@ -531,6 +531,13 @@
     </div>
 
   </div>-->
+
+  <mat-progress-spinner
+    [hidden]="!requestInProgress"
+    class="example-margin"
+    mode="indeterminate">
+  </mat-progress-spinner>
+
 </div>
 
 <ng-template #deleteProject let-modal>

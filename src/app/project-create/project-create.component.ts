@@ -18,7 +18,7 @@ export class ProjectCreateComponent implements OnInit {
   form: FormGroup;
   public invalidData: boolean;
   private formSubmitAttempt: boolean;
-
+  requestInProgress: boolean;
   keys: Array<string> = Object.keys(Categories);
   categories: Array<string> = this.keys.slice(this.keys.length / 2);
 
@@ -39,6 +39,7 @@ export class ProjectCreateComponent implements OnInit {
               private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.requestInProgress = false;
     this.owner = this.route.snapshot.paramMap.get('owner');
     this.money = Number(this.route.snapshot.paramMap.get('money'));
     this.form = this.fb.group({
@@ -47,6 +48,18 @@ export class ProjectCreateComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(20)]],
       category: ['', Validators.required]
     });
+  }
+
+  // tslint:disable-next-line:typedef
+  reloadAndFeedback(message: string, title: string) {
+    this.toastr.success(message, title);
+    this.ngOnInit();
+  }
+
+  // tslint:disable-next-line:typedef
+  reloadAndRedirect(message: string, title: string, page: string) {
+    this.toastr.success(message, title);
+    this.router.navigate([page]).then(r => console.log(r));
   }
 
   goBack(): void {
@@ -63,6 +76,7 @@ export class ProjectCreateComponent implements OnInit {
         this.budget = this.form.get('budget').value;
         this.description = this.form.get('description').value;
         this.category = this.form.get('category').value;
+        this.requestInProgress = true;
         this.projectService.createProject(
           this.name,
           this.budget,
@@ -72,11 +86,10 @@ export class ProjectCreateComponent implements OnInit {
           .subscribe(data => {
               this.toastr.info('Se ha creado el proyecto con nombre ' + this.name, 'PROYECTO CREADO');
               this.location.back();
-              // this.router.navigate(['/dashboard']);
             },
-            /*error => {
-              console.log('Error del metodo projectService.createProject:' + error);
-            }*/
+            error => {
+              this.requestInProgress = false;
+            }
           );
       } catch (err) {
         this.invalidData = true;

@@ -20,16 +20,16 @@
             <div class="d-flex flex-column align-items-center text-center">
               <img src="./assets/images/user.png" alt="User" class="rounded-circle" width="150">
               <div class="mt-3">
-                <a [hidden]="!isOwner" class="text-muted">Editar perfil</a>
+                <!--<button [hidden]="!isOwner" [disabled]="requestInProgress" class="text-muted">Editar perfil</button>-->
                 <h2 class="text-lg-center">{{user.firstname}} {{user.lastname}}</h2>
                 <div>
                   <h3 [hidden]="!isOwner" class="text-info mb-1 inline-block-child">Dinero: ${{user.money}}</h3>
-                  <button [hidden]="!isOwner" class="btn btn-small inline-block-child" (click)="goRequestMoney()">+</button>
+                  <button [hidden]="!isOwner" [disabled]="requestInProgress" class="btn btn-small inline-block-child" (click)="goRequestMoney()">+</button>
                 </div>
 
                 <h3 class="text-info font-size-sm">Cantidad de proyectos: {{user.projects.length}}</h3>
-                <button [hidden]="!isOwner" class="btn btn-primary" (click)="goCreateProject()">Crear proyecto</button><br><br>
-                <button [hidden]="!isOwner" class="btn btn-danger" (click)="open(deleteUser)">Eliminar perfil</button>
+                <button [hidden]="!isOwner" [disabled]="requestInProgress" class="btn btn-primary" (click)="goCreateProject()">Crear proyecto</button><br><br>
+                <button [hidden]="!isOwner" [disabled]="requestInProgress" class="btn btn-danger" (click)="open(deleteUser)">Eliminar perfil</button>
               </div>
             </div>
           </div>
@@ -202,6 +202,13 @@
       </div>
     </div>
   </div>
+
+  <mat-progress-spinner
+    [hidden]="!requestInProgress"
+    class="example-margin"
+    mode="indeterminate">
+  </mat-progress-spinner>
+
 </div>
 
 <ng-template #deleteUser let-modal>

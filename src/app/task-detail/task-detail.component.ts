@@ -56,11 +56,13 @@ export class TaskDetailComponent implements OnInit {
   }
 
   delete(id: number): void {
+    this.requestInProgress = true;
     this.taskService.deleteTask(id)
-      .subscribe(_ => this.reloadAndRedirect(
+      .subscribe(success => this.reloadAndRedirect(
         'La tarea numero ' + id + ' ha sido eliminada',
         'TAREA ELIMINADA',
-        '/dashboard'));
+        '/dashboard'),
+        error => this.requestInProgress = false);
     this.modalService.dismissAll();
   }
 
@@ -68,60 +70,66 @@ export class TaskDetailComponent implements OnInit {
   assignWorker() {
     this.requestInProgress = true;
     this.taskService.assignWorker(sessionStorage.getItem('loggedUser'), this.task.id)
-      .subscribe(_ => this.reloadAndFeedback(
+      .subscribe(success => this.reloadAndFeedback(
         'Te has asignado la tarea ' + this.task.name + '.\n' +
         'El usuario ' + this.task.owner + ' ya ha sido notificado',
-        'TAREA ASIGNADA'));
+        'TAREA ASIGNADA'),
+        error => this.requestInProgress = false);
   }
 
   // tslint:disable-next-line:typedef
   unassignWorker() {
     this.requestInProgress = true;
     this.taskService.unassignWorker(this.task.id)
-      .subscribe(_ => this.reloadAndFeedback(
+      .subscribe(success => this.reloadAndFeedback(
         'El usuario ' + this.task.worker + ' fue desasignado.\n' +
         'El usuario ' + this.task.worker + ' ya ha sido notificado',
-        'USUARIO DESASIGNADO'));
+        'USUARIO DESASIGNADO'),
+        error => this.requestInProgress = false);
   }
 
   // tslint:disable-next-line:typedef
   completeTask() {
     this.requestInProgress = true;
     this.taskService.completeTask(this.task.id)
-      .subscribe(_ => this.reloadAndFeedback(
+      .subscribe(success => this.reloadAndFeedback(
         'La tarea ' + this.task.name + ' fue completada.\n' +
         'El usuario ' + this.task.owner + ' ya ha sido notificado',
-        'TAREA COMPLETADA'));
+        'TAREA COMPLETADA'),
+        error => this.requestInProgress = false);
   }
 
   // tslint:disable-next-line:typedef
   approveTask() {
     this.requestInProgress = true;
     this.taskService.approveTask(this.task.id)
-      .subscribe(_ => this.reloadAndFeedback(
+      .subscribe(success => this.reloadAndFeedback(
         'La tarea ' + this.task.name + ' fue aprobada.\n' +
         'El usuario ' + this.task.worker + ' ya ha recibido los fondos',
-        'TAREA APROBADA'));
+        'TAREA APROBADA'),
+        error => this.requestInProgress = false);
   }
 
   // tslint:disable-next-line:typedef
   unapproveTask() {
     this.requestInProgress = true;
     this.taskService.unapproveTask(this.task.id)
-      .subscribe(_ => this.reloadAndFeedback(
+      .subscribe(success => this.reloadAndFeedback(
         'La tarea ' + this.task.name + ' fue desaprobada.\n' +
         'El usuario ' + this.task.worker + ' ya ha sido notificado',
-        'TAREA DESAPROBADA'));
+        'TAREA DESAPROBADA'),
+        error => this.requestInProgress = false);
   }
 
   // tslint:disable-next-line:typedef
   cancelTask() {
     this.requestInProgress = true;
     this.taskService.cancelTask(this.task.id)
-      .subscribe(_ => this.reloadAndFeedback(
+      .subscribe(success => this.reloadAndFeedback(
         'La tarea ' + this.task.name + ' fue cancelada.\n' +
         'Se te ha devuelto el dinero asignado',
-        'TAREA CANCELADA'));
+        'TAREA CANCELADA'),
+        error => this.requestInProgress = false);
   }
 
   // tslint:disable-next-line:typedef

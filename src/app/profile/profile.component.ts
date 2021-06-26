@@ -7,6 +7,7 @@ import {Project} from '../model/project';
 import {Task} from '../model/task';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TaskService} from '../services/task.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -16,20 +17,22 @@ import {TaskService} from '../services/task.service';
 export class ProfileComponent implements OnInit {
 
   user: User =  { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
-  projects: Project[] = []; // TODO: unused variable?
   assignedTasks: Task[] = [];
   isOwner: boolean;
   projectsAvailable: boolean;
   tasksAvailable: boolean;
+  requestInProgress: boolean;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
               private userService: UserService,
               private taskService: TaskService,
+              private toastr: ToastrService,
               private modalService: NgbModal,
               private router: Router) { }
 
   ngOnInit(): void {
+    this.requestInProgress = false;
     this.getData();
   }
 
@@ -55,20 +58,26 @@ export class ProfileComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   delete(nickname: string) {
+    this.requestInProgress = true;
     this.userService.deleteUser(nickname)
-      .subscribe(_ => console.log('USUARIO ELIMINADO'));
+      .subscribe(success => this.reloadAndRedirect(
+        'El usuario ' + nickname + ' ha sido eliminado',
+        'USUARIO ELIMINADO',
+        '/login'),
+        error => this.requestInProgress = false);
     this.modalService.dismissAll();
-    this.router.navigate(['/login']).then(r => console.log(r));
   }
 
   // tslint:disable-next-line:typedef
-  open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(
-      (result) => { // this.closeResult = `Closed with: ${result}`;
-      },
-      (reason) => { // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-      );
+  reloadAndFeedback(message: string, title: string) {
+    this.toastr.success(message, title);
+    this.ngOnInit();
+  }
+
+  // tslint:disable-next-line:typedef
+  reloadAndRedirect(message: string, title: string, page: string) {
+    this.toastr.success(message, title);
+    this.router.navigate([page]).then(r => console.log(r));
   }
 
   // tslint:disable-next-line:typedef
@@ -82,4 +91,15 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/request-money/', this.user.nickname, this.user.money])
       .then(r => console.log(r));
   }
+
+  // tslint:disable-next-line:typedef
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(
+      (result) => { // this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => { // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+
 }

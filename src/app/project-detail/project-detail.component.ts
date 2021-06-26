@@ -19,7 +19,7 @@ export class ProjectDetailComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   project: Project =  { name: '', budget: 0, description: '', owner: '', creationDate: '', finishDate: '', category: '', percentage: 0, tasks: [], files: [] };
   isOwner: boolean;
-
+  requestInProgress: boolean;
   form: FormGroup;
   public invalidData: boolean;
   private formSubmitAttempt: boolean;
@@ -44,6 +44,7 @@ export class ProjectDetailComponent implements OnInit {
               private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.requestInProgress = false;
     this.getProject();
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
@@ -65,11 +66,13 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   delete(id: number): void {
+    this.requestInProgress = true;
     this.projectService.deleteProject(id)
-      .subscribe(_ => this.reloadAndRedirect(
+      .subscribe(success => this.reloadAndRedirect(
         'El proyecto numero ' + id + ' ha sido eliminado',
         'PROYECTO ELIMINADO',
-        '/dashboard'));
+        '/dashboard'),
+        error => this.requestInProgress = false);
     this.modalService.dismissAll();
   }
 

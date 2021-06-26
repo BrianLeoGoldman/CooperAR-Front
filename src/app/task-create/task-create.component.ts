@@ -17,7 +17,7 @@ export class TaskCreateComponent implements OnInit {
   form: FormGroup;
   public invalidData: boolean;
   private formSubmitAttempt: boolean;
-
+  requestInProgress: boolean;
   keys: Array<string> = Object.keys(Difficulties);
   difficulties: Array<string> = this.keys.slice(this.keys.length / 2);
 
@@ -38,6 +38,7 @@ export class TaskCreateComponent implements OnInit {
               private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.requestInProgress = false;
     this.owner = this.route.snapshot.paramMap.get('owner');
     this.projectId = Number(this.route.snapshot.paramMap.get('projectId'));
     this.budget = Number(this.route.snapshot.paramMap.get('budget'));
@@ -47,6 +48,18 @@ export class TaskCreateComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(20)]],
       difficulty: ['', Validators.required]
     });
+  }
+
+  // tslint:disable-next-line:typedef
+  reloadAndFeedback(message: string, title: string) {
+    this.toastr.success(message, title);
+    this.ngOnInit();
+  }
+
+  // tslint:disable-next-line:typedef
+  reloadAndRedirect(message: string, title: string, page: string) {
+    this.toastr.success(message, title);
+    this.router.navigate([page]).then(r => console.log(r));
   }
 
   goBack(): void {
@@ -63,6 +76,7 @@ export class TaskCreateComponent implements OnInit {
         this.reward = this.form.get('reward').value;
         this.description = this.form.get('description').value;
         this.difficulty = this.form.get('difficulty').value;
+        this.requestInProgress = true;
         this.taskService.createTask(
           this.name,
           this.reward,
@@ -73,11 +87,10 @@ export class TaskCreateComponent implements OnInit {
           .subscribe(data => {
               this.toastr.info('Se ha creado la tarea con nombre ' + this.name, 'TAREA CREADA');
               this.location.back();
-              // this.router.navigate(['/dashboard']);
             },
-            /*error => {
-              console.log('Error del metodo taskService.createTask:' + error);
-            }*/
+            error => {
+              this.requestInProgress = false;
+            }
           );
       } catch (err) {
         this.invalidData = true;

@@ -50,17 +50,9 @@ export class TaskService {
   }
 
   /** PUT: create a new task */
-  // TODO: should we send info in body instead of in url? I think not
   createTask(name: string, reward: number, description: string, projectId: number, difficulty: string, owner: string): Observable<any> {
     const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
     const url = `${this.tasksUrl}?name=${name}&reward=${reward}&description=${description}&projectId=${projectId}&difficulty=${difficulty}&owner=${owner}`;
-    /*const params = new HttpParams()
-      .set('name', name)
-      .set('reward', String(reward))
-      .set('description', description)
-      .set('projectId', String(projectId))
-      .set('difficulty', difficulty)
-      .set('owner', owner);*/
     return this.http.put(url, { headers })
       .pipe(
         tap(_ => console.log('createTask: OK')),
