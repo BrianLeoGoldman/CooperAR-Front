@@ -41,6 +41,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -62,33 +64,34 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     AdminDashboardComponent,
     RequestMoneyComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        HttpClientModule,
-        CommonModule,
-        BrowserAnimationsModule, // required animations module
-        ToastrModule.forRoot(),
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatNativeDateModule,
-        MatOptionModule,
-        ReactiveFormsModule,
-        MatCardModule,
-        NgbModule,
-        MatSelectModule,
-        MatTableModule,
-        MatTooltipModule,
-        MatToolbarModule,
-        FlexLayoutModule,
-        MatProgressSpinnerModule,
-        // ToastrModule added
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatOptionModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    NgbModule,
+    MatSelectModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatToolbarModule,
+    FlexLayoutModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    // ToastrModule added
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
