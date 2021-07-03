@@ -8,8 +8,8 @@ body {
 .card {
   margin-bottom: 24px;
   box-shadow: 0 0 0.875rem 0 rgba(33,37,41,.05);
-  min-height: 250px;
-  max-height: 250px;
+  min-height: 280px;
+  max-height: 280px;
   overflow-y: auto;
   position: relative;
   display: flex;
@@ -72,5 +72,16 @@ h1.welcome {
   background-color: darkviolet;
   font-family: "Berlin Sans FB Demi", sans-serif;
 }
+
+::ng-deep .mat-paginator {
+  font-weight: normal;
+  font-size: 15px;
+  text-align: right;
+  background: transparent;
+  box-sizing: border-box;
+  color: white;
+}
+
+
 
 

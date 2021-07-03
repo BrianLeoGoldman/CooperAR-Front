@@ -3,6 +3,8 @@ import {MoneyRequest} from '../model/moneyRequest';
 import {UserService} from '../services/user.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ToastrService} from 'ngx-toastr';
+import {of} from 'rxjs';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -15,9 +17,14 @@ export class AdminDashboardComponent implements OnInit {
   private sanitizer: DomSanitizer;
   image: any;
   private readonly imageType: string = 'data:image/JPG;base64,';
-  selected = 'ABIERTO';
   showButtons = true;
   requestInProgress: boolean;
+  stateSelected = 'ABIERTO';
+
+  requestsLength = 0;
+  $requestValues = of();
+  requestPageEvent: PageEvent; // MatPaginator Output
+  pageSize = 4;
 
   constructor(private userService: UserService,
               private sanitized: DomSanitizer,
@@ -25,14 +32,22 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.requestInProgress = false;
-    this.getMoneyRequests(this.selected);
+    this.getMoneyRequests(this.stateSelected);
     this.sanitizer = this.sanitized;
   }
 
   private getMoneyRequests(state: string): void {
     this.userService.getMoneyRequests(state)
-      .subscribe(moneyRequests => this.moneyRequests = moneyRequests);
-    console.log(this.moneyRequests);
+      .subscribe(moneyRequests => this.processMoneyRequests(moneyRequests));
+  }
+
+  // tslint:disable-next-line:typedef
+  processMoneyRequests(moneyRequests: MoneyRequest[]) {
+    this.moneyRequests = moneyRequests;
+    this.$requestValues = of(this.moneyRequests);
+    this.requestsLength = this.moneyRequests.length;
+    console.log('requestsLength: ' + this.requestsLength);
+    this.showButtons = !(this.stateSelected === 'APROBADO' || this.stateSelected === 'RECHAZADO');
   }
 
   // tslint:disable-next-line:typedef
@@ -80,8 +95,8 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-  reload() {
-    this.showButtons = !(this.selected === 'APROBADO' || this.selected === 'RECHAZADO');
+  setStateSelected(state: string) {
+    this.stateSelected = state;
     this.ngOnInit();
   }
 }

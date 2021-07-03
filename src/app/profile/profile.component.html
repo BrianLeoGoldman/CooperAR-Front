@@ -3,7 +3,6 @@
 <div class="container">
   <div class="main-body">
 
-    <!-- Breadcrumb -->
     <!--<nav aria-label="breadcrumb" class="main-breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -11,14 +10,13 @@
         <li class="breadcrumb-item active" aria-current="page">User Profile</li>
       </ol>
     </nav>-->
-    <!-- /Breadcrumb -->
 
     <div class="row gutters-sm">
       <div class="col-md-4 mb-3">
-        <div class="card">
+        <div class="card" style="height: 400px">
           <div class="card-body">
             <div class="d-flex flex-column align-items-center text-center">
-              <img src="./assets/images/user.png" alt="User" class="rounded-circle" width="150">
+              <img src="./assets/images/photo.png" alt="User" class="rounded-circle" width="150">
               <div class="mt-3">
                 <!--<button [hidden]="!isOwner" [disabled]="requestInProgress" class="text-muted">Editar perfil</button>-->
                 <h2 class="text-lg-center">{{user.firstname}} {{user.lastname}}</h2>
@@ -60,11 +58,11 @@
         </div>
       </div>
       <div class="col-md-8">
-        <div class="card mb-3">
+        <div class="card mb-3" style="height: 400px; font-size: 17px">
           <div class="card-body">
             <div class="row">
               <div class="col-lg-3">
-                <h4 class="mb-0">Apodo</h4>
+                <h4 class="mb-0">APODO</h4>
               </div>
               <div class="col-sm-9 text-dark">
                 {{user.nickname}}
@@ -73,7 +71,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h4 class="mb-0">Nombre</h4>
+                <h4 class="mb-0">NOMBRE</h4>
               </div>
               <div class="col-sm-9 text-dark">
                 {{user.firstname}}
@@ -82,7 +80,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h4 class="mb-0">Apellido</h4>
+                <h4 class="mb-0">APELLIDO</h4>
               </div>
               <div class="col-sm-9 text-dark">
                 {{user.lastname}}
@@ -91,7 +89,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h4 class="mb-0">Email</h4>
+                <h4 class="mb-0">EMAIL</h4>
               </div>
               <div class="col-sm-9 text-dark">
                 {{user.email}}
@@ -100,7 +98,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h4 class="mb-0">Fecha de nacimiento</h4>
+                <h4 class="mb-0">FECHA DE NACIMIENTO</h4>
               </div>
               <div class="col-sm-9 text-dark">
                 {{user.birthday}}
@@ -109,7 +107,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h4 class="mb-0">Provincia</h4>
+                <h4 class="mb-0">PROVINCIA</h4>
               </div>
               <div class="col-sm-9 text-dark">
                 {{user.province}}
@@ -122,7 +120,7 @@
             <div class="card h-100">
               <div class="card-body">
                 <h4 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Proyectos de {{user.nickname}}</h4>
-                <img [hidden]="projectsAvailable" src="https://image.flaticon.com/icons/png/512/2456/2456758.png" class="center" width="90">
+                <img [hidden]="projectsAvailable" src="./assets/images/empty.png" class="center" width="90">
                 <ul class="proyectos">
                   <li *ngFor="let project of user.projects">
                     <span routerLink="/project-detail/{{project.id}}">{{project.name}}</span>
@@ -160,7 +158,7 @@
             <div class="card h-100">
               <div class="card-body">
                 <h4 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Tareas asignadas a {{user.nickname}}</h4>
-                <img [hidden]="tasksAvailable" src="https://image.flaticon.com/icons/png/512/2456/2456758.png" class="center" width="90">
+                <img [hidden]="tasksAvailable" src="./assets/images/empty.png" class="center" width="90">
                 <ul class="tareas">
                   <li *ngFor="let task of assignedTasks">
                     <span routerLink="/task-detail/{{task.id}}">{{task.name}}</span>
