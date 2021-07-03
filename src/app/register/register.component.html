@@ -7,9 +7,9 @@
       </mat-error>
 
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="Nombre de usuario" formControlName="nickname" required minlength="5">
+        <input matInput placeholder="Nombre de usuario" formControlName="nickname" required adminValidator minlength="5">
         <mat-error>
-          Se require un nombre de usuario valido (minimo 5 caracteres)
+          Se require un nombre de usuario de al menos 5 caracteres
         </mat-error>
       </mat-form-field>
       <br>
@@ -33,7 +33,7 @@
       <mat-form-field class="full-width-input">
         <input matInput type="password" placeholder="Contraseña" formControlName="password" required minlength="8">
         <mat-error>
-          Se requiere una contraseña valida (minimo 8 caracteres)
+          Se requiere una contraseña valida de al menos 8 caracteres
         </mat-error>
       </mat-form-field>
       <br>

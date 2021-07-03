@@ -1,5 +1,11 @@
 import {FormControl} from '@angular/forms';
 
+// tslint:disable-next-line:typedef
+export function adminValidator(input: FormControl) {
+  const userInput = input.value.toString().toLocaleLowerCase();
+  return  !userInput.includes('admin') ? null : { hasAdmin: true };
+}
+
   // tslint:disable-next-line:typedef
 export function adultValidator(input: FormControl) {
   if (isValidDate(input.value)) {

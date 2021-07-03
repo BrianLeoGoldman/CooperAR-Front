@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {User} from '../model/user';
-import {adultValidator} from '../common/global-functions';
+import {adminValidator, adultValidator} from '../common/global-functions';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      nickname: ['', [Validators.required, Validators.minLength(5)]], // TODO: add validation so its not "admin"
+      nickname: ['', [Validators.required, Validators.minLength(5), adminValidator]],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -65,8 +65,6 @@ export class RegisterComponent implements OnInit {
         this.newUser.projects = [];
         this.userService.registerUser(this.newUser)
           .subscribe(data => {
-              // GlobalFunctions.token = data;
-              // GlobalFunctions.loggedUser = this.newUser.nickname;
               sessionStorage.setItem('token', data);
               sessionStorage.setItem('loggedUser', this.newUser.nickname);
               this.toastr.info('Estas logueado como ' + this.newUser.nickname, 'BIENVENIDO');
