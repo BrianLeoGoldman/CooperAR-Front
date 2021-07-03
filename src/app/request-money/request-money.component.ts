@@ -14,6 +14,7 @@ export class RequestMoneyComponent implements OnInit {
   money: string;
   accountStatus: File = null;
   depositReceipt: File = null;
+  validAmount: boolean;
   validSizeAccount: boolean;
   validSizeDeposit: boolean;
 
@@ -24,6 +25,12 @@ export class RequestMoneyComponent implements OnInit {
   ngOnInit(): void {
     this.nickname = this.route.snapshot.paramMap.get('requester');
     this.money = this.route.snapshot.paramMap.get('money');
+  }
+
+  // tslint:disable-next-line:typedef
+  validateAmount(amount: string) {
+    this.validAmount = parseInt(amount, 10) > 0;
+    console.log('validAMount: ' + this.validAmount);
   }
 
   // tslint:disable-next-line:typedef

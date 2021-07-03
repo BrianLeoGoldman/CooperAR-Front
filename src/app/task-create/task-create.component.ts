@@ -44,7 +44,7 @@ export class TaskCreateComponent implements OnInit {
     this.budget = Number(this.route.snapshot.paramMap.get('budget'));
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
-      reward: ['', Validators.required],
+      reward: ['', [Validators.required, Validators.min(1), Validators.max(this.budget)]],
       description: ['', [Validators.required, Validators.minLength(20)]],
       difficulty: ['', Validators.required]
     });

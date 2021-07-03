@@ -17,9 +17,9 @@
           </mat-form-field>
 
           <mat-form-field class="full-width-input">
-            <input matInput type="number" placeholder="Presupuesto" formControlName="budget" required>
+            <input matInput type="number" placeholder="Presupuesto" formControlName="budget" required min="1" max="{{money}}">
             <mat-error>
-              No hay suficiente dinero
+              Ingrese un monto valido que no supere los ${{money}}
             </mat-error>
           </mat-form-field>
 

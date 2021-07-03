@@ -44,7 +44,7 @@ export class ProjectCreateComponent implements OnInit {
     this.money = Number(this.route.snapshot.paramMap.get('money'));
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
-      budget: ['', Validators.required],
+      budget: ['', [Validators.required, Validators.min(1), Validators.max(this.money)]],
       description: ['', [Validators.required, Validators.minLength(20)]],
       category: ['', Validators.required]
     });
