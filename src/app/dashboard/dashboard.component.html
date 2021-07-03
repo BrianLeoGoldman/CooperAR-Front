@@ -57,8 +57,19 @@
 
   <div class="tasks">
     <h1 style="color: white">¿Buscas una tarea?</h1>
-    <div class="col-12">
-      <input [(ngModel)]="taskListFilter" type="text" class="form-control" id="taskFilterInput" placeholder="Buscar por nombre o descripcion">
+    <div class="row">
+      <div class="col-4">
+        <input [(ngModel)]="taskListFilter" type="text" class="form-control" id="taskFilterInput" placeholder="Buscar por nombre o descripcion">
+      </div>
+      <div class="col-4">
+        <mat-form-field style="height:40px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
+          <mat-label>Buscar por dificultad</mat-label>
+          <mat-select [(ngModel)]="difficultySelected" (valueChange)="setDifficultySelected($event)" style="background-color: white">
+            <mat-option [value]="''">TODAS LAS DIFICULTADES</mat-option>
+            <mat-option [value]="difficulty" *ngFor="let difficulty of difficulties">{{difficulty}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div><br>
     <div class="row" style="height: 300px; background-image: url(assets/images/background-paginator.jpg); border-radius: 4px;">
       <div class="col-12 col-md-6 col-lg-3" style="margin-top: 10px" *ngFor="let task of $taskValues

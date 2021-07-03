@@ -7,6 +7,7 @@ import {Task} from '../model/task';
 import {PageEvent} from '@angular/material/paginator';
 import {of} from 'rxjs';
 import {Categories} from '../model/categories';
+import {Difficulties} from '../model/difficulties';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,6 @@ import {Categories} from '../model/categories';
 })
 export class DashboardComponent implements OnInit {
 
-  // users: User[] = [];
   projects: Project[] = [];
   tasks: Task[] = [];
 
@@ -25,6 +25,9 @@ export class DashboardComponent implements OnInit {
   projectsLength = 0;
   $projectValues = of();
   projectPageEvent: PageEvent; // MatPaginator Output
+  categoriesKeys: Array<string> = Object.keys(Categories);
+  categories: Array<string> = this.categoriesKeys.slice(this.categoriesKeys.length / 2);
+  categorySelected = '';
 
   filteredTasks: Task[] = [];
   // tslint:disable-next-line:variable-name
@@ -32,11 +35,12 @@ export class DashboardComponent implements OnInit {
   tasksLength = 0;
   $taskValues = of();
   taskPageEvent: PageEvent; // MatPaginator Output
+  difficultiesKeys: Array<string> = Object.keys(Difficulties);
+  difficulties: Array<string> = this.difficultiesKeys.slice(this.difficultiesKeys.length / 2);
+  difficultySelected = '';
 
   pageSize = 4;
-  keys: Array<string> = Object.keys(Categories);
-  categories: Array<string> = this.keys.slice(this.keys.length / 2);
-  categorySelected = '';
+
 
   constructor(private userService: UserService,
               private projectService: ProjectService,
@@ -51,11 +55,7 @@ export class DashboardComponent implements OnInit {
     this.getTasks();
   }
 
-  /*getUsers(): void {
-    this.userService.getUsers()
-      .subscribe(users => this.users = users
-        .sort(() => 0.5 - Math.random()).slice(0, 4));
-  }*/
+  // PROJECTS
 
   getProjects(): void {
     this.projectService.getProjects()
@@ -131,15 +131,45 @@ export class DashboardComponent implements OnInit {
 
   set taskListFilter(value: string) {
     this._taskListFilter = value;
-    this.filteredTasks = this.taskListFilter ? this.doFilterTasks(this.taskListFilter) : this.tasks;
+    this.filterTasks();
+    /*this.filteredTasks = this.taskListFilter ? this.doFilterTasks(this.taskListFilter) : this.tasks;
+    this.tasksLength = this.filteredTasks.length;
+    this.$taskValues = of(this.filteredTasks);*/
+  }
+
+  // tslint:disable-next-line:typedef
+  setDifficultySelected(difficulty: string) {
+    this.difficultySelected = difficulty;
+    this.filterTasks();
+  }
+
+  // tslint:disable-next-line:typedef
+  filterTasks() {
+    this.filteredTasks = this.tasks;
+    if (this.taskListFilter) { this.filterTasksByText(this.taskListFilter); }
+    if (this.difficultySelected) { this.filterTasksByDifficulty(this.difficultySelected); }
     this.tasksLength = this.filteredTasks.length;
     this.$taskValues = of(this.filteredTasks);
   }
 
-  doFilterTasks(filterBy: string): Task[] {
+  // tslint:disable-next-line:typedef
+  filterTasksByText(filterBy: string) {
+    filterBy = filterBy.toLocaleLowerCase();
+    this.filteredTasks = this.filteredTasks.filter((task: Task) =>
+      (task.name.toLocaleLowerCase().indexOf(filterBy) !== -1) ||
+      (task.description.toLocaleLowerCase().indexOf(filterBy) !== -1));
+  }
+
+  // tslint:disable-next-line:typedef
+  filterTasksByDifficulty(difficulty: string) {
+    this.filteredTasks = this.filteredTasks.filter((task: Task) =>
+      (task.difficulty === difficulty));
+  }
+
+  /*doFilterTasks(filterBy: string): Task[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.tasks.filter((task: Task) =>
       (task.name.toLocaleLowerCase().indexOf(filterBy) !== -1) ||
       (task.description.toLocaleLowerCase().indexOf(filterBy) !== -1));
-  }
+  }*/
 }
