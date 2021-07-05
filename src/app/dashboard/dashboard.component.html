@@ -73,12 +73,26 @@
       <div class="col-4">
         <input [(ngModel)]="taskListFilter" type="text" class="form-control" id="taskFilterInput" placeholder="Buscar por nombre o descripcion">
       </div>
-      <div class="col-4">
+      <div class="col-2">
         <mat-form-field style="height:40px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
           <mat-label>Buscar por dificultad</mat-label>
           <mat-select [(ngModel)]="difficultySelected" (valueChange)="setDifficultySelected($event)" style="background-color: white">
             <mat-option [value]="''">TODAS LAS DIFICULTADES</mat-option>
             <mat-option [value]="difficulty" *ngFor="let difficulty of difficulties">{{difficulty}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-2" style="padding-left: 40px">
+        <mat-form-field style="height:40px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
+          <mat-label>Buscar por recompensa</mat-label>
+          <mat-select [(ngModel)]="rewardSelected" (valueChange)="setRewardSelected($event)" style="background-color: white">
+            <mat-option [value]="''">SIN FILTRO</mat-option>
+            <mat-option [value]="'1'">$0 - $100</mat-option>
+            <mat-option [value]="'2'">$100 - $500</mat-option>
+            <mat-option [value]="'3'">$500 - $1000</mat-option>
+            <mat-option [value]="'4'">$1000 - $5000</mat-option>
+            <mat-option [value]="'5'">$5000 - $10000</mat-option>
+            <mat-option [value]="'6'">Mas de $10000</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

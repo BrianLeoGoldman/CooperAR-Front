@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
   difficultiesKeys: Array<string> = Object.keys(Difficulties);
   difficulties: Array<string> = this.difficultiesKeys.slice(this.difficultiesKeys.length / 2);
   difficultySelected = '';
+  rewardSelected = '';
 
   pageSize = 4;
 
@@ -175,10 +176,17 @@ export class DashboardComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
+  setRewardSelected(reward: string) {
+    this.rewardSelected = reward;
+    this.filterTasks();
+  }
+
+  // tslint:disable-next-line:typedef
   filterTasks() {
     this.filteredTasks = this.tasks;
     if (this.taskListFilter) { this.filterTasksByText(this.taskListFilter); }
     if (this.difficultySelected) { this.filterTasksByDifficulty(this.difficultySelected); }
+    if (this.rewardSelected) { this.filterTasksByReward(this.rewardSelected); }
     this.tasksLength = this.filteredTasks.length;
     this.$taskValues = of(this.filteredTasks);
   }
@@ -197,10 +205,36 @@ export class DashboardComponent implements OnInit {
       (task.difficulty === difficulty));
   }
 
-  /*doFilterTasks(filterBy: string): Task[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.tasks.filter((task: Task) =>
-      (task.name.toLocaleLowerCase().indexOf(filterBy) !== -1) ||
-      (task.description.toLocaleLowerCase().indexOf(filterBy) !== -1));
-  }*/
+  // tslint:disable-next-line:typedef
+  filterTasksByReward(reward: string) {
+    switch (reward) {
+      case '1':
+        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
+          ((task.reward >= 0) && (task.reward < 100)));
+        break;
+      case '2':
+        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
+          ((task.reward >= 100) && (task.reward < 500)));
+        break;
+      case '3':
+        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
+          ((task.reward >= 500) && (task.reward < 1000)));
+        break;
+      case '4':
+        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
+          ((task.reward >= 1000) && (task.reward < 5000)));
+        break;
+      case '5':
+        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
+          ((task.reward >= 5000) && (task.reward < 10000)));
+        break;
+      case '6':
+        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
+          (task.reward >= 10000));
+        break;
+      default:
+        console.log('Something strange happened...');
+    }
+  }
+
 }
