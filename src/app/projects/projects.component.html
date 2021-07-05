@@ -6,17 +6,25 @@
 
       <div class="card-body">
         <h1 class="card-title">Proyectos</h1>
-        <div class="col-3">
-          <input [(ngModel)]="listFilter" type="text" class="form-control" id="filterInput" placeholder="Buscar por nombre">
+        <div class="row">
+          <div class="col-3">
+            <input [(ngModel)]="listFilter" type="text" class="form-control" id="filterInput" placeholder="Buscar por texto">
+          </div>
+          <mat-paginator style="color: black; font-size: 15px; background: transparent; box-sizing: border-box;"
+                         [showFirstLastButtons]="true" #projectPaginator
+                         [length]="projectsLength"
+                         [pageSizeOptions]="[5, 10, 20]"
+                         (page)="projectPageEvent = $event">
+          </mat-paginator><br>
         </div>
-        <table class="table table-striped">
+        <!--<table class="table table-striped">
           <thead>
           <tr>
             <th scope="col" data-order="desc" data-name="id">ID</th>
             <th scope="col" data-order="desc" data-name="name">Nombre</th>
             <th scope="col" data-order="desc" data-name="description">Descripción</th>
             <th scope="col" data-order="desc" data-name="budget">Presupuesto</th>
-            <!--<th scope="col" class="col-tretch"></th>-->
+            &lt;!&ndash;<th scope="col" class="col-tretch"></th>&ndash;&gt;
           </tr>
           </thead>
           <tbody>
@@ -25,10 +33,27 @@
             <th><a class="hover" routerLink="/project-detail/{{project.id}}">{{ project.name }}</a></th>
             <td>{{ project.description }}</td>
             <td>$ {{ project.budget }}</td>
-            <!--<td>
-              <button type="button" class="btn btn-outline-secondary mr-2" (click)="delete(project)">x</button>
-              &lt;!&ndash;<button type="button" class="btn btn-outline-secondary mr-2" (click)="add(projectName.value); projectName.value=''">Add Project</button>&ndash;&gt;&ndash;&gt;
-            </td>-->
+          </tr>
+          </tbody>
+        </table>-->
+
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col" data-order="desc" data-name="id">ID</th>
+            <th scope="col" data-order="desc" data-name="name">Nombre</th>
+            <th scope="col" data-order="desc" data-name="description">Descripción</th>
+            <th scope="col" data-order="desc" data-name="budget">Presupuesto</th>
+            <th scope="col" class="col-tretch"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let project of $projectValues
+          |async |slice:((projectPaginator.pageIndex)*projectPaginator.pageSize):((projectPaginator.pageIndex+1)*projectPaginator.pageSize)">
+            <th>{{ project.id }}</th>
+            <th><a class="hover" routerLink="/project-detail/{{project.id}}">{{ project.name }}</a></th>
+            <td>{{ project.description }}</td>
+            <td>$ {{ project.budget }}</td>
           </tr>
           </tbody>
         </table>

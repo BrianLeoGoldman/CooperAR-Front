@@ -6,6 +6,41 @@
 
       <div class="card-body">
         <h1 class="card-title">Usuarios</h1>
+        <div class="row">
+          <div class="col-4">
+            <input [(ngModel)]="listFilter" type="text" class="form-control" id="filterInput" placeholder="Buscar por apodo, nombre o apellido">
+          </div>
+          <mat-paginator style="color: black; font-size: 15px; background: transparent; box-sizing: border-box;"
+                         [showFirstLastButtons]="true" #userPaginator
+                         [length]="usersLength"
+                         [pageSizeOptions]="[5, 10, 20]"
+                         (page)="userPageEvent = $event">
+          </mat-paginator><br>
+        </div>
+        <!--<table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col" data-order="desc" data-name="nickname">Nombre de usuario</th>
+            <th scope="col" data-order="desc" data-name="firstname">Nombre</th>
+            <th scope="col" data-order="desc" data-name="lastname">Apellido</th>
+            <th scope="col" data-order="desc" data-name="email">Email</th>
+            <th scope="col" data-order="desc" data-name="province">Provincia</th>
+            <th scope="col" class="col-tretch"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of filteredUsers; index as i">
+            <th><a class="hover" routerLink="/profile/{{user.nickname}}">{{ user.nickname }}</a></th>
+            <th>{{ user.firstname }}</th>
+            <th>{{ user.lastname }}</th>
+            <th>{{ user.email }}</th>
+            <th>{{ user.province }}</th>
+            &lt;!&ndash;<td>
+              <button routerLink="/profile/{{user.nickname}}" type="button" class="btn btn-outline-secondary mr-2">Perfil</button>
+            </td>&ndash;&gt;
+          </tr>
+          </tbody>
+        </table>-->
         <table class="table table-striped">
           <thead>
           <tr>
@@ -18,18 +53,17 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let user of users; index as i">
+          <tr *ngFor="let user of $userValues
+          |async |slice:((userPaginator.pageIndex)*userPaginator.pageSize):((userPaginator.pageIndex+1)*userPaginator.pageSize)">
             <th><a class="hover" routerLink="/profile/{{user.nickname}}">{{ user.nickname }}</a></th>
-            <th>{{ user.firstname }}</th>
-            <th>{{ user.lastname }}</th>
-            <th>{{ user.email }}</th>
-            <th>{{ user.province }}</th>
-            <!--<td>
-              <button routerLink="/profile/{{user.nickname}}" type="button" class="btn btn-outline-secondary mr-2">Perfil</button>
-            </td>-->
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.province }}</td>
           </tr>
           </tbody>
         </table>
+
       </div>
     </div>
   </div>
