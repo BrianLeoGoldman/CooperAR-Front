@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
   categoriesKeys: Array<string> = Object.keys(Categories);
   categories: Array<string> = this.categoriesKeys.slice(this.categoriesKeys.length / 2);
   categorySelected = '';
+  progressSelected = '';
 
   filteredTasks: Task[] = [];
   // tslint:disable-next-line:variable-name
@@ -50,7 +51,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getUsers();
     this.getProjects();
     this.getTasks();
   }
@@ -87,10 +87,17 @@ export class DashboardComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
+  setProgressSelected(progress: string) {
+    this.progressSelected = progress;
+    this.filterProjects();
+  }
+
+  // tslint:disable-next-line:typedef
   filterProjects() {
     this.filteredProjects = this.projects;
     if (this.projectListFilter) { this.filterProjectsByText(this.projectListFilter); }
     if (this.categorySelected) { this.filterProjectsByCategory(this.categorySelected); }
+    if (this.progressSelected) { this.filterProjectsByProgress(this.progressSelected); }
     this.projectsLength = this.filteredProjects.length;
     this.$projectValues = of(this.filteredProjects);
   }
@@ -107,6 +114,30 @@ export class DashboardComponent implements OnInit {
   filterProjectsByCategory(category: string) {
     this.filteredProjects = this.filteredProjects.filter((project: Project) =>
       (project.category === category));
+  }
+
+  // tslint:disable-next-line:typedef
+  filterProjectsByProgress(progress: string) {
+    switch (progress) {
+      case '1':
+        this.filteredProjects = this.filteredProjects.filter((project: Project) =>
+          ((project.percentage >= 0) && (project.percentage < 25)));
+        break;
+      case '2':
+        this.filteredProjects = this.filteredProjects.filter((project: Project) =>
+          ((project.percentage >= 25) && (project.percentage < 50)));
+        break;
+      case '3':
+        this.filteredProjects = this.filteredProjects.filter((project: Project) =>
+          ((project.percentage >= 50) && (project.percentage < 75)));
+        break;
+      case '4':
+        this.filteredProjects = this.filteredProjects.filter((project: Project) =>
+          ((project.percentage >= 75) && (project.percentage <= 100)));
+        break;
+      default:
+        console.log('Something strange happened...');
+    }
   }
 
   // TASKS
