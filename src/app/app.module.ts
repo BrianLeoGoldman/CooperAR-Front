@@ -42,6 +42,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {NbThemeModule, NbLayoutModule, NbChatModule, NbFocusMonitor} from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -90,6 +93,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     FlexLayoutModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatIconModule,
     // ToastrModule added
   ],
   providers: [

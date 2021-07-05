@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Task} from '../model/task';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
@@ -6,13 +6,17 @@ import {TaskService} from '../services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {NbChatModule, NbLayoutModule, NbThemeModule} from '@nebular/theme';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-task-detail',
   templateUrl: './task-detail.component.html',
-  styleUrls: ['./task-detail.component.scss']
+  styleUrls: ['./task-detail.component.scss'],
 })
 export class TaskDetailComponent implements OnInit {
+  @ViewChild('scrollframe', {static: false}) scrollFrame: ElementRef;
+  @ViewChildren('item') itemElements: QueryList<any>;
 
   task: Task =  { name: '', description: '', reward: 0, projectId: '', creationDate: '', finishDate: '', difficulty: '', owner: '', worker: '', state: '', files: [] };
   isOwner: boolean;
@@ -24,16 +28,55 @@ export class TaskDetailComponent implements OnInit {
   canBeCanceled: boolean;
   requestInProgress: boolean;
 
+  messages = [
+    { sender: 'juan1985',
+      date: new Date(2021, 7, 3, 3, 14, 22),
+      text: 'Hola maria_ana. Queria saber cual es el requerimiento de aprobacion de esta tarea.'},
+    { sender: 'maria_ana',
+      date: new Date(2021, 7, 3, 3, 22, 33),
+      text: '¿Como estas juan1985?. Te comento, el criterio es subir el documento formulario.doc completo'},
+    { sender: 'juan1985',
+      date: new Date(2021, 7, 3, 3, 35, 5),
+      text: 'Muchas gracias!!!'}
+  ];
+
+  messageText = '';
+  private scrollContainer: any;
+
+
   constructor(private route: ActivatedRoute,
               private location: Location,
               private taskService: TaskService,
               private toastr: ToastrService,
               private modalService: NgbModal,
-              private router: Router) { }
+              private router: Router) {  }
 
   ngOnInit(): void {
     this.requestInProgress = false;
     this.getTask();
+  }
+
+  // tslint:disable-next-line:typedef use-lifecycle-interface
+  ngAfterViewInit() {
+    this.scrollContainer = this.scrollFrame.nativeElement;
+    this.itemElements.changes.subscribe(_ => this.onItemElementsChanged());
+
+    // Add a new item every 2 seconds
+    setInterval(() => {
+      this.messages.push();
+    }, 2000);
+  }
+
+  private onItemElementsChanged(): void {
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom(): void {
+    this.scrollContainer.scroll({
+      top: this.scrollContainer.scrollHeight,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 
   getTask(): void {
@@ -161,5 +204,12 @@ export class TaskDetailComponent implements OnInit {
   // tslint:disable-next-line:typedef
   goBack() {
     this.location.back();
+  }
+
+  // tslint:disable-next-line:typedef
+  addMessage() {
+    this.messages.push({sender: sessionStorage.getItem('loggedUser'),
+      date: new Date(),
+      text: this.messageText});
   }
 }
