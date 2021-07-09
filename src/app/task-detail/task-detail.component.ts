@@ -5,9 +5,8 @@ import {Location} from '@angular/common';
 import {TaskService} from '../services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {NbChatModule, NbLayoutModule, NbThemeModule} from '@nebular/theme';
-import {MatIconModule} from '@angular/material/icon';
+import {Message} from '../model/message';
+import {interval, Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-task-detail',
@@ -29,19 +28,31 @@ export class TaskDetailComponent implements OnInit {
   requestInProgress: boolean;
 
   messages = [
-    { sender: 'juan1985',
-      date: new Date(2021, 7, 3, 3, 14, 22),
+    { publisher: 'juan1985',
+      date: '6/7/2021 21:57:19',
       text: 'Hola maria_ana. Queria saber cual es el requerimiento de aprobacion de esta tarea.'},
-    { sender: 'maria_ana',
-      date: new Date(2021, 7, 3, 3, 22, 33),
+    { publisher: 'maria_ana',
+      date: '6/7/2021 21:57:19',
       text: '¿Como estas juan1985?. Te comento, el criterio es subir el documento formulario.doc completo'},
-    { sender: 'juan1985',
-      date: new Date(2021, 7, 3, 3, 35, 5),
+    { publisher: 'juan1985',
+      date: '6/7/2021 21:57:19',
       text: 'Muchas gracias!!!'}
   ];
 
   messageText = '';
   private scrollContainer: any;
+
+  // subscription: Subscription;
+  // emit value in sequence every 10 second
+  // source = interval(10000);
+  // text = 'Your Text Here';
+  // @ts-ignore
+  // intervalId = setInterval(this.getMessages, 10000);
+
+  mySubscription: Subscription;
+
+
+  taskId: number;
 
 
   constructor(private route: ActivatedRoute,
@@ -49,11 +60,23 @@ export class TaskDetailComponent implements OnInit {
               private taskService: TaskService,
               private toastr: ToastrService,
               private modalService: NgbModal,
-              private router: Router) {  }
+              private router: Router) {
+    this.mySubscription = interval(5000).subscribe((x => {
+      this.getMessages();
+    }));
+  }
 
   ngOnInit(): void {
+    this.taskId = Number(this.route.snapshot.paramMap.get('id'));
     this.requestInProgress = false;
     this.getTask();
+    this.getMessages();
+  }
+
+  // tslint:disable-next-line:typedef use-lifecycle-interface
+  ngOnDestroy() {
+    // clearInterval(this.intervalId);
+    this.mySubscription.unsubscribe();
   }
 
   // tslint:disable-next-line:typedef use-lifecycle-interface
@@ -80,15 +103,17 @@ export class TaskDetailComponent implements OnInit {
   }
 
   getTask(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.taskService.getTask(id)
+    this.taskService.getTask(this.taskId)
       .subscribe(task => this.setTaskInfo(task));
+  }
+
+  getMessages(): void {
+    this.taskService.getMessages(this.taskId)
+      .subscribe(messages => this.setMessages(messages));
   }
 
   private setTaskInfo(task: Task): void {
     this.task = task;
-    // this.isOwner = GlobalFunctions.loggedUser === this.task.owner;
-    // this.isWorker = GlobalFunctions.loggedUser === this.task.worker;
     this.isOwner = sessionStorage.getItem('loggedUser') === this.task.owner;
     this.isWorker = sessionStorage.getItem('loggedUser') === this.task.worker;
     this.isAssignable = !this.isOwner && (this.task.state === 'DISPONIBLE');
@@ -98,6 +123,10 @@ export class TaskDetailComponent implements OnInit {
     this.canBeCanceled = this.isOwner && (this.task.state === 'DISPONIBLE' || this.task.state === 'COMPLETA');
   }
 
+  private setMessages(messages: Message[]): void {
+     this.messages = messages;
+  }
+
   delete(id: number): void {
     this.requestInProgress = true;
     this.taskService.deleteTask(id)
@@ -105,7 +134,7 @@ export class TaskDetailComponent implements OnInit {
         'La tarea numero ' + id + ' ha sido eliminada',
         'TAREA ELIMINADA',
         '/dashboard'),
-        error => this.requestInProgress = false);
+        error => this.processErrorFromRequest(error));
     this.modalService.dismissAll();
   }
 
@@ -117,7 +146,7 @@ export class TaskDetailComponent implements OnInit {
         'Te has asignado la tarea ' + this.task.name + '.\n' +
         'El usuario ' + this.task.owner + ' ya ha sido notificado',
         'TAREA ASIGNADA'),
-        error => this.requestInProgress = false);
+        error => this.processErrorFromRequest(error));
   }
 
   // tslint:disable-next-line:typedef
@@ -128,7 +157,7 @@ export class TaskDetailComponent implements OnInit {
         'El usuario ' + this.task.worker + ' fue desasignado.\n' +
         'El usuario ' + this.task.worker + ' ya ha sido notificado',
         'USUARIO DESASIGNADO'),
-        error => this.requestInProgress = false);
+        error => this.processErrorFromRequest(error));
   }
 
   // tslint:disable-next-line:typedef
@@ -139,7 +168,7 @@ export class TaskDetailComponent implements OnInit {
         'La tarea ' + this.task.name + ' fue completada.\n' +
         'El usuario ' + this.task.owner + ' ya ha sido notificado',
         'TAREA COMPLETADA'),
-        error => this.requestInProgress = false);
+        error => this.processErrorFromRequest(error));
   }
 
   // tslint:disable-next-line:typedef
@@ -150,7 +179,7 @@ export class TaskDetailComponent implements OnInit {
         'La tarea ' + this.task.name + ' fue aprobada.\n' +
         'El usuario ' + this.task.worker + ' ya ha recibido los fondos',
         'TAREA APROBADA'),
-        error => this.requestInProgress = false);
+        error => this.processErrorFromRequest(error));
   }
 
   // tslint:disable-next-line:typedef
@@ -161,7 +190,7 @@ export class TaskDetailComponent implements OnInit {
         'La tarea ' + this.task.name + ' fue desaprobada.\n' +
         'El usuario ' + this.task.worker + ' ya ha sido notificado',
         'TAREA DESAPROBADA'),
-        error => this.requestInProgress = false);
+        error => this.processErrorFromRequest(error));
   }
 
   // tslint:disable-next-line:typedef
@@ -172,7 +201,24 @@ export class TaskDetailComponent implements OnInit {
         'La tarea ' + this.task.name + ' fue cancelada.\n' +
         'Se te ha devuelto el dinero asignado',
         'TAREA CANCELADA'),
-        error => this.requestInProgress = false);
+        error => this.processErrorFromRequest(error));
+  }
+
+  // tslint:disable-next-line:typedef
+  addMessage() {
+    this.requestInProgress = true;
+    const publisherUser = sessionStorage.getItem('loggedUser');
+    const publishingDate = new Date();
+    const dateTime = publishingDate.toLocaleString();
+    this.taskService.addMessage(this.task.id, publisherUser, dateTime, this.messageText)
+      .subscribe(success => this.requestInProgress = false,
+        error => this.processErrorFromRequest(error));
+    this.messages.push({
+      publisher: publisherUser,
+      date: dateTime,
+      text: this.messageText
+    });
+    this.messageText = '';
   }
 
   // tslint:disable-next-line:typedef
@@ -185,6 +231,12 @@ export class TaskDetailComponent implements OnInit {
   reloadAndRedirect(message: string, title: string, page: string) {
     this.toastr.success(message, title);
     this.router.navigate([page]).then(r => console.log(r));
+  }
+
+  // tslint:disable-next-line:typedef
+  processErrorFromRequest(error: any) {
+    this.requestInProgress = false;
+    console.log(error);
   }
 
   // tslint:disable-next-line:typedef
@@ -204,12 +256,5 @@ export class TaskDetailComponent implements OnInit {
   // tslint:disable-next-line:typedef
   goBack() {
     this.location.back();
-  }
-
-  // tslint:disable-next-line:typedef
-  addMessage() {
-    this.messages.push({sender: sessionStorage.getItem('loggedUser'),
-      date: new Date(),
-      text: this.messageText});
   }
 }

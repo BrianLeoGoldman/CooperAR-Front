@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {Task} from '../model/task';
+import {Message} from '../model/message';
 
 @Injectable({
   providedIn: 'root'
@@ -153,6 +154,29 @@ export class TaskService {
       );
   }
 
+  /** GET all the messages for this task */
+  // tslint:disable-next-line:typedef
+  getMessages(id: number) {
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
+    const url = `${this.tasksUrl}/message?id=${id}`;
+    return this.http.get<Message[]>(url, { headers })
+      .pipe(
+        tap(messages => console.log('getMessages: OK')),
+      );
+  }
+
+  /** PUT: add a new message to task chat */
+  // tslint:disable-next-line:typedef
+  addMessage(id: number, publisher: string, dateTime: string, messageText: string) {
+    console.log('publishingDate: ' + dateTime);
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
+    const url = `${this.tasksUrl}/message?id=${id}&publisher=${publisher}&dateTime=${dateTime}&text=${messageText}`;
+    return this.http.put(url, { headers })
+      .pipe(
+        tap(_ => console.log('addMessage: OK')),
+      );
+  }
+
   formatTask(task: Task): void {
     task.creationDate = new Date(task.creationDate).toLocaleDateString();
     if (task.finishDate !== null) {
@@ -167,4 +191,5 @@ export class TaskService {
       return of(result as T);
     };
   }
+
 }
