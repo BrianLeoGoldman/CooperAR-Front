@@ -6,7 +6,6 @@ import {TaskService} from '../services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Message} from '../model/message';
-import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-task-detail',

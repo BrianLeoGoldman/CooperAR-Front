@@ -8,12 +8,12 @@
     <h1 style="color: white">¿Buscas un proyecto?</h1>
     <div class="row">
       <div class="col-4">
-        <input [(ngModel)]="projectListFilter" type="text" class="form-control" id="projectFilterInput" placeholder="Buscar por nombre o descripcion">
+        <input [(ngModel)]="projectListFilter" ngDefaultControl type="text" class="form-control" id="projectFilterInput" placeholder="Buscar por nombre o descripcion">
       </div>&nbsp;
       <div class="col-2">
         <mat-form-field style="height:40px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
           <mat-label>Buscar por categoria</mat-label>
-          <mat-select [(ngModel)]="categorySelected" (valueChange)="setCategorySelected($event)" style="background-color: white">
+          <mat-select [(ngModel)]="categorySelected" ngDefaultControl (valueChange)="setCategorySelected($event)" style="background-color: white">
             <mat-option [value]="''">TODAS LAS CATEGORIAS</mat-option>
             <mat-option [value]="category" *ngFor="let category of categories">{{category}}</mat-option>
           </mat-select>
@@ -22,7 +22,7 @@
       <div class="col-2" style="padding-left: 40px">
         <mat-form-field style="height:40px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
           <mat-label>Buscar por progreso</mat-label>
-          <mat-select [(ngModel)]="progressSelected" (valueChange)="setProgressSelected($event)" style="background-color: white">
+          <mat-select [(ngModel)]="progressSelected" ngDefaultControl (valueChange)="setProgressSelected($event)" style="background-color: white">
             <mat-option [value]="''">SIN FILTRO</mat-option>
             <mat-option [value]="'1'">%0 - %25</mat-option>
             <mat-option [value]="'2'">%25 - %50</mat-option>
@@ -71,12 +71,12 @@
     <h1 style="color: white">¿Buscas una tarea?</h1>
     <div class="row">
       <div class="col-4">
-        <input [(ngModel)]="taskListFilter" type="text" class="form-control" id="taskFilterInput" placeholder="Buscar por nombre o descripcion">
+        <input [(ngModel)]="taskListFilter" ngDefaultControl type="text" class="form-control" id="taskFilterInput" placeholder="Buscar por nombre o descripcion">
       </div>
       <div class="col-2">
         <mat-form-field style="height:40px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
           <mat-label>Buscar por dificultad</mat-label>
-          <mat-select [(ngModel)]="difficultySelected" (valueChange)="setDifficultySelected($event)" style="background-color: white">
+          <mat-select [(ngModel)]="difficultySelected" ngDefaultControl (valueChange)="setDifficultySelected($event)" style="background-color: white">
             <mat-option [value]="''">TODAS LAS DIFICULTADES</mat-option>
             <mat-option [value]="difficulty" *ngFor="let difficulty of difficulties">{{difficulty}}</mat-option>
           </mat-select>
@@ -85,7 +85,7 @@
       <div class="col-2" style="padding-left: 40px">
         <mat-form-field style="height:40px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
           <mat-label>Buscar por recompensa</mat-label>
-          <mat-select [(ngModel)]="rewardSelected" (valueChange)="setRewardSelected($event)" style="background-color: white">
+          <mat-select [(ngModel)]="rewardSelected" ngDefaultControl (valueChange)="setRewardSelected($event)" style="background-color: white">
             <mat-option [value]="''">SIN FILTRO</mat-option>
             <mat-option [value]="'1'">$0 - $100</mat-option>
             <mat-option [value]="'2'">$100 - $500</mat-option>

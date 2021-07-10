@@ -213,7 +213,7 @@
                 Presupuesto
                 <mat-form-field style="height: 1px; width: 1px; background-color: white; border-radius: 4px; margin-bottom: 25px; font-size: 12px; padding-left: 20px">
                   <!--<mat-label>Filtrar por presupuesto</mat-label>-->
-                  <mat-select [(ngModel)]="budgetSelected" (valueChange)="setBudgetSelected($event)" style="background-color: white">
+                  <mat-select [(ngModel)]="budgetSelected" ngDefaultControl (valueChange)="setBudgetSelected($event)" style="background-color: white">
                     <mat-option [value]="''">SIN FILTRO</mat-option>
                     <mat-option [value]="'1'">$0 - $1000</mat-option>
                     <mat-option [value]="'2'">$1000 - $50000</mat-option>
@@ -228,7 +228,7 @@
                 Categoria
                 <mat-form-field style="height: 1px; width: 1px; background-color: white; border-radius: 4px; margin-bottom: 25px; font-size: 12px; padding-left: 20px">
                   <!--<mat-label>Filtrar por categoria</mat-label>-->
-                  <mat-select [(ngModel)]="categorySelected" (valueChange)="setCategorySelected($event)" style="background-color: white">
+                  <mat-select [(ngModel)]="categorySelected" ngDefaultControl (valueChange)="setCategorySelected($event)" style="background-color: white">
                     <mat-option [value]="''">SIN FILTRO</mat-option>
                     <mat-option [value]="category" *ngFor="let category of categories">{{category}}</mat-option>
                   </mat-select>
@@ -293,7 +293,7 @@
                   Recompensa
                   <mat-form-field style="height:1px; width: 1px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
                     <!--<mat-label>Buscar por recompensa</mat-label>-->
-                    <mat-select [(ngModel)]="rewardSelected" (valueChange)="setRewardSelected($event)" style="background-color: white">
+                    <mat-select [(ngModel)]="rewardSelected" ngDefaultControl (valueChange)="setRewardSelected($event)" style="background-color: white">
                       <mat-option [value]="''">SIN FILTRO</mat-option>
                       <mat-option [value]="'1'">$0 - $100</mat-option>
                       <mat-option [value]="'2'">$100 - $500</mat-option>
@@ -308,7 +308,7 @@
                   Estado
                   <mat-form-field style="height:1px; width:1px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
                     <!--<mat-label>Buscar por estado</mat-label>-->
-                    <mat-select [(ngModel)]="stateSelected" (valueChange)="setStateSelected($event)" style="background-color: white">
+                    <mat-select [(ngModel)]="stateSelected" ngDefaultControl (valueChange)="setStateSelected($event)" style="background-color: white">
                       <mat-option [value]="''">SIN FILTRO</mat-option>
                       <mat-option [value]="state" *ngFor="let state of states">{{state}}</mat-option>
                     </mat-select>
@@ -318,7 +318,7 @@
                   Dificultad
                   <mat-form-field style="height:1px; width:1px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
                     <!--<mat-label>Buscar por dificultad</mat-label>-->
-                    <mat-select [(ngModel)]="difficultySelected" (valueChange)="setDifficultySelected($event)" style="background-color: white">
+                    <mat-select [(ngModel)]="difficultySelected" ngDefaultControl (valueChange)="setDifficultySelected($event)" style="background-color: white">
                       <mat-option [value]="''">SIN FILTRO</mat-option>
                       <mat-option [value]="difficulty" *ngFor="let difficulty of difficulties">{{difficulty}}</mat-option>
                     </mat-select>

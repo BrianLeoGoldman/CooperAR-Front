@@ -6,7 +6,7 @@
     <div class="col-4">
       <mat-form-field style="height:40px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
         <mat-label>Estado</mat-label>
-        <mat-select [(ngModel)]="stateSelected" (valueChange)="setStateSelected($event)" style="background-color: white">
+        <mat-select [(ngModel)]="stateSelected" ngDefaultControl (valueChange)="setStateSelected($event)" style="background-color: white">
           <mat-option [value]="'ABIERTO'">ABIERTO</mat-option>
           <mat-option [value]="'APROBADO'">APROBADO</mat-option>
           <mat-option [value]="'RECHAZADO'">RECHAZADO</mat-option>
