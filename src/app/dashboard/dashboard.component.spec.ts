@@ -32,6 +32,8 @@ describe('DashboardComponent', () => {
     fixture.detectChanges();
   });
 
+  // TODO: fix tests!!!
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });

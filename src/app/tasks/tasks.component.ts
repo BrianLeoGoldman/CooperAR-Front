@@ -3,6 +3,7 @@ import {Task} from '../model/task';
 import {TaskService} from '../services/task.service';
 import {PageEvent} from '@angular/material/paginator';
 import {of} from 'rxjs';
+import {filterTasksByText} from '../common/taskFilters';
 
 @Component({
   selector: 'app-tasks',
@@ -31,13 +32,15 @@ export class TasksComponent implements OnInit {
 
   getTasks(): void {
     this.taskService.getTasks()
-      .subscribe((tasks: Task[]) => {
-        this.tasks = tasks;
-        this.filteredTasks = this.tasks;
-        this.listFilter = '';
-        this.$taskValues = of(this.filteredTasks);
-        this.tasksLength = this.filteredTasks.length;
-      });
+      .subscribe(tasks => this.processTasks(tasks));
+  }
+
+  processTasks(tasks: Task[]): void {
+    this.tasks = tasks;
+    this.filteredTasks = this.tasks;
+    this.listFilter = '';
+    this.$taskValues = of(this.filteredTasks);
+    this.tasksLength = this.filteredTasks.length;
   }
 
   get listFilter(): string {
@@ -46,16 +49,14 @@ export class TasksComponent implements OnInit {
 
   set listFilter(value: string) {
     this._listFilter = value;
-    this.filteredTasks = this.listFilter ? this.doFilter(this.listFilter) : this.tasks;
-    this.$taskValues = of(this.filteredTasks);
-    this.tasksLength = this.filteredTasks.length;
+    this.filterTasks();
   }
 
-  doFilter(filterBy: string): Task[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.tasks.filter((task: Task) =>
-      (task.name.toLocaleLowerCase().indexOf(filterBy) !== -1) ||
-      (task.description.toLocaleLowerCase().indexOf(filterBy) !== -1));
+  filterTasks(): void {
+    this.filteredTasks = this.tasks;
+    if (this._listFilter) { filterTasksByText(this._listFilter, this.filteredTasks); }
+    this.tasksLength = this.filteredTasks.length;
+    this.$taskValues = of(this.filteredTasks);
   }
 
 }

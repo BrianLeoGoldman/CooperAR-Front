@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user';
 import {UserService} from '../services/user.service';
-import {Task} from '../model/task';
 import {of} from 'rxjs';
 import {PageEvent} from '@angular/material/paginator';
+import {filterUsersByText} from '../common/userFilters';
 
 @Component({
   selector: 'app-users',
@@ -32,13 +32,15 @@ export class UsersComponent implements OnInit {
 
   getUsers(): void {
     this.userService.getUsers()
-      .subscribe((users: User[]) => {
-        this.users = users;
-        this.filteredUsers = this.users;
-        this.listFilter = '';
-        this.$userValues = of(this.filteredUsers);
-        this.usersLength = this.filteredUsers.length;
-      });
+      .subscribe(users => this.processUsers(users));
+  }
+
+  processUsers(users: User[]): void {
+    this.users = users;
+    this.filteredUsers = this.users;
+    this.listFilter = '';
+    this.$userValues = of(this.filteredUsers);
+    this.usersLength = this.filteredUsers.length;
   }
 
   get listFilter(): string {
@@ -47,17 +49,14 @@ export class UsersComponent implements OnInit {
 
   set listFilter(value: string) {
     this._listFilter = value;
-    this.filteredUsers = this.listFilter ? this.doFilter(this.listFilter) : this.users;
-    this.$userValues = of(this.filteredUsers);
-    this.usersLength = this.filteredUsers.length;
+    this.filterUsers();
   }
 
-  doFilter(filterBy: string): User[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.users.filter((user: User) =>
-      (user.nickname.toLocaleLowerCase().indexOf(filterBy) !== -1) ||
-      (user.firstname.toLocaleLowerCase().indexOf(filterBy) !== -1) ||
-      (user.lastname.toLocaleLowerCase().indexOf(filterBy) !== -1));
+  filterUsers(): void {
+    this.filteredUsers = this.users;
+    if (this._listFilter) { filterUsersByText(this._listFilter, this.filteredUsers); }
+    this.usersLength = this.filteredUsers.length;
+    this.$userValues = of(this.filteredUsers);
   }
 
 }

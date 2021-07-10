@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {User} from '../model/user';
-import {adminValidator, adultValidator} from '../common/global-functions';
+import {adminValidator, adultValidator} from '../common/registerValidators';
 import {Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {Provinces} from '../model/provinces';
 

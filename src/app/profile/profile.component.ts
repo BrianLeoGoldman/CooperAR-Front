@@ -8,6 +8,12 @@ import {Task} from '../model/task';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TaskService} from '../services/task.service';
 import {ToastrService} from 'ngx-toastr';
+import {of} from 'rxjs';
+import {PageEvent} from '@angular/material/paginator';
+import {Categories} from '../model/categories';
+import {filterProjectsByBudget, filterProjectsByCategory} from '../common/projectFilters';
+import {Difficulties} from '../model/difficulties';
+import {filterTasksByDifficulty} from '../common/taskFilters';
 
 @Component({
   selector: 'app-profile',
@@ -17,11 +23,28 @@ import {ToastrService} from 'ngx-toastr';
 export class ProfileComponent implements OnInit {
 
   user: User =  { nickname: '', firstname: '', lastname: '', password: '', email: '', birthday: '', province: '', money: 0, projects: []};
-  assignedTasks: Task[] = [];
   isOwner: boolean;
-  projectsAvailable: boolean;
-  tasksAvailable: boolean;
   requestInProgress: boolean;
+
+  filteredProjects: Project[] = [];
+  projectsAvailable: boolean;
+  projectsLength = 0;
+  $projectValues = of();
+  projectPageEvent: PageEvent; // MatPaginator Output
+  categoriesKeys: Array<string> = Object.keys(Categories);
+  categories: Array<string> = this.categoriesKeys.slice(this.categoriesKeys.length / 2);
+  budgetSelected = '';
+  categorySelected = '';
+
+  assignedTasks: Task[] = [];
+  filteredTasks: Task[] = [];
+  tasksAvailable: boolean;
+  tasksLength = 0;
+  $tasksValues = of();
+  tasksPageEvent: PageEvent; // MatPaginator Output
+  difficultiesKeys: Array<string> = Object.keys(Difficulties);
+  difficulties: Array<string> = this.difficultiesKeys.slice(this.difficultiesKeys.length / 2);
+  difficultySelected = '';
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -38,7 +61,6 @@ export class ProfileComponent implements OnInit {
 
   getData(): void {
     const nickname  = this.route.snapshot.paramMap.get('id');
-    // this.isOwner = GlobalFunctions.loggedUser === nickname;
     this.isOwner = sessionStorage.getItem('loggedUser') === nickname;
     this.userService.getUser(nickname)
       .subscribe(user => this.processProjectsInfo(user));
@@ -48,16 +70,51 @@ export class ProfileComponent implements OnInit {
 
   processProjectsInfo(user: User): void {
     this.user = user;
+    this.filteredProjects = this.user.projects;
     this.projectsAvailable = this.user.projects.length > 0;
+    this.$projectValues = of(this.filteredProjects);
+    this.projectsLength = this.filteredProjects.length;
   }
 
   processTasksInfo(tasks: Task[]): void {
     this.assignedTasks = tasks;
+    this.filteredTasks = this.assignedTasks;
     this.tasksAvailable = this.assignedTasks.length > 0;
+    this.$tasksValues = of(this.filteredTasks);
+    this.tasksLength = this.filteredTasks.length;
   }
 
-  // tslint:disable-next-line:typedef
-  delete(nickname: string) {
+  setBudgetSelected(budget: string): void {
+    this.budgetSelected = budget;
+    this.filterProjects();
+  }
+
+  setCategorySelected(category: string): void {
+    this.categorySelected = category;
+    this.filterProjects();
+  }
+
+  setDifficultySelected(difficulty: string): void {
+    this.difficultySelected = difficulty;
+    this.filterTasks();
+  }
+
+  filterProjects(): void {
+    this.filteredProjects = this.user.projects;
+    if (this.categorySelected) {this.filteredProjects = filterProjectsByCategory(this.categorySelected, this.filteredProjects); }
+    if (this.budgetSelected) {this.filteredProjects = filterProjectsByBudget(this.budgetSelected, this.filteredProjects); }
+    this.projectsLength = this.filteredProjects.length;
+    this.$projectValues = of(this.filteredProjects);
+  }
+
+  filterTasks(): void {
+    this.filteredTasks = this.assignedTasks;
+    if (this.difficultySelected) {this.filteredTasks = filterTasksByDifficulty(this.difficultySelected, this.filteredTasks); }
+    this.tasksLength = this.filteredTasks.length;
+    this.$tasksValues = of(this.filteredTasks);
+  }
+
+  delete(nickname: string): void {
     this.requestInProgress = true;
     this.userService.deleteUser(nickname)
       .subscribe(success => this.reloadAndRedirect(
@@ -68,32 +125,27 @@ export class ProfileComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  // tslint:disable-next-line:typedef
-  reloadAndFeedback(message: string, title: string) {
+  reloadAndFeedback(message: string, title: string): void {
     this.toastr.success(message, title);
     this.ngOnInit();
   }
 
-  // tslint:disable-next-line:typedef
-  reloadAndRedirect(message: string, title: string, page: string) {
+  reloadAndRedirect(message: string, title: string, page: string): void {
     this.toastr.success(message, title);
     this.router.navigate([page]).then(r => console.log(r));
   }
 
-  // tslint:disable-next-line:typedef
-  goCreateProject() {
+  goCreateProject(): void {
     this.router.navigate(['/project-create/', this.user.nickname, this.user.money])
       .then(r => console.log(r));
   }
 
-  // tslint:disable-next-line:typedef
-  goRequestMoney() {
+  goRequestMoney(): void {
     this.router.navigate(['/request-money/', this.user.nickname, this.user.money])
       .then(r => console.log(r));
   }
 
-  // tslint:disable-next-line:typedef
-  open(content) {
+  open(content): void {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(
       (result) => { // this.closeResult = `Closed with: ${result}`;
       },

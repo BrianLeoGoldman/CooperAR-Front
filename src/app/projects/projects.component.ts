@@ -3,6 +3,7 @@ import {Project} from '../model/project';
 import {ProjectService} from '../services/project.service';
 import {of} from 'rxjs';
 import {PageEvent} from '@angular/material/paginator';
+import {filterProjectsByText} from '../common/projectFilters';
 
 @Component({
   selector: 'app-projects',
@@ -32,12 +33,16 @@ export class ProjectsComponent implements OnInit {
   getProjects(): void {
     this.projectService.getProjects()
       .subscribe((projects: Project[]) => {
-        this.projects = projects;
-        this.filteredProjects = this.projects;
-        this.listFilter = '';
-        this.$projectValues = of(this.filteredProjects);
-        this.projectsLength = this.filteredProjects.length;
+        this.processProjects(projects);
       });
+  }
+
+  processProjects(projects: Project[]): void {
+    this.projects = projects;
+    this.filteredProjects = this.projects;
+    this.listFilter = '';
+    this.$projectValues = of(this.filteredProjects);
+    this.projectsLength = this.filteredProjects.length;
   }
 
   get listFilter(): string {
@@ -46,16 +51,13 @@ export class ProjectsComponent implements OnInit {
 
   set listFilter(value: string) {
     this._listFilter = value;
-    this.filteredProjects = this.listFilter ? this.doFilter(this.listFilter) : this.projects;
-    this.$projectValues = of(this.filteredProjects);
+    this.filterProjects();
+  }
+
+  filterProjects(): void {
+    this.filteredProjects = this.projects;
+    if (this._listFilter) {this.filteredProjects = filterProjectsByText(this._listFilter, this.filteredProjects); }
     this.projectsLength = this.filteredProjects.length;
+    this.$projectValues = of(this.filteredProjects);
   }
-
-  doFilter(filterBy: string): Project[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.projects.filter((project: Project) =>
-      (project.name.toLocaleLowerCase().indexOf(filterBy) !== -1) ||
-      (project.description.toLocaleLowerCase().indexOf(filterBy) !== -1));
-  }
-
 }

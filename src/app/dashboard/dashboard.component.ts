@@ -8,6 +8,8 @@ import {PageEvent} from '@angular/material/paginator';
 import {of} from 'rxjs';
 import {Categories} from '../model/categories';
 import {Difficulties} from '../model/difficulties';
+import {filterProjectsByCategory, filterProjectsByProgress, filterProjectsByText} from '../common/projectFilters';
+import {filterTasksByDifficulty, filterTasksByReward, filterTasksByText} from '../common/taskFilters';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,8 +19,6 @@ import {Difficulties} from '../model/difficulties';
 export class DashboardComponent implements OnInit {
 
   projects: Project[] = [];
-  tasks: Task[] = [];
-
   filteredProjects: Project[] = [];
   // tslint:disable-next-line:variable-name
   _projectListFilter = '';
@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   categorySelected = '';
   progressSelected = '';
 
+  tasks: Task[] = [];
   filteredTasks: Task[] = [];
   // tslint:disable-next-line:variable-name
   _taskListFilter = '';
@@ -63,13 +64,12 @@ export class DashboardComponent implements OnInit {
       .subscribe(projects => this.processProjects(projects));
   }
 
-  // tslint:disable-next-line:typedef
-  processProjects(projects: Project[]) {
+  processProjects(projects: Project[]): void {
     this.projects = projects; // .sort(() => 0.5 - Math.random()).slice(0, 4);
     this.filteredProjects = this.projects;
     this._projectListFilter = '';
     this.$projectValues = of(this.filteredProjects);
-    this.projectsLength = this.projects.length;
+    this.projectsLength = this.filteredProjects.length;
   }
 
   get projectListFilter(): string {
@@ -81,64 +81,23 @@ export class DashboardComponent implements OnInit {
     this.filterProjects();
   }
 
-  // tslint:disable-next-line:typedef
-  setCategorySelected(category: string) {
+  setCategorySelected(category: string): void {
     this.categorySelected = category;
     this.filterProjects();
   }
 
-  // tslint:disable-next-line:typedef
-  setProgressSelected(progress: string) {
+  setProgressSelected(progress: string): void {
     this.progressSelected = progress;
     this.filterProjects();
   }
 
-  // tslint:disable-next-line:typedef
-  filterProjects() {
+  filterProjects(): void {
     this.filteredProjects = this.projects;
-    if (this.projectListFilter) { this.filterProjectsByText(this.projectListFilter); }
-    if (this.categorySelected) { this.filterProjectsByCategory(this.categorySelected); }
-    if (this.progressSelected) { this.filterProjectsByProgress(this.progressSelected); }
+    if (this.projectListFilter) {this.filteredProjects = filterProjectsByText(this.projectListFilter, this.filteredProjects); }
+    if (this.categorySelected) {this.filteredProjects = filterProjectsByCategory(this.categorySelected, this.filteredProjects); }
+    if (this.progressSelected) {this.filteredProjects = filterProjectsByProgress(this.progressSelected, this.filteredProjects); }
     this.projectsLength = this.filteredProjects.length;
     this.$projectValues = of(this.filteredProjects);
-  }
-
-  // tslint:disable-next-line:typedef
-  filterProjectsByText(filterBy: string) {
-    filterBy = filterBy.toLocaleLowerCase();
-    this.filteredProjects = this.filteredProjects.filter((project: Project) =>
-      (project.name.toLocaleLowerCase().indexOf(filterBy) !== -1) ||
-      (project.description.toLocaleLowerCase().indexOf(filterBy) !== -1));
-  }
-
-  // tslint:disable-next-line:typedef
-  filterProjectsByCategory(category: string) {
-    this.filteredProjects = this.filteredProjects.filter((project: Project) =>
-      (project.category === category));
-  }
-
-  // tslint:disable-next-line:typedef
-  filterProjectsByProgress(progress: string) {
-    switch (progress) {
-      case '1':
-        this.filteredProjects = this.filteredProjects.filter((project: Project) =>
-          ((project.percentage >= 0) && (project.percentage < 25)));
-        break;
-      case '2':
-        this.filteredProjects = this.filteredProjects.filter((project: Project) =>
-          ((project.percentage >= 25) && (project.percentage < 50)));
-        break;
-      case '3':
-        this.filteredProjects = this.filteredProjects.filter((project: Project) =>
-          ((project.percentage >= 50) && (project.percentage < 75)));
-        break;
-      case '4':
-        this.filteredProjects = this.filteredProjects.filter((project: Project) =>
-          ((project.percentage >= 75) && (project.percentage <= 100)));
-        break;
-      default:
-        console.log('Something strange happened...');
-    }
   }
 
   // TASKS
@@ -148,8 +107,7 @@ export class DashboardComponent implements OnInit {
       .subscribe(tasks => this.processTasks(tasks));
   }
 
-  // tslint:disable-next-line:typedef
-  private processTasks(tasks: Task[]) {
+  private processTasks(tasks: Task[]): void {
     this.tasks = tasks; // .sort(() => 0.5 - Math.random()).slice(0, 4);
     this.filteredTasks = this.tasks;
     this._taskListFilter = '';
@@ -164,77 +122,25 @@ export class DashboardComponent implements OnInit {
   set taskListFilter(value: string) {
     this._taskListFilter = value;
     this.filterTasks();
-    /*this.filteredTasks = this.taskListFilter ? this.doFilterTasks(this.taskListFilter) : this.tasks;
-    this.tasksLength = this.filteredTasks.length;
-    this.$taskValues = of(this.filteredTasks);*/
   }
 
-  // tslint:disable-next-line:typedef
-  setDifficultySelected(difficulty: string) {
+  setDifficultySelected(difficulty: string): void {
     this.difficultySelected = difficulty;
     this.filterTasks();
   }
 
-  // tslint:disable-next-line:typedef
-  setRewardSelected(reward: string) {
+  setRewardSelected(reward: string): void {
     this.rewardSelected = reward;
     this.filterTasks();
   }
 
-  // tslint:disable-next-line:typedef
-  filterTasks() {
+  filterTasks(): void {
     this.filteredTasks = this.tasks;
-    if (this.taskListFilter) { this.filterTasksByText(this.taskListFilter); }
-    if (this.difficultySelected) { this.filterTasksByDifficulty(this.difficultySelected); }
-    if (this.rewardSelected) { this.filterTasksByReward(this.rewardSelected); }
+    if (this.taskListFilter) { filterTasksByText(this.taskListFilter, this.filteredTasks); }
+    if (this.difficultySelected) { filterTasksByDifficulty(this.difficultySelected, this.filteredTasks); }
+    if (this.rewardSelected) { filterTasksByReward(this.rewardSelected, this.filteredTasks); }
     this.tasksLength = this.filteredTasks.length;
     this.$taskValues = of(this.filteredTasks);
-  }
-
-  // tslint:disable-next-line:typedef
-  filterTasksByText(filterBy: string) {
-    filterBy = filterBy.toLocaleLowerCase();
-    this.filteredTasks = this.filteredTasks.filter((task: Task) =>
-      (task.name.toLocaleLowerCase().indexOf(filterBy) !== -1) ||
-      (task.description.toLocaleLowerCase().indexOf(filterBy) !== -1));
-  }
-
-  // tslint:disable-next-line:typedef
-  filterTasksByDifficulty(difficulty: string) {
-    this.filteredTasks = this.filteredTasks.filter((task: Task) =>
-      (task.difficulty === difficulty));
-  }
-
-  // tslint:disable-next-line:typedef
-  filterTasksByReward(reward: string) {
-    switch (reward) {
-      case '1':
-        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
-          ((task.reward >= 0) && (task.reward < 100)));
-        break;
-      case '2':
-        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
-          ((task.reward >= 100) && (task.reward < 500)));
-        break;
-      case '3':
-        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
-          ((task.reward >= 500) && (task.reward < 1000)));
-        break;
-      case '4':
-        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
-          ((task.reward >= 1000) && (task.reward < 5000)));
-        break;
-      case '5':
-        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
-          ((task.reward >= 5000) && (task.reward < 10000)));
-        break;
-      case '6':
-        this.filteredTasks = this.filteredTasks.filter((task: Task) =>
-          (task.reward >= 10000));
-        break;
-      default:
-        console.log('Something strange happened...');
-    }
   }
 
 }
