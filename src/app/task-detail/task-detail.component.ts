@@ -6,7 +6,7 @@ import {TaskService} from '../services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Message} from '../model/message';
-import {interval, Observable, Subscription} from 'rxjs';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-task-detail',
@@ -18,6 +18,7 @@ export class TaskDetailComponent implements OnInit {
   @ViewChildren('item') itemElements: QueryList<any>;
 
   task: Task =  { name: '', description: '', reward: 0, projectId: '', creationDate: '', finishDate: '', difficulty: '', owner: '', worker: '', state: '', files: [] };
+  taskId: number;
   isOwner: boolean;
   isWorker: boolean;
   isAssignable: boolean;
@@ -25,35 +26,13 @@ export class TaskDetailComponent implements OnInit {
   canBeCompleted: boolean;
   canBeApproved: boolean;
   canBeCanceled: boolean;
-  requestInProgress: boolean;
 
-  messages = [
-    { publisher: 'juan1985',
-      date: '6/7/2021 21:57:19',
-      text: 'Hola maria_ana. Queria saber cual es el requerimiento de aprobacion de esta tarea.'},
-    { publisher: 'maria_ana',
-      date: '6/7/2021 21:57:19',
-      text: '¿Como estas juan1985?. Te comento, el criterio es subir el documento formulario.doc completo'},
-    { publisher: 'juan1985',
-      date: '6/7/2021 21:57:19',
-      text: 'Muchas gracias!!!'}
-  ];
-
+  messages = [];
   messageText = '';
   private scrollContainer: any;
 
-  // subscription: Subscription;
-  // emit value in sequence every 10 second
-  // source = interval(10000);
-  // text = 'Your Text Here';
-  // @ts-ignore
-  // intervalId = setInterval(this.getMessages, 10000);
-
-  mySubscription: Subscription;
-
-
-  taskId: number;
-
+  requestInProgress: boolean;
+  /*mySubscription: Subscription;*/
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -61,9 +40,9 @@ export class TaskDetailComponent implements OnInit {
               private toastr: ToastrService,
               private modalService: NgbModal,
               private router: Router) {
-    this.mySubscription = interval(5000).subscribe((x => {
+    /*this.mySubscription = interval(5000).subscribe((x => {
       this.getMessages();
-    }));
+    }));*/
   }
 
   ngOnInit(): void {
@@ -73,11 +52,11 @@ export class TaskDetailComponent implements OnInit {
     this.getMessages();
   }
 
-  // tslint:disable-next-line:typedef use-lifecycle-interface
+  /*// tslint:disable-next-line:typedef use-lifecycle-interface
   ngOnDestroy() {
     // clearInterval(this.intervalId);
     this.mySubscription.unsubscribe();
-  }
+  }*/
 
   // tslint:disable-next-line:typedef use-lifecycle-interface
   ngAfterViewInit() {

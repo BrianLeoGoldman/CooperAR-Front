@@ -13,7 +13,7 @@ import {PageEvent} from '@angular/material/paginator';
 import {Categories} from '../model/categories';
 import {filterProjectsByBudget, filterProjectsByCategory} from '../common/projectFilters';
 import {Difficulties} from '../model/difficulties';
-import {filterTasksByDifficulty, filterTasksByState} from '../common/taskFilters';
+import {filterTasksByDifficulty, filterTasksByReward, filterTasksByState} from '../common/taskFilters';
 import {States} from '../model/states';
 
 @Component({
@@ -49,6 +49,7 @@ export class ProfileComponent implements OnInit {
   statesKeys: Array<string> = Object.keys(States);
   states: Array<string> = this.statesKeys.slice(this.statesKeys.length / 2);
   stateSelected = '';
+  rewardSelected = '';
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -120,10 +121,16 @@ export class ProfileComponent implements OnInit {
     this.filterTasks();
   }
 
+  setRewardSelected(reward: string): void {
+    this.rewardSelected = reward;
+    this.filterTasks();
+  }
+
   filterTasks(): void {
     this.filteredTasks = this.assignedTasks;
     if (this.difficultySelected) {this.filteredTasks = filterTasksByDifficulty(this.difficultySelected, this.filteredTasks); }
     if (this.stateSelected) {this.filteredTasks = filterTasksByState(this.stateSelected, this.filteredTasks); }
+    if (this.rewardSelected) {this.filteredTasks = filterTasksByReward(this.rewardSelected, this.filteredTasks); }
     this.tasksLength = this.filteredTasks.length;
     this.$tasksValues = of(this.filteredTasks);
   }

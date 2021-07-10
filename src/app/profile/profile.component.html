@@ -289,7 +289,21 @@
               <tr>
                 <!--<th scope="col" data-order="desc" data-name="id">ID</th>-->
                 <th scope="col" data-order="desc" data-name="name">Nombre</th>
-                <th scope="col" data-order="desc" data-name="budget">Recompensa</th>
+                <th scope="col" data-order="desc" data-name="budget">
+                  Recompensa
+                  <mat-form-field style="height:1px; width: 1px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
+                    <!--<mat-label>Buscar por recompensa</mat-label>-->
+                    <mat-select [(ngModel)]="rewardSelected" (valueChange)="setRewardSelected($event)" style="background-color: white">
+                      <mat-option [value]="''">SIN FILTRO</mat-option>
+                      <mat-option [value]="'1'">$0 - $100</mat-option>
+                      <mat-option [value]="'2'">$100 - $500</mat-option>
+                      <mat-option [value]="'3'">$500 - $1000</mat-option>
+                      <mat-option [value]="'4'">$1000 - $5000</mat-option>
+                      <mat-option [value]="'5'">$5000 - $10000</mat-option>
+                      <mat-option [value]="'6'">Mas de $10000</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </th>
                 <th scope="col" data-order="desc" data-name="state">
                   Estado
                   <mat-form-field style="height:1px; width:1px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
