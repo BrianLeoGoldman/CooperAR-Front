@@ -13,6 +13,11 @@ export function filterTasksByDifficulty(difficulty: string, tasks: Task[]): Task
     (task.difficulty === difficulty));
 }
 
+export function filterTasksByState(state: string, tasks: Task[]): Task[] {
+  return tasks.filter((task: Task) =>
+    (task.state === state));
+}
+
 export function filterTasksByReward(reward: string, tasks: Task[]): Task[] {
   switch (reward) {
     case '1':

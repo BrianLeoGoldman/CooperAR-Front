@@ -13,7 +13,8 @@ import {PageEvent} from '@angular/material/paginator';
 import {Categories} from '../model/categories';
 import {filterProjectsByBudget, filterProjectsByCategory} from '../common/projectFilters';
 import {Difficulties} from '../model/difficulties';
-import {filterTasksByDifficulty} from '../common/taskFilters';
+import {filterTasksByDifficulty, filterTasksByState} from '../common/taskFilters';
+import {States} from '../model/states';
 
 @Component({
   selector: 'app-profile',
@@ -45,6 +46,9 @@ export class ProfileComponent implements OnInit {
   difficultiesKeys: Array<string> = Object.keys(Difficulties);
   difficulties: Array<string> = this.difficultiesKeys.slice(this.difficultiesKeys.length / 2);
   difficultySelected = '';
+  statesKeys: Array<string> = Object.keys(States);
+  states: Array<string> = this.statesKeys.slice(this.statesKeys.length / 2);
+  stateSelected = '';
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -68,20 +72,14 @@ export class ProfileComponent implements OnInit {
       .subscribe(tasks => this.processTasksInfo(tasks));
   }
 
+  // PROJECTS
+
   processProjectsInfo(user: User): void {
     this.user = user;
     this.filteredProjects = this.user.projects;
     this.projectsAvailable = this.user.projects.length > 0;
     this.$projectValues = of(this.filteredProjects);
     this.projectsLength = this.filteredProjects.length;
-  }
-
-  processTasksInfo(tasks: Task[]): void {
-    this.assignedTasks = tasks;
-    this.filteredTasks = this.assignedTasks;
-    this.tasksAvailable = this.assignedTasks.length > 0;
-    this.$tasksValues = of(this.filteredTasks);
-    this.tasksLength = this.filteredTasks.length;
   }
 
   setBudgetSelected(budget: string): void {
@@ -94,11 +92,6 @@ export class ProfileComponent implements OnInit {
     this.filterProjects();
   }
 
-  setDifficultySelected(difficulty: string): void {
-    this.difficultySelected = difficulty;
-    this.filterTasks();
-  }
-
   filterProjects(): void {
     this.filteredProjects = this.user.projects;
     if (this.categorySelected) {this.filteredProjects = filterProjectsByCategory(this.categorySelected, this.filteredProjects); }
@@ -107,12 +100,35 @@ export class ProfileComponent implements OnInit {
     this.$projectValues = of(this.filteredProjects);
   }
 
+  // TASKS
+
+  processTasksInfo(tasks: Task[]): void {
+    this.assignedTasks = tasks;
+    this.filteredTasks = this.assignedTasks;
+    this.tasksAvailable = this.assignedTasks.length > 0;
+    this.$tasksValues = of(this.filteredTasks);
+    this.tasksLength = this.filteredTasks.length;
+  }
+
+  setDifficultySelected(difficulty: string): void {
+    this.difficultySelected = difficulty;
+    this.filterTasks();
+  }
+
+  setStateSelected(state: string): void {
+    this.stateSelected = state;
+    this.filterTasks();
+  }
+
   filterTasks(): void {
     this.filteredTasks = this.assignedTasks;
     if (this.difficultySelected) {this.filteredTasks = filterTasksByDifficulty(this.difficultySelected, this.filteredTasks); }
+    if (this.stateSelected) {this.filteredTasks = filterTasksByState(this.stateSelected, this.filteredTasks); }
     this.tasksLength = this.filteredTasks.length;
     this.$tasksValues = of(this.filteredTasks);
   }
+
+  // OTHERS
 
   delete(nickname: string): void {
     this.requestInProgress = true;

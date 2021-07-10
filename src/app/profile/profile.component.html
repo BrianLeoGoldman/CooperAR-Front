@@ -290,7 +290,16 @@
                 <!--<th scope="col" data-order="desc" data-name="id">ID</th>-->
                 <th scope="col" data-order="desc" data-name="name">Nombre</th>
                 <th scope="col" data-order="desc" data-name="budget">Recompensa</th>
-                <th scope="col" data-order="desc" data-name="state">Estado</th>
+                <th scope="col" data-order="desc" data-name="state">
+                  Estado
+                  <mat-form-field style="height:1px; width:1px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
+                    <!--<mat-label>Buscar por estado</mat-label>-->
+                    <mat-select [(ngModel)]="stateSelected" (valueChange)="setStateSelected($event)" style="background-color: white">
+                      <mat-option [value]="''">SIN FILTRO</mat-option>
+                      <mat-option [value]="state" *ngFor="let state of states">{{state}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </th>
                 <th scope="col" data-order="desc" data-name="difficulty">
                   Dificultad
                   <mat-form-field style="height:1px; width:1px; background-color: white; border-radius: 4px; padding: 5px; font-size: 12px;">
