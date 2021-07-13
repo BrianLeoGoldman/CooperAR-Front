@@ -112,7 +112,7 @@ export class DashboardComponent implements OnInit {
     this.filteredTasks = this.tasks;
     this._taskListFilter = '';
     this.$taskValues = of(this.filteredTasks);
-    this.tasksLength = this.tasks.length;
+    this.tasksLength = this.filteredTasks.length;
   }
 
   get taskListFilter(): string {
@@ -136,9 +136,9 @@ export class DashboardComponent implements OnInit {
 
   filterTasks(): void {
     this.filteredTasks = this.tasks;
-    if (this.taskListFilter) { filterTasksByText(this.taskListFilter, this.filteredTasks); }
-    if (this.difficultySelected) { filterTasksByDifficulty(this.difficultySelected, this.filteredTasks); }
-    if (this.rewardSelected) { filterTasksByReward(this.rewardSelected, this.filteredTasks); }
+    if (this.taskListFilter) { this.filteredTasks = filterTasksByText(this.taskListFilter, this.filteredTasks); }
+    if (this.difficultySelected) { this.filteredTasks = filterTasksByDifficulty(this.difficultySelected, this.filteredTasks); }
+    if (this.rewardSelected) { this.filteredTasks = filterTasksByReward(this.rewardSelected, this.filteredTasks); }
     this.tasksLength = this.filteredTasks.length;
     this.$taskValues = of(this.filteredTasks);
   }

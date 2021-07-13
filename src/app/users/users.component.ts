@@ -54,7 +54,7 @@ export class UsersComponent implements OnInit {
 
   filterUsers(): void {
     this.filteredUsers = this.users;
-    if (this._listFilter) { filterUsersByText(this._listFilter, this.filteredUsers); }
+    if (this._listFilter) { this.filteredUsers = filterUsersByText(this._listFilter, this.filteredUsers); }
     this.usersLength = this.filteredUsers.length;
     this.$userValues = of(this.filteredUsers);
   }

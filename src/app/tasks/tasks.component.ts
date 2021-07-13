@@ -54,7 +54,7 @@ export class TasksComponent implements OnInit {
 
   filterTasks(): void {
     this.filteredTasks = this.tasks;
-    if (this._listFilter) { filterTasksByText(this._listFilter, this.filteredTasks); }
+    if (this._listFilter) { this.filteredTasks = filterTasksByText(this._listFilter, this.filteredTasks); }
     this.tasksLength = this.filteredTasks.length;
     this.$taskValues = of(this.filteredTasks);
   }
