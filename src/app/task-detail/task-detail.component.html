@@ -135,35 +135,6 @@
               <h2>Descripcion</h2>
               <h3>{{task.description}}</h3>
             </div>
-            <div class="m-b-md">
-              <h2>Acciones</h2>
-              <div class="dl-horizontal">
-                <button [hidden]="!isAssignable" [disabled]="requestInProgress" (click)="assignWorker()"
-                        matTooltip="Asignar la tarea para empezar a trabajar el ella"
-                        class="btn btn-secondary btn-xs pull-right">Asignar
-                </button>&nbsp;
-                <button [hidden]="!isAlreadyAssigned" [disabled]="requestInProgress" (click)="unassignWorker()"
-                        matTooltip="Liberar la tarea para que sea asignada a otra persona"
-                        class="btn btn-secondary btn-xs pull-right">Desasignar
-                </button>&nbsp;
-                <button [hidden]="!canBeCompleted" [disabled]="requestInProgress" (click)="completeTask()"
-                        matTooltip="Marcar la tarea como completa para esperar su aprobacion"
-                        class="btn btn-secondary btn-xs pull-right">Completar
-                </button>&nbsp;
-                <button [hidden]="!canBeApproved" [disabled]="requestInProgress" (click)="approveTask()"
-                        matTooltip="Dar por finalizada la tarea y asignar la recompensa al trabajador"
-                        class="btn btn-secondary btn-xs pull-right">Aprobar
-                </button>&nbsp;
-                <button [hidden]="!canBeApproved" [disabled]="requestInProgress" (click)="unapproveTask()"
-                        matTooltip="Marcar el trabajo hecho como no suficiente"
-                        class="btn btn-secondary btn-xs pull-right">Desaprobar
-                </button>&nbsp;
-                <button [hidden]="!canBeCanceled" [disabled]="requestInProgress" (click)="cancelTask()"
-                        matTooltip="Cancelar la tarea y devolver el dinero al proyecto"
-                        class="btn btn-secondary btn-xs pull-right">Cancelar
-                </button>&nbsp;
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -173,6 +144,35 @@
       <div class="wrapper wrapper-content project-manager">
         <div class="ibox">
           <div class="ibox-content">
+            <div class="m-b-md">
+              <h2>Acciones</h2>
+                <div class="btn-group-vertical">
+                <button [hidden]="!isAssignable" [disabled]="requestInProgress" (click)="assignWorker()"
+                        matTooltip="Asignar la tarea para empezar a trabajar el ella"
+                        class="btn btn-secondary btn-xs pull-right" style="width: 110px">Asignar
+                </button>&nbsp;
+                <button [hidden]="!isAlreadyAssigned" [disabled]="requestInProgress" (click)="unassignWorker()"
+                        matTooltip="Liberar la tarea para que sea asignada a otra persona"
+                        class="btn btn-secondary btn-xs pull-right" style="width: 110px">Desasignar
+                </button>&nbsp;
+                <button [hidden]="!canBeCompleted" [disabled]="requestInProgress" (click)="completeTask()"
+                        matTooltip="Marcar la tarea como completa para esperar su aprobacion"
+                        class="btn btn-secondary btn-xs pull-right" style="width: 110px">Completar
+                </button>&nbsp;
+                <button [hidden]="!canBeApproved" [disabled]="requestInProgress" (click)="approveTask()"
+                        matTooltip="Dar por finalizada la tarea y asignar la recompensa al trabajador"
+                        class="btn btn-secondary btn-xs pull-right" style="width: 110px">Aprobar
+                </button>&nbsp;
+                <button [hidden]="!canBeApproved" [disabled]="requestInProgress" (click)="unapproveTask()"
+                        matTooltip="Marcar el trabajo hecho como no suficiente"
+                        class="btn btn-secondary btn-xs pull-right" style="width: 110px">Desaprobar
+                </button>&nbsp;
+                <button [hidden]="!canBeCanceled" [disabled]="requestInProgress" (click)="cancelTask()"
+                        matTooltip="Cancelar la tarea y devolver el dinero al proyecto"
+                        class="btn btn-secondary btn-xs pull-right" style="width: 110px">Cancelar
+                </button>&nbsp;
+                </div>
+            </div>
           </div>
         </div>
       </div>

@@ -213,3 +213,14 @@ ul.tag-list li {
   bottom:0;
   margin:auto;
 }
+
+.btn-group-vertical button {
+  /*background-color: #04AA6D; !* Green background *!*/
+  /*border: 1px solid green; !* Green border *!
+  color: white; !* White text *!*/
+  /*padding: 10px 24px; !* Some padding *!*/
+  cursor: pointer; /* Pointer/hand icon */
+  width:50%;
+  margin-left:25%;
+  margin-right:25%;
+}
