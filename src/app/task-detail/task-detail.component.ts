@@ -26,6 +26,7 @@ export class TaskDetailComponent implements OnInit {
   canBeApproved: boolean;
   canBeCanceled: boolean;
 
+  loggedUser: string;
   messages = [];
   messageText = '';
   private scrollContainer: any;
@@ -45,6 +46,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loggedUser = sessionStorage.getItem('loggedUser');
     this.taskId = Number(this.route.snapshot.paramMap.get('id'));
     this.requestInProgress = false;
     this.getTask();
@@ -92,8 +94,8 @@ export class TaskDetailComponent implements OnInit {
 
   private setTaskInfo(task: Task): void {
     this.task = task;
-    this.isOwner = sessionStorage.getItem('loggedUser') === this.task.owner;
-    this.isWorker = sessionStorage.getItem('loggedUser') === this.task.worker;
+    this.isOwner = this.loggedUser === this.task.owner;
+    this.isWorker = this.loggedUser === this.task.worker;
     this.isAssignable = !this.isOwner && (this.task.state === 'DISPONIBLE');
     this.isAlreadyAssigned = this.isOwner && (this.task.state === 'EN_CURSO');
     this.canBeCompleted = this.isWorker && (this.task.state === 'EN_CURSO');
@@ -119,11 +121,12 @@ export class TaskDetailComponent implements OnInit {
   // tslint:disable-next-line:typedef
   assignWorker() {
     this.requestInProgress = true;
-    this.taskService.assignWorker(sessionStorage.getItem('loggedUser'), this.task.id)
+    this.taskService.assignWorker(this.loggedUser, this.task.id)
       .subscribe(success => this.reloadAndFeedback(
         'Te has asignado la tarea ' + this.task.name + '.\n' +
         'El usuario ' + this.task.owner + ' ya ha sido notificado',
-        'TAREA ASIGNADA'),
+        'TAREA ASIGNADA',
+        'LA TAREA FUE ASIGNADA'),
         error => this.processErrorFromRequest(error));
   }
 
@@ -134,7 +137,8 @@ export class TaskDetailComponent implements OnInit {
       .subscribe(success => this.reloadAndFeedback(
         'El usuario ' + this.task.worker + ' fue desasignado.\n' +
         'El usuario ' + this.task.worker + ' ya ha sido notificado',
-        'USUARIO DESASIGNADO'),
+        'USUARIO DESASIGNADO',
+        'LA TAREA VUELVE A ESTAR DISPONIBLE'),
         error => this.processErrorFromRequest(error));
   }
 
@@ -145,7 +149,8 @@ export class TaskDetailComponent implements OnInit {
       .subscribe(success => this.reloadAndFeedback(
         'La tarea ' + this.task.name + ' fue completada.\n' +
         'El usuario ' + this.task.owner + ' ya ha sido notificado',
-        'TAREA COMPLETADA'),
+        'TAREA COMPLETADA',
+        'LA TAREA FUE COMPLETADA'),
         error => this.processErrorFromRequest(error));
   }
 
@@ -156,7 +161,8 @@ export class TaskDetailComponent implements OnInit {
       .subscribe(success => this.reloadAndFeedback(
         'La tarea ' + this.task.name + ' fue aprobada.\n' +
         'El usuario ' + this.task.worker + ' ya ha recibido los fondos',
-        'TAREA APROBADA'),
+        'TAREA APROBADA',
+        'LA TAREA FUE APROBADA'),
         error => this.processErrorFromRequest(error));
   }
 
@@ -167,7 +173,8 @@ export class TaskDetailComponent implements OnInit {
       .subscribe(success => this.reloadAndFeedback(
         'La tarea ' + this.task.name + ' fue desaprobada.\n' +
         'El usuario ' + this.task.worker + ' ya ha sido notificado',
-        'TAREA DESAPROBADA'),
+        'TAREA DESAPROBADA',
+        'LA TAREA FUE DESAPROBADA'),
         error => this.processErrorFromRequest(error));
   }
 
@@ -178,31 +185,31 @@ export class TaskDetailComponent implements OnInit {
       .subscribe(success => this.reloadAndFeedback(
         'La tarea ' + this.task.name + ' fue cancelada.\n' +
         'Se te ha devuelto el dinero asignado',
-        'TAREA CANCELADA'),
+        'TAREA CANCELADA',
+        'LA TAREA FUE CANCELADA'),
         error => this.processErrorFromRequest(error));
   }
 
   // tslint:disable-next-line:typedef
-  addMessage() {
+  addMessage(publisherUser: string, message: string) {
     this.requestInProgress = true;
-    const publisherUser = sessionStorage.getItem('loggedUser');
     const publishingDate = new Date();
     const dateTime = publishingDate.toLocaleString();
-    this.taskService.addMessage(this.task.id, publisherUser, dateTime, this.messageText)
-      .subscribe(success => this.requestInProgress = false,
+    this.taskService.addMessage(this.task.id, publisherUser, dateTime, message)
+      .subscribe(success => this.ngOnInit(),
         error => this.processErrorFromRequest(error));
     this.messages.push({
       publisher: publisherUser,
       date: dateTime,
-      text: this.messageText
+      text: message
     });
     this.messageText = '';
   }
 
   // tslint:disable-next-line:typedef
-  reloadAndFeedback(message: string, title: string) {
+  reloadAndFeedback(message: string, title: string, chatMessage: string) {
     this.toastr.success(message, title);
-    this.ngOnInit();
+    this.addMessage('CooperAR', chatMessage);
   }
 
   // tslint:disable-next-line:typedef
