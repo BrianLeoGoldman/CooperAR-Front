@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, SecurityContext, ViewChild, ViewChildren} from '@angular/core';
 import {Task} from '../model/task';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
@@ -6,6 +6,7 @@ import {TaskService} from '../services/task.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Message} from '../model/message';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-task-detail',
@@ -34,12 +35,17 @@ export class TaskDetailComponent implements OnInit {
   requestInProgress: boolean;
   /*mySubscription: Subscription;*/
 
+  private sanitizer: DomSanitizer;
+  image: any;
+  private readonly imageType: string = 'data:image/JPG;base64,';
+
   constructor(private route: ActivatedRoute,
               private location: Location,
               private taskService: TaskService,
               private toastr: ToastrService,
               private modalService: NgbModal,
-              private router: Router) {
+              private router: Router,
+              private sanitized: DomSanitizer) {
     /*this.mySubscription = interval(5000).subscribe((x => {
       this.getMessages();
     }));*/
@@ -51,6 +57,7 @@ export class TaskDetailComponent implements OnInit {
     this.requestInProgress = false;
     this.getTask();
     this.getMessages();
+    this.sanitizer = this.sanitized;
   }
 
   /*// tslint:disable-next-line:typedef use-lifecycle-interface
@@ -230,6 +237,12 @@ export class TaskDetailComponent implements OnInit {
       .then(r => console.log(r));
   }
 
+  downloadFile(file: string): void {
+    this.taskService.downloadFile(this.task.id, file)
+      .subscribe(data => this.downloadFileToLocal(file, data),
+        error => this.processErrorFromRequest(error));
+  }
+
   open(content): void {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then(
@@ -241,5 +254,21 @@ export class TaskDetailComponent implements OnInit {
   // tslint:disable-next-line:typedef
   goBack() {
     this.location.back();
+  }
+
+  // tslint:disable-next-line:ban-types
+  private downloadFileToLocal(file: string, data: any): void {
+    // window.open(data.url, '_blank');
+    const blob = new Blob([data], { type: 'application/text'});
+    const url = window.URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.download = file;
+    anchor.href = url;
+    anchor.click();
+    // const pwa = window.open(url);
+    // tslint:disable-next-line:triple-equals
+    /*if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+      alert( 'Please disable your Pop-up blocker and try again.');
+    }*/
   }
 }

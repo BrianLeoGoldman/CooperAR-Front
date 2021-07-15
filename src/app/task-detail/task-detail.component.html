@@ -114,8 +114,8 @@
             <ul class="list-unstyled project-files">
               <li *ngFor="let file of task.files">
                 <a>
-                  <i class="fa fa-tag">{{file}}
-                  </i>
+                  <i class="fa fa-tag" style="cursor: pointer"
+                     (click)="downloadFile(file)">{{file}}</i>
                 </a>
               </li>
             </ul>

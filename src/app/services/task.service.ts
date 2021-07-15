@@ -88,6 +88,30 @@ export class TaskService {
       );
   }
 
+  /** GET: download a file from the task */
+  // tslint:disable-next-line:ban-types
+  downloadFile(id: number, file: string): Observable<any> {
+    // tslint:disable-next-line:ban-types
+    const HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        Authorization: sessionStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text'
+    };
+    const headers = new HttpHeaders().append('Authorization', sessionStorage.getItem('token'));
+    headers.append('Accept', '*/*');
+    headers.append('Response-Type', 'text/plain');
+    const url = `${this.tasksUrl}/download?id=${id}&file=${file}`;
+    // tslint:disable-next-line:ban-types
+    return this.http.get<any>(url, HTTPOptions)
+      .pipe(
+        tap(response => console.log(response)),
+        tap(_ => console.log('downloadFile: OK')),
+        /*catchError(this.handleError<User>('getMoneyRequests'))*/
+      );
+  }
+
   /** PUT: assign a user as worker of a task */
   // tslint:disable-next-line:typedef
   assignWorker(loggedUser: string, id: number) {
@@ -191,5 +215,4 @@ export class TaskService {
       return of(result as T);
     };
   }
-
 }
